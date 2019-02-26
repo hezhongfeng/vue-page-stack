@@ -1,0 +1,32 @@
+{
+  "name": "hy-page",
+  "version": "0.0.1",
+  "author": "hezf",
+  "license": "MIT",
+  "main": "dist/vue-router.common.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hezhongfeng/hy-page.git"
+  },
+  "keywords": [
+    "vue",
+    "router"
+  ],
+  "scripts": {
+    "dev": "node examples/server.js",
+    "build": "webpack --mode=production"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "Android >= 4.0",
+    "iOS >= 8"
+  ]
+}
