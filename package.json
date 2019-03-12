@@ -40,5 +40,6 @@
     "last 2 versions",
     "Android >= 4.0",
     "iOS >= 8"
-  ]
+  ],
+  "dependencies": {}
 }

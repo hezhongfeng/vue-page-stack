@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-    我是App
+    <hy-page>
+      <router-view></router-view>
+    </hy-page>
   </div>
 </template>
 
