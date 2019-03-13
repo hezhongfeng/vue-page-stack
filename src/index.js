@@ -1,8 +1,8 @@
 import HyPage from './components/HyPage';
-import event from './event';
+import mixin from './mixin';
 
-function hasKey(query) {
-  return query[keyName];
+function hasKey(query, keyName) {
+  return !!query[keyName];
 }
 
 function getKey(src) {
@@ -15,7 +15,7 @@ function getKey(src) {
 
 export default {
   install: function(Vue, { name, router, keyName = 'router-key' }) {
-    Vue.component(name || HyPage.name, HyPage);
+    Vue.component(name || HyPage.name, HyPage(keyName));
     // console.log(options.router);
     // options.router.beforeEach((to, from, next) => {
     //   console.log('beforeEach1');
@@ -25,13 +25,27 @@ export default {
     //   console.log('beforeEach2');
     //   next();
     // });
-    event(router);
+    mixin(router);
     router.beforeEach((to, from, next) => {
-      if (!hasKey(to.query)) {
+      // console.log('to:', to);
+      if (!hasKey(to.query, keyName)) {
         console.log('has no Key');
-        query[keyName] = getKey('XXXXXXXX');
+        to.query[keyName] = getKey('xxxxxxxx');
+        // console.log(to);
+        next({
+          hash: to.hash,
+          path: to.path,
+          name: to.name,
+          params: to.params,
+          query: to.query,
+          meta: to.meta
+          // replace: from.query[keyName]
+        });
+      } else {
+        console.log('has Key');
+        // console.log(to);
+        next();
       }
-      next();
     });
   }
 };
