@@ -28,8 +28,9 @@ export default {
     mixin(router);
     router.beforeEach((to, from, next) => {
       // console.log('to:', to);
+      // console.log('to:', to);
       if (!hasKey(to.query, keyName)) {
-        console.log('has no Key');
+        // console.log('has no Key');
         to.query[keyName] = getKey('xxxxxxxx');
         // console.log(to);
         next({

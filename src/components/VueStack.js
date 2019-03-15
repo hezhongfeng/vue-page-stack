@@ -44,14 +44,16 @@ export default keyName => {
       }
     },
     render() {
-      console.log('当前方法' + history.action);
+      // console.log('当前方法' + history.action);
       let key = this.$route.query[keyName];
       const slot = this.$slots.default;
       const vnode = getFirstComponentChild(slot);
-      console.log('当前的key：', key);
-      console.log(stack);
+      // console.log('当前的key：', key);
+      // console.log(stack);
+      // if (history.action === 'replace') {
+      // }
       let index = getIndexByKey(key);
-      console.log('index:', index);
+      // console.log('index:', index);
       if (index !== -1) {
         vnode.componentInstance = stack[index].vnode.componentInstance;
         stack.splice(index + 1);
@@ -59,8 +61,7 @@ export default keyName => {
         stack.push({ key, vnode });
       }
 
-      console.log(stack);
-
+      // console.log(stack);
       vnode.data.keepAlive = true;
       return vnode;
     }
