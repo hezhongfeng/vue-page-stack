@@ -1,4 +1,4 @@
-import HyPage from './components/HyPage';
+import VueStack from './components/VueStack';
 import mixin from './mixin';
 
 function hasKey(query, keyName) {
@@ -15,7 +15,7 @@ function getKey(src) {
 
 export default {
   install: function(Vue, { name, router, keyName = 'router-key' }) {
-    Vue.component(name || HyPage.name, HyPage(keyName));
+    Vue.component(name || VueStack.name, VueStack(keyName));
     // console.log(options.router);
     // options.router.beforeEach((to, from, next) => {
     //   console.log('beforeEach1');

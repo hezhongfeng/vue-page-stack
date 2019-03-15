@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <hy-page>
+    <vue-stack>
       <router-view></router-view>
-    </hy-page>
+    </vue-stack>
   </div>
 </template>
 

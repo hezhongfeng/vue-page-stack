@@ -3,7 +3,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     open: true,
-    port: 4567
+    port: 1234
   },
   configureWebpack: {
     plugins: []
