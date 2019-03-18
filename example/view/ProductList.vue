@@ -1,61 +1,19 @@
 <template>
   <div class="product-list">
-    <!-- <product-item @click.native="onClick(item)" v-for="item of productList" :key="item.id" :productName="item.productName"></product-item> -->
+    <product-item @click.native="onClick(item)" v-for="item of productList" :key="item.id" :product="item"></product-item>
   </div>
 </template>
 
 <script>
-// import ProductItem from './PruductItem';
+import ProductItem from './PruductItem';
 
 export default {
   name: 'ProductList',
-  // components: { ProductItem },
+  components: { ProductItem },
   props: {},
   data() {
     return {
       productList: []
-      // productList: [
-      //   {
-      //     id: '0',
-      //     productName: '电脑'
-      //   },
-      //   {
-      //     id: '1',
-      //     productName: '篮球'
-      //   },
-      //   {
-      //     id: '2',
-      //     productName: '衣服'
-      //   },
-      //   {
-      //     id: '3',
-      //     productName: '裤子'
-      //   },
-      //   {
-      //     id: '4',
-      //     productName: '鼠标'
-      //   },
-      //   {
-      //     id: '5',
-      //     productName: 'SSD'
-      //   },
-      //   {
-      //     id: '6',
-      //     productName: '手机'
-      //   },
-      //   {
-      //     id: '7',
-      //     productName: '玻璃杯'
-      //   },
-      //   {
-      //     id: '8',
-      //     productName: '文学'
-      //   },
-      //   {
-      //     id: '9',
-      //     productName: '手办'
-      //   }
-      // ]
     };
   },
   computed: {},
@@ -111,6 +69,21 @@ export default {
             price: '6988',
             img:
               'https://img11.360buyimg.com/mobilecms/s270x270_jfs/t1/21878/9/2966/167543/5c231e4fE1817c631/0fb5eb90a6cb7066.jpg!q70.dpg.webp'
+          },
+          {
+            id: '7',
+            name: 'Apple MacBook Air 13.3英寸笔记本电脑 深空灰色(2018款Retina屏/八代Core i5 /8GB内存/128GB闪存 MRE82CH/A)',
+            price: '8999',
+            img:
+              'https://img11.360buyimg.com/mobilecms/s270x270_jfs/t1/1220/37/13788/157410/5bd8a51bEe66a9536/b3cc2f3bf386bcbb.jpg!q70.dpg.webp'
+          },
+          {
+            id: '8',
+            name:
+              'APPLE苹果 MacBook air13.3英寸2017年款苹果电脑笔记本商务轻薄本 标配+防水手提包+无线充电鼠标垫（下单送超值礼包） i5+8GB内存+128GB闪存 【D32】',
+            price: '6058',
+            img:
+              'https://img13.360buyimg.com/mobilecms/s270x270_jfs/t1/20924/13/11008/110310/5c8cb556Ec17fe165/b47f313d75f1aaa0.jpg!q70.dpg.webp'
           }
         ];
       }, 200);
