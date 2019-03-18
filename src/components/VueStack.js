@@ -58,10 +58,13 @@ export default keyName => {
         vnode.componentInstance = stack[index].vnode.componentInstance;
         stack.splice(index + 1);
       } else {
+        if (history.action === 'replace') {
+          stack.splice(stack.length - 1);
+        }
         stack.push({ key, vnode });
       }
 
-      // console.log(stack);
+      console.log(stack);
       vnode.data.keepAlive = true;
       return vnode;
     }

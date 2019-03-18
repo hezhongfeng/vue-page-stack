@@ -1,5 +1,6 @@
 import VueStack from './components/VueStack';
 import mixin from './mixin';
+import history from './history';
 
 function hasKey(query, keyName) {
   return !!query[keyName];
@@ -27,7 +28,7 @@ export default {
     // });
     mixin(router);
     router.beforeEach((to, from, next) => {
-      // console.log('to:', to);
+      console.log('to:', to);
       // console.log('to:', to);
       if (!hasKey(to.query, keyName)) {
         // console.log('has no Key');
@@ -39,8 +40,8 @@ export default {
           name: to.name,
           params: to.params,
           query: to.query,
-          meta: to.meta
-          // replace: from.query[keyName]
+          meta: to.meta,
+          replace: history.action === 'replace'
         });
       } else {
         console.log('has Key');

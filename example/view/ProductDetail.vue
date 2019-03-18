@@ -20,7 +20,8 @@ export default {
   },
   methods: {
     back() {
-      this.$router.back();
+      // this.$router.back();
+      this.$router.replace('/item/4');
     }
   }
 };
