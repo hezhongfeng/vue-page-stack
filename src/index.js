@@ -17,25 +17,11 @@ function getKey(src) {
 export default {
   install: function(Vue, { router, name = VueStack.name, keyName = 'router-key' }) {
     Vue.component(name, VueStack(keyName));
-    // console.log(options.router);
-    // options.router.beforeEach((to, from, next) => {
-    //   console.log('beforeEach1');
-    //   next();
-    // });
-    // options.router.beforeEach((to, from, next) => {
-    //   console.log('beforeEach2');
-    //   next();
-    // });
     mixin(router);
     router.beforeEach((to, from, next) => {
-      console.log('to:', to);
-      console.log('from:', from);
       // 检查目标路由是否含有keyName
       if (!hasKey(to.query, keyName)) {
-        console.log('has no Key');
-        console.log('history.action', history.action === 'replace');
         to.query[keyName] = getKey('xxxxxxxx');
-        // console.log(to.path);
         next({
           hash: to.hash,
           path: to.path,
@@ -46,8 +32,6 @@ export default {
           replace: history.action === 'replace' || !hasKey(from.query, keyName)
         });
       } else {
-        console.log('has Key');
-        // console.log(to);
         next();
       }
     });

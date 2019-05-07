@@ -23,6 +23,9 @@ export default {
     console.log(this.$route);
     this.getList();
   },
+  activated() {
+    console.log('activated');
+  },
   methods: {
     onClick(item) {
       this.$router.push('/item/' + item.id);
