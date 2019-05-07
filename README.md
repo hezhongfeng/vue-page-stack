@@ -8,11 +8,12 @@ Vue组件堆栈管理，一个在移动端`Web App`使用的，模仿原生App�
 详细功能举例：
 1. 从PageA `push` 到PageB,然后PageB `back`到从PageA的时候从PageA需要保存好先前的状态，例如表单内容，滚动条滑动的位置等
 2. 从PageB `back`到PageA的时候需要有钩子函数使用
-3. `A->B->C->D->E`后，可以从E back到 B，并且Stack中只有A和B
-4. 在原有router上面扩展，达到无缝升级
-5. 支持浏览器的后退事件
+3. `A->B->C->D->E`后，可以从E go到 B，并且Stack中只有A和B
+4. 在vue-router上面扩展，达到无缝升级
+5. 支持浏览器的后退事件(主要是微信公众号和部分原生的需求)
 
 ## API确定
+支持以下的编程式导航
 
 1. push
 2. replace
@@ -26,7 +27,7 @@ Vue组件堆栈管理，一个在移动端`Web App`使用的，模仿原生App�
 通过侵入router的编程式导航，获取到当前的action
 
 ### 怎么兼容browser的后退，前进
-在url上面添加key区分
+在url上面添加key区分，并且需要存储这组key
 
 ### 怎么存储vnode
 就在js的runtime内存中，最大值仍需测试

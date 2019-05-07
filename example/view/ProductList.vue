@@ -20,6 +20,7 @@ export default {
   watch: {},
   created() {
     console.log('ProductList created');
+    console.log(this.$route);
     this.getList();
   },
   methods: {

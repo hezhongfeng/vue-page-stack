@@ -24,7 +24,6 @@ let eventRegister = function(router) {
 
   router.back = () => {
     history.action = 'back';
-    console.log('router.back');
     routerBack();
   };
 
