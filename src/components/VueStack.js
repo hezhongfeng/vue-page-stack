@@ -35,6 +35,9 @@ function getIndexByKey(key) {
 export default keyName => {
   return {
     name: 'VueStack',
+    data() {
+      return {};
+    },
     props: {
       max: {
         type: [String, Number],
@@ -44,9 +47,14 @@ export default keyName => {
       }
     },
     render() {
+      console.log('render');
       let key = this.$route.query[keyName];
       const slot = this.$slots.default;
       const vnode = getFirstComponentChild(slot);
+      console.log(vnode);
+      if (!vnode) {
+        return vnode;
+      }
       let index = getIndexByKey(key);
       if (index !== -1) {
         vnode.componentInstance = stack[index].vnode.componentInstance;
@@ -57,6 +65,7 @@ export default keyName => {
         }
         stack.push({ key, vnode });
       }
+      console.log(stack);
       vnode.data.keepAlive = true;
       return vnode;
     }

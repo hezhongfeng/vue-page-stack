@@ -1,5 +1,11 @@
 <template>
-  <div class="product-detail" @click="back">{{$route.params.id}}</div>
+  <div class="product-detail">
+    <div class="p-image">
+      <img src="https://m.360buyimg.com/mobilecms/s750x750_jfs/t1/21878/9/2966/167543/5c231e4fE1817c631/0fb5eb90a6cb7066.jpg!q80.dpg.webp">
+    </div>
+    <cube-button :primary="true">购买</cube-button>
+    <cube-button :primary="true" @click="back">返回</cube-button>
+  </div>
 </template>
 
 <script>
@@ -20,7 +26,7 @@ export default {
   },
   methods: {
     back() {
-      this.$router.replace('/item/4');
+      this.$router.back();
     }
   }
 };
@@ -28,10 +34,12 @@ export default {
 
 <style lang="scss">
 .product-detail {
-  height: 300px;
-  margin: 10px;
-  background-color: antiquewhite;
-  text-align: center;
-  line-height: 150px;
+  width: 100%;
+  .p-image {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
 }
 </style>

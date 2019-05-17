@@ -1,25 +1,25 @@
 <template>
-  <div id="app">
-    <vue-stack>
-      <router-view></router-view>
-    </vue-stack>
+  <div class="login">
+    <div>点击登录</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: 'login',
+  components: {},
+  props: {},
   data() {
     return {};
   },
   computed: {},
-  components: {},
+  watch: {},
   created() {},
   methods: {}
 };
 </script>
-<style>
-#app {
-  height: 100%;
+
+<style lang="scss">
+.login {
 }
 </style>
