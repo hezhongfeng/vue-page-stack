@@ -42,5 +42,7 @@ export default {
 
 <style lang="scss">
 .product-list {
+  height: 100%;
+  overflow-y: auto;
 }
 </style>

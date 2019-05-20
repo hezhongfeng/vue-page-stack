@@ -1,0 +1,106 @@
+<template>
+  <div class="c-home">
+    <div class="h-body">
+      <cube-tab-panels v-model="selectedIndex">
+        <cube-tab-panel label="主页" value="0">
+          <product-list></product-list>
+        </cube-tab-panel>
+        <cube-tab-panel label="购物车" value="1"></cube-tab-panel>
+        <cube-tab-panel label="订单" value="2"></cube-tab-panel>
+        <cube-tab-panel label="我的" value="3"></cube-tab-panel>
+      </cube-tab-panels>
+    </div>
+    <div class="h-tabbars">
+      <cube-tab-bar v-model="selectedIndex" @change="changeHandler">
+        <cube-tab v-for="(item) in tabs" :icon="item.icon" :label="item.label" :value="item.value" :key="item.value"></cube-tab>
+      </cube-tab-bar>
+    </div>
+  </div>
+</template>
+
+<script>
+import ProductList from '../../view/ProductList.vue';
+
+export default {
+  name: 'Home',
+  components: { ProductList },
+  props: {},
+  data() {
+    return {
+      selectedIndex: '0'
+    };
+  },
+  computed: {
+    tabs() {
+      return [
+        {
+          value: '0',
+          label: '车展',
+          icon: 'iconfont ' + (this.selectedIndex === '0' ? 'iconhome_fill_light' : 'iconhome_light')
+        },
+        {
+          value: '1',
+          label: '服务',
+          icon: 'iconfont ' + (this.selectedIndex === '1' ? 'iconcart_fill_light' : 'iconcart_light')
+        },
+        {
+          value: '2',
+          label: '订单列表',
+          icon: 'iconfont ' + (this.selectedIndex === '2' ? 'iconorder' : 'iconorderlisto')
+        },
+        {
+          value: '3',
+          label: '我的',
+          icon: 'iconfont ' + (this.selectedIndex === '3' ? 'iconmy_fill_light' : 'iconmy_light')
+        }
+      ];
+    }
+  },
+  watch: {},
+  created() {
+    this.selectedIndex = this.$route.params.tab || '0';
+  },
+  mounted() {},
+  methods: {
+    changeHandler(index) {
+      this.$router.push('/home/' + index);
+    }
+  }
+};
+</script>
+
+<style lang="scss">
+.c-home {
+  height: 100%;
+  .h-body {
+    height: calc(100% - 50px);
+    .cube-tab-panels,
+    .cube-tab-panels-group {
+      height: 100%;
+    }
+    .cube-tab-panels-group {
+      transition: none;
+    }
+  }
+  .h-tabbars {
+    height: 50px;
+    .cube-tab-bar {
+      border-top: 1px #9999994f solid;
+      height: 100%;
+      .cube-tab {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        i {
+          font-size: 20px;
+          margin-bottom: 3px;
+        }
+        &.cube-tab_active {
+          color: #5d656b;
+        }
+      }
+    }
+  }
+}
+</style>
