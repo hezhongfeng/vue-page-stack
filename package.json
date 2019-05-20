@@ -5,7 +5,8 @@
   "author": "hezf",
   "scripts": {
     "build": "webpack --mode=production --config config/webpack.config.js src/index.js",
-    "dev": "vue-cli-service serve example/main"
+    "dev": "vue-cli-service serve example/main",
+    "build:ex": "vue-cli-service build example/main"
   },
   "main": "dist/vue-stack.js",
   "dependencies": {

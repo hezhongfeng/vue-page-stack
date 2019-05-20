@@ -20,8 +20,6 @@ export default {
   computed: {},
   watch: {},
   created() {
-    console.log('ProductList created');
-    console.log(this.$route);
     this.getList();
   },
   activated() {

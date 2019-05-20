@@ -47,11 +47,11 @@ export default keyName => {
       }
     },
     render() {
-      console.log('render');
+      // console.log('render');
       let key = this.$route.query[keyName];
       const slot = this.$slots.default;
       const vnode = getFirstComponentChild(slot);
-      console.log(vnode);
+      // console.log(vnode);
       if (!vnode) {
         return vnode;
       }
@@ -65,7 +65,7 @@ export default keyName => {
         }
         stack.push({ key, vnode });
       }
-      console.log(stack);
+      // console.log(stack);
       vnode.data.keepAlive = true;
       return vnode;
     }

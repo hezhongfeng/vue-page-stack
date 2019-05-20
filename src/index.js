@@ -26,10 +26,10 @@ export default {
     Vue.component(name, VueStack(keyName));
     mixin(router);
     router.beforeEach((to, from, next) => {
-      console.log('to', to);
-      console.log('from', from);
+      console.log('router.beforeEach');
       // 检查目标路由是否含有keyName
       if (!hasKey(to.query, keyName)) {
+        // 判断匹配的路由是否一致
         if (hasSameMatched(to, from)) {
           to.query[keyName] = from.query[keyName];
         } else {

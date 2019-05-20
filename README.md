@@ -12,6 +12,7 @@ Vue组件堆栈管理，一个在移动端`Web App`使用的，模仿原生App�
 4. 从页面B `back`到页面A的时候需要有activited的钩子
 5. 经历`A->B->C->D->E`后，可以从E go到 B，并且Stack中只有A和B（可以在登录的时候使用）
 6. 支持浏览器的后退，前进事件(主要是微信公众号和部分原生的需求)
+7. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用，可以通过watch (监测变化) `$route` 对象或者使用`beforeRouteUpdate `钩子
 
 ## API确定
 支持以下的编程式导航

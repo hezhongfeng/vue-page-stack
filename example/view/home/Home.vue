@@ -56,9 +56,21 @@ export default {
       ];
     }
   },
-  watch: {},
+  watch: {
+    $route(to, from) {
+      console.log('$route change');
+    }
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log('beforeRouteUpdate');
+    next();
+  },
   created() {
+    console.log('Home created');
     this.selectedIndex = this.$route.params.tab || '0';
+  },
+  activated() {
+    console.log('Home activated');
   },
   mounted() {},
   methods: {
