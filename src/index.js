@@ -14,14 +14,27 @@ function getKey(src) {
   });
 }
 
+function hasSameMatched(to, from) {
+  if (from.matched[0] && from.matched[0].path === to.matched[0].path) {
+    return true;
+  }
+  return false;
+}
+
 export default {
-  install: function(Vue, { router, name = VueStack.name, keyName = 'router-key' }) {
+  install: function(Vue, { router, name = VueStack.name, keyName = 'stack-key' }) {
     Vue.component(name, VueStack(keyName));
     mixin(router);
     router.beforeEach((to, from, next) => {
+      console.log('to', to);
+      console.log('from', from);
       // 检查目标路由是否含有keyName
       if (!hasKey(to.query, keyName)) {
-        to.query[keyName] = getKey('xxxxxxxx');
+        if (hasSameMatched(to, from)) {
+          to.query[keyName] = from.query[keyName];
+        } else {
+          to.query[keyName] = getKey('xxxxxxxx');
+        }
         next({
           hash: to.hash,
           path: to.path,
