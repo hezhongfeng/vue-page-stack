@@ -4,6 +4,8 @@
   <img src="https://i.loli.net/2019/05/22/5ce4f2d09e77326615.png">
 </p>
 
+![](https://i.loli.net/2019/05/22/5ce4f3669081169051.png)
+
 > A vue component instances stack manager
 
 Vue组件堆栈管理，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
