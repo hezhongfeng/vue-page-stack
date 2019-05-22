@@ -35,13 +35,13 @@ export default {
       return [
         {
           value: '0',
-          label: '车展',
+          label: '主页',
           icon: 'iconfont ' + (this.selectedIndex === '0' ? 'iconhome_fill_light' : 'iconhome_light')
         },
         {
           value: '1',
-          label: '服务',
-          icon: 'iconfont ' + (this.selectedIndex === '1' ? 'iconcart_fill_light' : 'iconcart_light')
+          label: '功能',
+          icon: 'iconfont ' + (this.selectedIndex === '1' ? 'icongongneng' : 'icongongneng1')
         },
         {
           value: '2',
@@ -109,7 +109,7 @@ export default {
           margin-bottom: 3px;
         }
         &.cube-tab_active {
-          color: #5d656b;
+          color: #41b883;
         }
       }
     }

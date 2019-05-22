@@ -1,6 +1,8 @@
 <template>
   <div class="product-list">
-    <product-item @click.native="onClick(item)" v-for="item of productList" :key="item.id" :product="item"></product-item>
+    <cube-scroll ref="scroll" :data="productList">
+      <product-item @click.native="onClick(item)" v-for="item of productList" :key="item.id" :product="item"></product-item>
+    </cube-scroll>
   </div>
 </template>
 
