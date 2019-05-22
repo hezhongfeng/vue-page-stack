@@ -1,7 +1,7 @@
 ## 整体功能描述
 
 <p align="center">
-  <img src="https://i.loli.net/2019/05/22/5ce4ef6764f2f42962.png">
+  <img src="https://i.loli.net/2019/05/22/5ce4f1ecb909d24663.png">
 </p>
 
 > A vue component instances stack manager
