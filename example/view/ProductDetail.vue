@@ -92,11 +92,6 @@
         <div class="imang-wrap">
           <img src="../assets/images/bg.png">
         </div>
-        <div class="imang-wrap">
-          <a href="https://placeholder.com">
-            <img src="https://via.placeholder.com/450">
-          </a>
-        </div>
         <cube-button @click="onLogin">登录</cube-button>
       </cube-scroll>
     </div>
@@ -141,7 +136,9 @@ export default {
     back() {
       this.$router.back();
     },
-    onLogin() {}
+    onLogin() {
+      this.$router.push('/login');
+    }
   }
 };
 </script>
@@ -322,12 +319,6 @@ export default {
     }
     .cube-btn {
       border-radius: 0;
-    }
-    .imang-wrap {
-      width: 100%;
-      img {
-        width: 100%;
-      }
     }
   }
 }

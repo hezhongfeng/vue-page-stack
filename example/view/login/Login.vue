@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div>点击登录</div>
+    <cube-button @click="onLogin">登录</cube-button>
   </div>
 </template>
 
@@ -15,7 +15,11 @@ export default {
   computed: {},
   watch: {},
   created() {},
-  methods: {}
+  methods: {
+    onLogin() {
+      this.$router.back();
+    }
+  }
 };
 </script>
 
