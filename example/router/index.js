@@ -10,7 +10,13 @@ Vue.use(Router);
 
 const routes = [
   { path: '/list', component: ProductList },
-  { path: '/item/:id', component: ProductDetail },
+  {
+    path: '/item/:id',
+    component: ProductDetail,
+    meta: {
+      title: '详情'
+    }
+  },
   { path: '/login', component: Login },
   { path: '/home/:tab', component: Home }
 ];

@@ -109,7 +109,7 @@ export default {
           margin-bottom: 3px;
         }
         &.cube-tab_active {
-          color: #41b883;
+          color: $color-primary;
         }
       }
     }
