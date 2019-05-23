@@ -4,8 +4,6 @@
   <img src="https://i.loli.net/2019/05/22/5ce4f2d09e77326615.png">
 </p>
 
-![](https://i.loli.net/2019/05/22/5ce4f3669081169051.png)
-
 > A vue component instances stack manager
 
 Vue组件堆栈管理，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
@@ -16,9 +14,10 @@ Vue组件堆栈管理，一个在移动端`Web App`使用的，模仿原生App�
 2. `push`或者`forward`的时候重新渲染页面，Stack中会添加新渲染的页面
 3. `back`或者`go(负数)`的时候不会重新渲染，从Stack中读取先前的页面，会保留好先前的内容状态，例如表单内容，滚动条滑动的位置等
 4. `back`或者`go(负数)`的时候会把不用的页面从Stack中移除
-5. 重新渲染的时候有activited钩子函数触发
-6. 支持浏览器的后退，前进事件
-7. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用，可以通过watch (监测变化) `$route` 对象或者使用`beforeRouteUpdate `钩子
+5. `replace`会更新Stack中页面信息
+6. 重新渲染的时候有activited钩子函数触发
+7. 支持浏览器的后退，前进事件
+8. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用，可以通过watch (监测变化) `$route` 对象或者使用`beforeRouteUpdate `钩子
 
 ## API确定
 支持以下的编程式导航

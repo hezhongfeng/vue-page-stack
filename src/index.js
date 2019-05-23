@@ -27,14 +27,20 @@ export default {
     mixin(router);
     router.beforeEach((to, from, next) => {
       console.log('router.beforeEach');
+      console.log('to', to);
+      console.log('from', from);
       // 检查目标路由是否含有keyName
       if (!hasKey(to.query, keyName)) {
+        console.log('has no key');
         // 判断匹配的路由是否一致
         if (hasSameMatched(to, from)) {
+          console.log('hasSameMatched');
           to.query[keyName] = from.query[keyName];
         } else {
           to.query[keyName] = getKey('xxxxxxxx');
         }
+        let replace = history.action === 'replace' || !hasKey(from.query, keyName);
+        console.log('replace', replace);
         next({
           hash: to.hash,
           path: to.path,
@@ -42,7 +48,7 @@ export default {
           params: to.params,
           query: to.query,
           meta: to.meta,
-          replace: history.action === 'replace' || !hasKey(from.query, keyName)
+          replace: replace
         });
       } else {
         next();

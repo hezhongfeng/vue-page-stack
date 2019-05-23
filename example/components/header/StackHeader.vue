@@ -2,12 +2,14 @@
   <header class="stack-header">
     <div class="h-left">
       <slot name="h-left">
-        <i @click="back" class="iconfont iconfanhui"></i>
+        <i @click="onBack" class="iconfont iconfanhui"></i>
       </slot>
     </div>
     <h1>{{title}}</h1>
     <div class="h-right">
-      <slot name="h-right"></slot>
+      <slot name="h-right">
+        <i @click="onForward" class="iconfont iconqianjin2"></i>
+      </slot>
     </div>
   </header>
 </template>
@@ -36,9 +38,13 @@ export default {
     }
   },
   methods: {
-    back() {
+    onBack() {
       this.$router.back();
       this.$emit('back');
+    },
+    onForward() {
+      this.$router.forward();
+      this.$emit('forward');
     }
   }
 };
@@ -65,7 +71,7 @@ export default {
     font-size: 16px;
     .iconfont {
       padding: 0 15px;
-      color: #5B5A67;
+      color: #5b5a67;
     }
   }
 
