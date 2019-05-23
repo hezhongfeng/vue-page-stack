@@ -3,7 +3,6 @@
     <stack-header :title="$route.meta.title"></stack-header>
     <div class="p-scroll-wrap">
       <cube-scroll ref="scroll">
-        <div class></div>
         <cube-textarea v-model="textValue" placeholder="输入必要信息"></cube-textarea>
         <cube-button @click="onPush">Push</cube-button>
         <cube-button @click="onReplace">Replace</cube-button>
@@ -28,11 +27,13 @@ export default {
   computed: {},
   watch: {},
   created() {
-    console.log(this.$route);
-    console.log('ProductDetail created');
+    console.log('detail created');
   },
   mounted() {
-    console.log('ProductDetail mounted');
+    console.log('detail mounted');
+  },
+  activated() {
+    console.log('detail activated');
   },
   methods: {
     back() {

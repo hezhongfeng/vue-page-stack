@@ -1,4 +1,62 @@
 export default {
+  mainList: [
+    {
+      background: 'linear-gradient( 135deg, #69FF97 10%, #00E4FF 100%)',
+      icon: 'icongroup'
+    },
+    {
+      background: 'linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%)',
+      icon: 'icononline-conference'
+    },
+    {
+      background: 'linear-gradient( 135deg, #FEB692 10%, #EA5455 100%)',
+      icon: 'icontalk'
+    },
+    {
+      background: 'linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%)',
+      icon: 'iconpaper-plane'
+    },
+    {
+      background: 'linear-gradient( 135deg, #90F7EC 10%, #32CCBC 100%)',
+      icon: 'iconapp'
+    },
+    {
+      background: 'linear-gradient( 135deg, #FFF6B7 10%, #F6416C 100%)',
+      icon: 'iconfiles-and-folders1'
+    },
+    {
+      background: 'linear-gradient( 135deg, #81FBB8 10%, #28C76F 100%)',
+      icon: 'iconfile'
+    },
+    {
+      background: 'linear-gradient( 135deg, #FFE985 10%, #FA742B 100%)',
+      icon: 'iconfolder'
+    },
+    {
+      background: 'linear-gradient( 135deg, #E2B0FF 10%, #9F44D3 100%)',
+      icon: 'iconnotebook2'
+    },
+    {
+      background: 'linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%)',
+      icon: 'iconmonitor'
+    },
+    {
+      background: 'linear-gradient( 135deg, #C2FFD8 10%, #465EFB 100%)',
+      icon: 'iconcalendar2'
+    },
+    {
+      background: 'linear-gradient( 135deg, #72EDF2 10%, #5151E5 100%)',
+      icon: 'iconedit-tools'
+    },
+    {
+      background: 'linear-gradient( 135deg, #FAD7A1 10%, #E96D71 100%)',
+      icon: 'iconchecklist'
+    },
+    {
+      background: 'linear-gradient( 135deg, #F6CEEC 10%, #D939CD 100%)',
+      icon: 'icondraw'
+    }
+  ],
   productList: [
     {
       id: '0',

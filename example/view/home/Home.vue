@@ -3,7 +3,7 @@
     <div class="h-body">
       <cube-tab-panels v-model="selectedIndex">
         <cube-tab-panel label="主页" value="0">
-          <product-list></product-list>
+          <main-list></main-list>
         </cube-tab-panel>
         <cube-tab-panel label="购物车" value="1"></cube-tab-panel>
         <cube-tab-panel label="订单" value="2"></cube-tab-panel>
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import ProductList from '../../view/ProductList.vue';
+import MainList from '@/view/main/MainList.vue';
 
 export default {
   name: 'Home',
-  components: { ProductList },
+  components: { MainList },
   props: {},
   data() {
     return {
