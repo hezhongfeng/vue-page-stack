@@ -26,7 +26,7 @@ module.exports = {
         .loader('sass-resources-loader')
         .options({
           resources: [
-            path.resolve(__dirname, './example/common/style/color.scss'),
+            path.resolve(__dirname, './example/common/style/color.scss')
           ]
         })
         .end();

@@ -1,10 +1,13 @@
 <template>
-  <div class="main-item" :style="styleObject">
+  <div class="main-item" :style="styleObject" @click="onClick">
     <div class="icon-wrapper">
-      <!-- <i class="iconfont" :class="item.icon"></i> -->
       <svg class="icon" aria-hidden="true">
         <use :href="icon"></use>
       </svg>
+    </div>
+    <div class="content">
+      <div class="title"></div>
+      <div class="message-wrap">{{item.message}}</div>
     </div>
   </div>
 </template>
@@ -36,16 +39,32 @@ export default {
   },
   watch: {},
   created() {},
-  methods: {}
+  methods: {
+    onClick() {
+      this.$emit('click');
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .main-item {
-  height: 120px;
+  height: 130px;
   margin: 10px;
   border-radius: 5px;
   position: relative;
+  .content {
+    height: 100%;
+    padding: 5px;
+    .title {
+      height: 50%;
+    }
+    .message-wrap {
+      line-height: 1.3;
+      font-size: 14px;
+      color: #333;
+    }
+  }
   .icon-wrapper {
     position: absolute;
     top: 10px;

@@ -50,6 +50,7 @@ export default keyName => {
       console.log('render');
       let key = this.$route.query[keyName];
       const slot = this.$slots.default;
+      console.log('slot', slot);
       const vnode = getFirstComponentChild(slot);
       if (!vnode) {
         return vnode;
@@ -57,12 +58,14 @@ export default keyName => {
       let index = getIndexByKey(key);
       if (index !== -1) {
         vnode.componentInstance = stack[index].vnode.componentInstance;
+        this.$emit('stack-back');
         stack.splice(index + 1);
       } else {
         if (history.action === 'replace') {
           stack.splice(stack.length - 1);
         }
         stack.push({ key, vnode });
+        this.$emit('stack-forward');
       }
       console.log('stack', stack);
       vnode.data.keepAlive = true;

@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import ProductList from '@/view/ProductList.vue';
 import ProductDetail from '@/view/ProductDetail.vue';
 import MainList from '@/view/main/MainList';
+import MainDetail from '@/view/main/MainDetail';
 import Login from '@/view/login/Login.vue';
 import Signup from '@/view/login/Signup';
 import Home from '@/view/home/Home';
@@ -15,6 +16,10 @@ const routes = [
   {
     path: '/main',
     component: MainList
+  },
+  {
+    path: '/main-detail/:id',
+    component: MainDetail
   },
   {
     path: '/item/:id',

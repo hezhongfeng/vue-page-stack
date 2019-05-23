@@ -1,7 +1,7 @@
 <template>
   <div class="main-list">
     <cube-scroll ref="scroll" :data="list">
-      <main-item v-for="(item, index) in list" :key="index" :item="item"></main-item>
+      <main-item v-for="(item, index) in list" :key="index" :item="item" @click="onClick(item)"></main-item>
     </cube-scroll>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     onClick(item) {
-      this.$router.push('/item/' + item.id);
+      this.$router.push('/main-detail/' + item.id);
     },
     getList() {
       setTimeout(() => {
