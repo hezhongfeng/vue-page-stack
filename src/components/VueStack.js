@@ -35,6 +35,7 @@ function getIndexByKey(key) {
 export default keyName => {
   return {
     name: 'VueStack',
+    abstract: true,
     data() {
       return {};
     },
