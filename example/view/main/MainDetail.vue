@@ -53,12 +53,8 @@ export default {
 </script>
 
 <style lang="scss">
-.cube-btn {
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background: $color-primary;
-}
 .main-detail {
+  min-height: 100%;
   .p-scroll-wrap {
     height: calc(100% - 45px);
   }

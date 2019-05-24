@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <transition name="page-forward">
+    <!-- <transition @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
+      <vue-stack @stack-back="stackBack" @stack-forward="stackForward">
+        <router-view></router-view>
+      </vue-stack>
+    </transition>-->
+    <transition name="no-mode-translate-fade" mode="out-in">
       <vue-stack @stack-back="stackBack" @stack-forward="stackForward">
         <router-view></router-view>
       </vue-stack>
@@ -26,16 +31,15 @@ export default {
   methods: {
     beforeEnter(el) {
       console.log('beforeEnter');
+      console.log(el);
     },
     enter(el, done) {
       console.log('enter');
       done();
     },
-    afterEnter() {
-      console.log('afterEnter');
-    },
     beforeLeave(el) {
       console.log('beforeLeave');
+      console.log(el);
     },
     leave(el, done) {
       console.log('leave');
@@ -43,11 +47,11 @@ export default {
     },
     stackBack() {
       // console.log('stackBack');
-      this.direction = 'back';
+      // this.direction = 'back';
     },
     stackForward() {
       // console.log('stackForward');
-      this.direction = 'forward';
+      // this.direction = 'forward';
     }
   }
 };
@@ -64,20 +68,60 @@ export default {
     border-color: $color-primary;
   }
 }
+
+// .fade-enter-active {
+//   transition: opacity 2s;
+// }
+// .fade-enter {
+//   opacity: 0;
+// }
+
+// .fade-enter {
+//   transform: translate(100%, 0);
+// }
+
+// .fade-enter-active{
+//   transition: transform 0.5s;
+// }
+
+// .fade-leave-active {
+//   transition: transform 0.5s;
+// }
+
+// .fade-leave-to {
+//   transform: translate(-100%, 0);
+// }
+
+.no-mode-translate-fade-enter-active,
+.no-mode-translate-fade-leave-active {
+  transition: all 0.3s;
+}
+.no-mode-translate-fade-enter,
+.no-mode-translate-fade-leave-active {
+  opacity: 0;
+}
+.no-mode-translate-fade-enter {
+  transform: translateX(31px);
+}
+.no-mode-translate-fade-leave-active {
+  transform: translateX(-31px);
+}
+
 // .page-forward-enter {
 //   transform: translate(100%, 0);
 // }
 
-.page-forward-leave {
-  transform: translate(0, 100);
-}
-
-.page-forward-leave-active {
-  transition: transform 0.3s;
-}
-
 // .page-forward-enter-active {
-//   transition: transform 0.3s;
+//   transition: transform 0.5s;
+// }
+
+// .page-forward-leave {
+//   transform: translate(0, 0);
+//   transition: transform 0.5s;
+// }
+
+// .page-forward-leave-to {
+//   transform: translate(-100px, 0);
 // }
 
 // .page-back-enter {
