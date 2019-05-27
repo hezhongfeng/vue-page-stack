@@ -1,4 +1,4 @@
-import VueStack from './components/VueStack';
+import { VueStack, getIndexByKey } from './components/VueStack';
 import mixin from './mixin';
 import history from './history';
 
@@ -26,21 +26,21 @@ export default {
     Vue.component(name, VueStack(keyName));
     mixin(router);
     router.beforeEach((to, from, next) => {
-      console.log('router.beforeEach');
-      console.log('to', to);
-      console.log('from', from);
+      // console.log('router.beforeEach');
+      // console.log('to', to);
+      // console.log('from', from);
       // 检查目标路由是否含有keyName
       if (!hasKey(to.query, keyName)) {
-        console.log('has no key');
+        // console.log('has no key');
         // 判断匹配的路由是否一致
         if (hasSameMatched(to, from)) {
-          console.log('hasSameMatched');
+          // console.log('hasSameMatched');
           to.query[keyName] = from.query[keyName];
         } else {
           to.query[keyName] = getKey('xxxxxxxx');
         }
         let replace = history.action === 'replace' || !hasKey(from.query, keyName);
-        console.log('replace', replace);
+        // console.log('replace', replace);
         next({
           hash: to.hash,
           path: to.path,
@@ -51,7 +51,14 @@ export default {
           replace: replace
         });
       } else {
-        next();
+        // 此处确定是forward 还是 back
+        let index = getIndexByKey(to.query[keyName]);
+        if (index === -1) {
+          to.params[keyName + '-dir'] = 'forward';
+        } else {
+          to.params[keyName + '-dir'] = 'back';
+        }
+        next({ params: to.params });
       }
     });
   }

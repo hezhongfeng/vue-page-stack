@@ -1,8 +1,6 @@
-/* eslint-disable */
-
 import history from '../history';
 
-export function isDef(v) {
+function isDef(v) {
   return v !== undefined && v !== null;
 }
 
@@ -32,7 +30,7 @@ function getIndexByKey(key) {
   return -1;
 }
 
-export default keyName => {
+let VueStack = keyName => {
   return {
     name: 'VueStack',
     abstract: true,
@@ -48,7 +46,7 @@ export default keyName => {
       }
     },
     render() {
-      console.log('render');
+      console.warn('render');
       let key = this.$route.query[keyName];
       const slot = this.$slots.default;
       console.log('slot', slot);
@@ -74,3 +72,5 @@ export default keyName => {
     }
   };
 };
+
+export { VueStack, getIndexByKey };
