@@ -46,21 +46,19 @@ export default {
 
 .router-view-c {
   position: absolute;
-  transition: all 0.8s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
   width: 100%;
 }
 
 .forward-enter,
 .back-leave-active {
-  opacity: 0.3;
-  -webkit-transform: translate(100%, 0);
-  transform: translate(100%, 0);
+  opacity: 0.2;
+  transform: translateX(100%);
 }
 
 .forward-leave-active,
 .back-enter {
-  opacity: 0.3;
-  -webkit-transform: translate(-100%, 0);
-  transform: translate(-100% 0);
+  opacity: 0.2;
+  transform: translateX(-100%);
 }
 </style>
