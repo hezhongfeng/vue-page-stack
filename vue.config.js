@@ -5,6 +5,7 @@ function resolve(dir) {
 }
 
 module.exports = {
+  publicPath: 'vue-stack-example',
   assetsDir: 'static',
   productionSourceMap: false,
 
