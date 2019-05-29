@@ -23,10 +23,7 @@ const routes = [
   },
   {
     path: '/item/:id',
-    component: ProductDetail,
-    meta: {
-      title: '详情'
-    }
+    component: ProductDetail
   },
   { path: '/login', component: Login },
   { path: '/signup', component: Signup },

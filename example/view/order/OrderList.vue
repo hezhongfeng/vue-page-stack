@@ -34,6 +34,7 @@ export default {
   height: 100%;
   padding: 5px;
   .order-item {
+    height: 80vw;
     img {
       width: 100%;
     }

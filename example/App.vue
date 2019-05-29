@@ -37,16 +37,25 @@ export default {
   // 覆盖掉UI原始style
   .cube-btn {
     border-radius: 5px;
+    padding: 10px;
     background: $color-primary;
+    margin: 5px 0;
+  }
+  .cube-input {
+    margin: 5px 0;
+    input {
+      padding: 8px;
+    }
   }
   .cube-input_active::after {
     border-color: $color-primary;
+    border-radius: 5px;
   }
 }
 
 .router-view-c {
   position: absolute;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.5s, transform 0.5s;
   width: 100%;
 }
 

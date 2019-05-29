@@ -62,7 +62,7 @@ export default {
     .message-wrap {
       line-height: 1.3;
       font-size: 14px;
-      color: #333;
+      color: #444;
     }
   }
   .icon-wrapper {

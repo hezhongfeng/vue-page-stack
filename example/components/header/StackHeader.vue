@@ -24,7 +24,7 @@ export default {
     title: {
       type: String,
       default: '',
-      required: true
+      required: false
     }
   },
   components: {},

@@ -1,11 +1,11 @@
 <template>
   <div class="main-detail">
-    <stack-header :title="$route.meta.title"></stack-header>
+    <stack-header></stack-header>
     <div class="p-scroll-wrap">
       <cube-scroll ref="scroll">
         <div class="form">
           <cube-input v-model="textValue" placeholder="输入必要信息"></cube-input>
-          <cube-button @click="onPush">Push</cube-button>
+          <cube-button @click="onPush">Push主页列表</cube-button>
           <cube-button @click="onReplace">Replace</cube-button>
           <cube-button @click="onLogin">登录</cube-button>
         </div>
@@ -46,7 +46,7 @@ export default {
       this.$router.replace(this.$route.path);
     },
     onPush() {
-      this.$router.push(this.$route.path);
+      this.$router.push('/main');
     }
   }
 };
