@@ -141,7 +141,8 @@ export default {
     padding: 60vw 10px 10px 10px;
     .logo {
       position: absolute;
-      top: 0px;
+      top: -20px;
+      width: 100%;
       svg {
         height: 75vw;
         width: 100%;
