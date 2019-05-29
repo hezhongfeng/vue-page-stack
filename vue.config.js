@@ -5,7 +5,7 @@ function resolve(dir) {
 }
 
 module.exports = {
-  publicPath: 'vue-stack-example',
+  publicPath: process.env.NODE_ENV === 'production' ? 'vue-stack-example' : '',
   assetsDir: 'static',
   productionSourceMap: false,
 
@@ -26,9 +26,7 @@ module.exports = {
         .use('sass-resources-loader')
         .loader('sass-resources-loader')
         .options({
-          resources: [
-            path.resolve(__dirname, './example/common/style/color.scss')
-          ]
+          resources: [path.resolve(__dirname, './example/common/style/color.scss')]
         })
         .end();
     });

@@ -6,8 +6,12 @@
           <main-list></main-list>
         </cube-tab-panel>
         <cube-tab-panel label="购物车" value="1"></cube-tab-panel>
-        <cube-tab-panel label="订单" value="2"></cube-tab-panel>
-        <cube-tab-panel label="我的" value="3"></cube-tab-panel>
+        <cube-tab-panel label="订单" value="2">
+          <order-list></order-list>
+        </cube-tab-panel>
+        <cube-tab-panel label="我的" value="3">
+          <my></my>
+        </cube-tab-panel>
       </cube-tab-panels>
     </div>
     <div class="h-tabbars">
@@ -19,11 +23,13 @@
 </template>
 
 <script>
-import MainList from '@/view/main/MainList.vue';
+import MainList from '@/view/main/MainList';
+import OrderList from '@/view/order/OrderList';
+import My from '@/view/my/My';
 
 export default {
   name: 'Home',
-  components: { MainList },
+  components: { MainList, My, OrderList },
   props: {},
   data() {
     return {

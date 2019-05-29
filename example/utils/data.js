@@ -1,4 +1,43 @@
+import jpg0 from '@/assets/images/animals/0.jpg';
+import jpg1 from '@/assets/images/animals/1.jpg';
+import jpg2 from '@/assets/images/animals/2.jpg';
+import jpg3 from '@/assets/images/animals/3.jpg';
+import jpg4 from '@/assets/images/animals/4.jpg';
+import jpg5 from '@/assets/images/animals/5.jpg';
+import jpg6 from '@/assets/images/animals/6.jpg';
+import jpg7 from '@/assets/images/animals/7.jpg';
+import jpg8 from '@/assets/images/animals/8.jpg';
+
 export default {
+  orderList: [
+    {
+      src: jpg0
+    },
+    {
+      src: jpg1
+    },
+    {
+      src: jpg2
+    },
+    {
+      src: jpg3
+    },
+    {
+      src: jpg4
+    },
+    {
+      src: jpg5
+    },
+    {
+      src: jpg6
+    },
+    {
+      src: jpg7
+    },
+    {
+      src: jpg8
+    }
+  ],
   mainList: [
     {
       id: '0',

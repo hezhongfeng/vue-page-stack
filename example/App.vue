@@ -52,13 +52,13 @@ export default {
 
 .forward-enter,
 .back-leave-active {
-  opacity: 0.2;
+  opacity: 0.5;
   transform: translateX(100%);
 }
 
 .forward-leave-active,
 .back-enter {
-  opacity: 0.2;
+  opacity: 0.5;
   transform: translateX(-100%);
 }
 </style>
