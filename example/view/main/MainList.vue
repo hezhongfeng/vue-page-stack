@@ -1,7 +1,7 @@
 <template>
   <div class="main-list">
     <cube-scroll ref="scroll" :data="list">
-      <main-item v-for="(item, index) in list" :key="index" :item="item" @click="onClick(item)"></main-item>
+      <main-item v-for="(item, index) in list" :key="index" :item="item" @click="onClick(item)" :style="[{animation: 'show ' + ((index+1)*0.3+0.1) + 's 1'}]"></main-item>
     </cube-scroll>
   </div>
 </template>

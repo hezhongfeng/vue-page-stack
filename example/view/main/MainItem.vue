@@ -33,7 +33,7 @@ export default {
     },
     styleObject() {
       return {
-        'background-image': this.item.background || ''
+        'background-color': this.item.background || ''
       };
     }
   },
@@ -62,7 +62,7 @@ export default {
     .message-wrap {
       line-height: 1.3;
       font-size: 14px;
-      color: #444;
+      color: #333;
     }
   }
   .icon-wrapper {

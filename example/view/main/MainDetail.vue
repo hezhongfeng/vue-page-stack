@@ -3,6 +3,9 @@
     <stack-header></stack-header>
     <div class="p-scroll-wrap">
       <cube-scroll ref="scroll">
+        <div class="desc-wrap">
+          <div class="desc">可以在下面的表单中输入内容，然后push到下一层</div>
+        </div>
         <div class="form">
           <cube-input v-model="textValue" placeholder="输入必要信息"></cube-input>
           <cube-button @click="onPush">Push主页列表</cube-button>
@@ -58,8 +61,15 @@ export default {
   .p-scroll-wrap {
     height: calc(100% - 45px);
   }
-  .form {
+  .desc-wrap {
+    // background-color: $color-primary;
     padding: 10px;
+    line-height: 1.5;
+    font-size: 14px;
+    color: #333;
+  }
+  .form {
+    padding: 0 10px 10px 10px;
     .cube-input {
       margin-bottom: 10px;
     }
