@@ -1,5 +1,5 @@
 <template>
-  <div class="main-item" :style="styleObject" @click="onClick">
+  <div class="main-item" :style="styleObject" @click="onClick" @animationend="animationend">
     <div class="icon-wrapper">
       <svg class="icon" aria-hidden="true">
         <use :href="icon"></use>
@@ -17,6 +17,9 @@ export default {
   name: 'MainItem',
   components: {},
   props: {
+    index: {
+      type: Number
+    },
     item: {
       type: Object,
       default() {
@@ -25,7 +28,9 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      isAnimationend: false
+    };
   },
   computed: {
     icon() {
@@ -33,7 +38,8 @@ export default {
     },
     styleObject() {
       return {
-        'background-color': this.item.background || ''
+        'background-color': this.item.background || '',
+        animation: this.isAnimationend ? 'none' : 'show ' + ((this.index + 1) * 0.2 + 0.1) + 's 1'
       };
     }
   },
@@ -42,6 +48,9 @@ export default {
   methods: {
     onClick() {
       this.$emit('click');
+    },
+    animationend() {
+      this.isAnimationend = true;
     }
   }
 };
