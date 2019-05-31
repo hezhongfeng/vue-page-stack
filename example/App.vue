@@ -56,11 +56,11 @@ export default {
   }
   @keyframes show {
     0% {
-      transform: translateY(70px);
+      transform: translateY(100px);
     }
 
     60% {
-      transform: translateY(-60upx);
+      transform: translateY(-80upx);
     }
 
     100% {

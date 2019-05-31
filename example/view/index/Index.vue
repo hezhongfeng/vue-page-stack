@@ -101,7 +101,10 @@
           </g>
         </svg>
       </div>
-      <p class="version">v1.0.0</p>
+      <div class="content">
+        <p class="explain">A vue component instances stack manager</p>
+        <p class="version">v1.0.0</p>
+      </div>
     </div>
     <div class="form">
       <cube-button @click="onExperience">点击体验</cube-button>
@@ -133,23 +136,35 @@ export default {
   height: 100%;
   .desc {
     position: relative;
-    color: #666;
+    color: #8799a3;
     font-size: 18px;
+    margin: 10px;
     .logo {
+      display: flex;
+      justify-content: center;
       svg {
-        width: 100%;
-        height: 75vw;
+        width: 80vw;
+        height: 60vw;
       }
     }
-    .version {
-      width: 100%;
+    .content {
       position: absolute;
-      top: 65vw;
+      top: 50vw;
+      width: 100%;
+    }
+    .explain {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+    .version {
+      margin-top: 15px;
       text-align: center;
     }
   }
   .form {
     margin: 10px;
+    padding-top: 20px;
   }
 }
 </style>

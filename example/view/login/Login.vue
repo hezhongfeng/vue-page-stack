@@ -1,7 +1,6 @@
 <template>
   <div class="login">
     <div class="form">
-      <!-- <div class="name">欢迎来到vue-stack</div> -->
       <div class="logo">
         <svg
           xmlns:dc="http://purl.org/dc/elements/1.1/"

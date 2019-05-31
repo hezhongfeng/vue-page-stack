@@ -8,9 +8,10 @@
         </div>
         <div class="form">
           <cube-input v-model="textValue" placeholder="输入必要信息"></cube-input>
-          <cube-button @click="onPush">Push主页列表</cube-button>
-          <cube-button @click="onReplace">Replace</cube-button>
-          <cube-button @click="onLogin">登录</cube-button>
+          <cube-button @click="onPush">Push到列表</cube-button>
+          <cube-button @click="onLogin">Push到登录</cube-button>
+          <cube-button @click="onReplace">Replace当前页</cube-button>
+          <cube-button>当前页码{{$route.params.id}}</cube-button>
         </div>
       </cube-scroll>
     </div>
@@ -46,7 +47,7 @@ export default {
       this.$router.push('/login');
     },
     onReplace() {
-      this.$router.replace(this.$route.path);
+      this.$router.replace('/main-detail/' + (Number(this.$route.params.id) + 1));
     },
     onPush() {
       this.$router.push('/main');
@@ -59,10 +60,9 @@ export default {
 .main-detail {
   min-height: 100%;
   .p-scroll-wrap {
-    height: calc(100% - 45px);
+    height: calc(100% - 90px);
   }
   .desc-wrap {
-    // background-color: $color-primary;
     padding: 10px;
     line-height: 1.5;
     font-size: 14px;
@@ -76,6 +76,9 @@ export default {
     .cube-btn {
       margin-bottom: 10px;
     }
+  }
+  .index {
+    margin-top: 20vw;
   }
 }
 </style>
