@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
-import ProductList from '@/view/ProductList.vue';
-import ProductDetail from '@/view/ProductDetail.vue';
+import Index from '@/view/index/Index';
 import MainList from '@/view/main/MainList';
 import MainDetail from '@/view/main/MainDetail';
 import Login from '@/view/login/Login.vue';
@@ -12,7 +10,10 @@ import Home from '@/view/home/Home';
 Vue.use(Router);
 
 const routes = [
-  { path: '/list', component: ProductList },
+  {
+    path: '/',
+    component: Index
+  },
   {
     path: '/main',
     component: MainList
@@ -20,10 +21,6 @@ const routes = [
   {
     path: '/main-detail/:id',
     component: MainDetail
-  },
-  {
-    path: '/item/:id',
-    component: ProductDetail
   },
   { path: '/login', component: Login },
   { path: '/signup', component: Signup },

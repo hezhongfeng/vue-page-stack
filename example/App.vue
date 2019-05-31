@@ -40,7 +40,7 @@ export default {
   // 覆盖掉UI原始style
   .cube-btn {
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px;
     background: $color-primary;
     margin: 5px 0;
   }
@@ -73,6 +73,7 @@ export default {
   position: absolute;
   transition: opacity 0.5s, transform 0.5s;
   width: 100%;
+  // background-color: #f1f1f1;
 }
 
 .forward-enter,

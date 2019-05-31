@@ -69,6 +69,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     console.log('beforeRouteUpdate');
+    this.selectedIndex = to.params.tab;
     next();
   },
   created() {
