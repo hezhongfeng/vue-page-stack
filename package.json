@@ -11,6 +11,7 @@
   "main": "dist/vue-stack.js",
   "dependencies": {
     "cube-ui": "~1.12.15",
+    "gsap": "^2.1.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
     "vuex": "^3.1.1"
