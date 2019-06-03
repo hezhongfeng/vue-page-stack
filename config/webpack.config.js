@@ -4,7 +4,7 @@ module.exports = {
   entry: '../src/index.js',
   output: {
     path: path.resolve('dist'),
-    filename: 'hy-page.js'
+    filename: 'vue-stack.min.js'
   },
   module: {
     rules: [

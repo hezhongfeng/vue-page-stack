@@ -1,22 +1,20 @@
 {
   "name": "vue-stack",
   "version": "0.0.1",
-  "description": "A vue's page stack manager",
+  "description": "A vue component instances stack manager",
   "author": "hezf",
   "scripts": {
     "build": "webpack --mode=production --config config/webpack.config.js src/index.js",
     "dev": "vue-cli-service serve example/main",
     "build:ex": "vue-cli-service build example/main"
   },
-  "main": "dist/vue-stack.js",
-  "dependencies": {
+  "main": "dist/vue-stack.min.js",
+  "dependencies": {},
+  "devDependencies": {
     "cube-ui": "~1.12.15",
     "gsap": "^2.1.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
-    "vuex": "^3.1.1"
-  },
-  "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
@@ -45,7 +43,8 @@
     "vue",
     "vue-router",
     "stack",
-    "navigation"
+    "navigation",
+    "manager"
   ],
   "license": "MIT",
   "repository": {
