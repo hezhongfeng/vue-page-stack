@@ -11,7 +11,7 @@
           <cube-button @click="onPush">Push到列表</cube-button>
           <cube-button @click="onLogin">Push到登录</cube-button>
           <cube-button @click="onReplace">Replace当前页</cube-button>
-          <cube-button>当前页码{{$route.params.id}}</cube-button>
+          <cube-button>当前页码{{animatedNumber}}</cube-button>
         </div>
       </cube-scroll>
     </div>
@@ -20,6 +20,7 @@
 
 <script>
 import StackHeader from '@/components/header/StackHeader.vue';
+import { TweenLite } from 'gsap/TweenMax';
 
 export default {
   name: 'MainDetail',
@@ -27,17 +28,28 @@ export default {
   props: {},
   data() {
     return {
-      textValue: ''
+      textValue: '',
+      pageIndex: 0
     };
   },
   created() {
     console.log('detail created');
+    TweenLite.to(this, 0.7, { pageIndex: Number(this.$route.params.id) });
   },
   mounted() {
     console.log('detail mounted');
   },
   activated() {
     console.log('detail activated');
+  },
+  beforeRouteUpdate(to, from, next) {
+    TweenLite.to(this, 0.7, { pageIndex: Number(to.params.id) });
+    next();
+  },
+  computed: {
+    animatedNumber() {
+      return this.pageIndex.toFixed(1);
+    }
   },
   methods: {
     back() {

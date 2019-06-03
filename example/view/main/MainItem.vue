@@ -1,13 +1,7 @@
 <template>
   <div class="main-item" :style="styleObject" @click="onClick" @animationend="animationend">
-    <div class="icon-wrapper">
-      <svg class="icon" aria-hidden="true">
-        <use :href="icon"></use>
-      </svg>
-    </div>
     <div class="content">
-      <div class="title"></div>
-      <div class="message-wrap">{{item.message}}</div>
+      <div class="message-wrap"></div>
     </div>
   </div>
 </template>
@@ -33,9 +27,6 @@ export default {
     };
   },
   computed: {
-    icon() {
-      return '#' + this.item.icon;
-    },
     styleObject() {
       return {
         'background-color': this.item.background || '',
@@ -58,31 +49,16 @@ export default {
 
 <style lang="scss">
 .main-item {
-  height: 130px;
+  height: 40vw;
   margin: 10px;
   border-radius: 5px;
-  position: relative;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4);
   .content {
     height: 100%;
-    padding: 5px;
-    .title {
-      height: 50%;
-    }
     .message-wrap {
-      line-height: 1.3;
-      font-size: 14px;
+      line-height: 1.5;
+      font-size: 15px;
       color: #333;
-    }
-  }
-  .icon-wrapper {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 50px;
-    height: 50px;
-    .icon {
-      width: 100%;
-      height: 100%;
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="main-list">
     <stack-header></stack-header>
-    <cube-scroll ref="scroll" :data="list">
+    <cube-scroll ref="scroll0" :data="list">
       <main-item v-for="(item, index) in list" :key="index" :item="item" :index="index" @click="onClick(item)"></main-item>
     </cube-scroll>
   </div>
@@ -44,6 +44,6 @@ export default {
 
 <style lang="scss">
 .main-list {
-  height: 100%;
+  height: calc(100% - 45px);
 }
 </style>

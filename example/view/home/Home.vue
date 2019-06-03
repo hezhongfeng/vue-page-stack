@@ -5,7 +5,9 @@
         <cube-tab-panel label="主页" value="0">
           <main-list></main-list>
         </cube-tab-panel>
-        <cube-tab-panel label="购物车" value="1"></cube-tab-panel>
+        <cube-tab-panel label="功能" value="1">
+          <function></function>
+        </cube-tab-panel>
         <cube-tab-panel label="订单" value="2">
           <order-list></order-list>
         </cube-tab-panel>
@@ -24,12 +26,13 @@
 
 <script>
 import MainList from '@/view/main/MainList';
+import Function from '@/view/function/Function';
 import OrderList from '@/view/order/OrderList';
 import My from '@/view/my/My';
 
 export default {
   name: 'Home',
-  components: { MainList, My, OrderList },
+  components: { MainList, My, OrderList, Function },
   props: {},
   data() {
     return {
