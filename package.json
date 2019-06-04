@@ -1,6 +1,6 @@
 {
   "name": "vue-page-stack",
-  "version": "0.0.2-beta2",
+  "version": "0.0.2-beta3",
   "description": "A vue page instances stack manager",
   "author": "hezf",
   "scripts": {
