@@ -4,18 +4,18 @@
   "description": "A vue component instances stack manager",
   "author": "hezf",
   "scripts": {
-    "build": "webpack --mode=production --config config/webpack.config.js src/index.js"
+    "build": "webpack --mode=production --progress"
   },
   "main": "dist/vue-stack.min.js",
   "dependencies": {},
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-eslint": "^3.8.0",
-    "@vue/cli-service": "^3.7.0",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.2.2",
+    "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2"
   },
   "browserslist": [
