@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/dist/',
-    filename: 'vue-page-stack.min.js',
+    filename: 'vue-page-stack.js',
     libraryTarget: 'umd',
     library: 'VuePageStack',
     umdNamedDefine: true
