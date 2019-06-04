@@ -4,7 +4,7 @@
   <img src="https://i.loli.net/2019/05/22/5ce4f2d09e77326615.png">
 </p>
 
-> A vue component instances stack manager
+> A vue page stack manager
 
 [预览](http://hezf.gitee.io/vue-stack-example/#/home/0)
 
