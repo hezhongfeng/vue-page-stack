@@ -1,4 +1,4 @@
-import { VueStack, getIndexByKey } from './components/VueStack';
+import { VuePageStack, getIndexByKey } from './components/VuePageStack';
 import mixin from './mixin';
 import history from './history';
 
@@ -21,10 +21,10 @@ function hasSameMatched(to, from) {
   return false;
 }
 
-const VueStackPlugin = {};
+const VuePageStackPlugin = {};
 
-VueStackPlugin.install = function(Vue, { router, name = VueStack.name, keyName = 'stack-key' }) {
-  Vue.component(name, VueStack(keyName));
+VuePageStackPlugin.install = function(Vue, { router, name = VuePageStack.name, keyName = 'stack-key' }) {
+  Vue.component(name, VuePageStack(keyName));
   mixin(router);
   router.beforeEach((to, from, next) => {
     // console.log('router.beforeEach');
@@ -66,7 +66,7 @@ VueStackPlugin.install = function(Vue, { router, name = VueStack.name, keyName =
 
 if (window && window.Vue) {
   // window
-  window.Vue.use(VueStackPlugin);
+  window.Vue.use(VuePageStackPlugin);
 }
 
-export default VueStackPlugin;
+export default VuePageStackPlugin;

@@ -1,12 +1,12 @@
 {
-  "name": "vue-stack",
+  "name": "vue-page-stack",
   "version": "0.0.1",
-  "description": "A vue component instances stack manager",
+  "description": "A vue page instances stack manager",
   "author": "hezf",
   "scripts": {
     "build": "webpack --mode=production --progress"
   },
-  "main": "dist/vue-stack.min.js",
+  "main": "dist/vue-page-stack.min.js",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -30,11 +30,12 @@
     "vue-router",
     "stack",
     "navigation",
-    "manager"
+    "manager",
+    "page"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hezhongfeng/vue-stack.git"
+    "url": "https://github.com/hezhongfeng/vue-page-stack.git"
   }
 }

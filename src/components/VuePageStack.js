@@ -30,9 +30,9 @@ function getIndexByKey(key) {
   return -1;
 }
 
-let VueStack = keyName => {
+let VuePageStack = keyName => {
   return {
-    name: 'VueStack',
+    name: 'VuePageStack',
     abstract: true,
     data() {
       return {};
@@ -73,4 +73,4 @@ let VueStack = keyName => {
   };
 };
 
-export { VueStack, getIndexByKey };
+export { VuePageStack, getIndexByKey };
