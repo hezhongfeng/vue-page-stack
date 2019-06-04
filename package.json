@@ -4,32 +4,18 @@
   "description": "A vue component instances stack manager",
   "author": "hezf",
   "scripts": {
-    "build": "webpack --mode=production --config config/webpack.config.js src/index.js",
-    "dev": "vue-cli-service serve example/main",
-    "build:ex": "vue-cli-service build example/main"
+    "build": "webpack --mode=production --config config/webpack.config.js src/index.js"
   },
   "main": "dist/vue-stack.min.js",
   "dependencies": {},
   "devDependencies": {
-    "cube-ui": "~1.12.15",
-    "gsap": "^2.1.2",
-    "vue": "^2.6.10",
-    "vue-router": "^3.0.6",
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-eslint": "^3.7.0",
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
     "@vue/cli-service": "^3.7.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.2",
-    "node-sass": "^4.12.0",
-    "postcss-px-to-viewport": "^0.0.3",
-    "sass-loader": "^7.1.0",
-    "sass-resources-loader": "^2.0.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "vue-cli-plugin-cube-ui": "^0.2.5",
-    "vue-template-compiler": "^2.6.10",
     "webpack-cli": "^3.3.2"
   },
   "browserslist": [
@@ -50,11 +36,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hezhongfeng/vue-stack.git"
-  },
-  "transformModules": {
-    "cube-ui": {
-      "transform": "cube-ui/src/modules/${member}",
-      "kebabCase": true
-    }
   }
 }
