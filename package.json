@@ -1,12 +1,12 @@
 {
   "name": "vue-page-stack",
-  "version": "0.0.2-beta1",
+  "version": "0.0.2-beta2",
   "description": "A vue page instances stack manager",
   "author": "hezf",
   "scripts": {
     "build": "webpack --mode=production --progress"
   },
-  "main": "dist/vue-page-stack.min.js",
+  "main": "dist/vue-page-stack.js",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.4.5",
