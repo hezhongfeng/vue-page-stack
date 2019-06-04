@@ -6,8 +6,9 @@
 
 > A vue page stack manager Vue页面堆栈管理器
 
-[预览](https://hezhongfeng.github.io/vue-stack-example/)
-[示例源码](https://github.com/hezhongfeng/vue-stack-example)
+[预览](https://hezhongfeng.github.io/vue-page-stack-example/)
+
+[示例源码](https://github.com/hezhongfeng/vue-page-stack-example)
 
 Vue页面堆栈管理器，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
 `A->B`，新渲染页面B,`back`一下就会返回到A，并且A的状态是进入B时候的状态，不需要重新渲染，同时有activited的钩子激活。
@@ -76,9 +77,12 @@ Vue.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
 ```
 
 ### 前进和后退
-可以在`router-view`的页面通过watch `$route`，通过`stack-key-dir(自定义keyName这里也随之变化)`参数判断此时的方向，可以参考实例
+可以在`router-view`的页面watch `$route`，通过`stack-key-dir(自定义keyName这里也随之变化)`参数判断此时的方向，可以参考[实例](https://hezhongfeng.github.io/vue-page-stack-example/)
 
 ## 相关说明
 
 ### keyName
 为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特点在微信公众号和小程序很重要
+
+## 感谢
+这个插件同时借鉴了[vue-navigation](https://github.com/zack24q/vue-navigation)和[vue-nav](https://github.com/nearspears/vue-nav)，很感谢他们给的灵感。
