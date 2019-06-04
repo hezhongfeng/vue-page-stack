@@ -4,44 +4,81 @@
   <img src="https://i.loli.net/2019/05/22/5ce4f2d09e77326615.png">
 </p>
 
-> A vue page stack manager
+> A vue page stack manager Vue页面堆栈管理器
 
-[预览](http://hezf.gitee.io/vue-stack-example/#/home/0)
+[预览](https://hezhongfeng.github.io/vue-stack-example/)
+[示例源码](https://github.com/hezhongfeng/vue-stack-example)
 
-Vue组件堆栈管理器，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
+Vue页面堆栈管理器，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
 `A->B`，新渲染页面B,`back`一下就会返回到A，并且A的状态是进入B时候的状态，不需要重新渲染，同时有activited的钩子激活。
 
-功能说明：
+## 功能说明
+
 1. 在vue-router上扩展，原有导航逻辑不需改变
 2. `push`或者`forward`的时候重新渲染页面，Stack中会添加新渲染的页面
 3. `back`或者`go(负数)`的时候不会重新渲染，从Stack中读取先前的页面，会保留好先前的内容状态，例如表单内容，滚动条滑动的位置等
 4. `back`或者`go(负数)`的时候会把不用的页面从Stack中移除
 5. `replace`会更新Stack中页面信息
-6. 重新渲染的时候有activited钩子函数触发
+6. 回退到之前页面的时候有activited钩子函数触发
 7. 支持浏览器的后退，前进事件
-8. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用，可以通过watch (监测变化) `$route` 对象或者使用`beforeRouteUpdate `钩子
+8. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
+9. 可以在前进和后退的时候添加不同的动画，也可以在特殊页面添加特殊的动画
 
-## API确定
-支持以下的编程式导航
+## 安装和用法
 
-1. push
-2. replace
-3. go
-4. back
-5. forward
+```
+npm install vue-page-stack
+# OR
+yarn add vue-page-stack
+```
 
-## 核心原理
+### 注册
 
-### 怎么捕获router的各种事件
-通过侵入router的编程式导航，获取到当前的action
+```
+import Vue from 'vue'
+import VuePageStack from 'vue-page-stack';
 
-### 怎么兼容browser的后退，前进
-在url上面添加key区分，并且需要存储这组key
+// vue-router是必须的
+Vue.use(VuePageStack, { router }); 
+```
 
-### 怎么存储vnode
-在js的runtime内存中，最大值仍需测试
+```
+// App.vue
+<template>
+  <div id="app">
+    <vue-page-stack>
+      <router-view ></router-view>
+    </vue-page-stack>
+  </div>
+</template>
 
-## 过程记录
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+    };
+  },
+  components: {},
+  created() {},
+  methods: {}
+};
+</script>
 
-### 应用场景举例
+```
 
+## API
+
+### 注册
+注册的时候可以指定VuePageStack的名字和keyName
+```
+Vue.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
+```
+
+### 前进和后退
+可以在`router-view`的页面通过watch `$route`，通过`stack-key-dir(自定义keyName这里也随之变化)`参数判断此时的方向，可以参考实例
+
+## 相关说明
+
+### keyName
+为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特点在微信公众号和小程序很重要

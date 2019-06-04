@@ -23,25 +23,17 @@ function hasSameMatched(to, from) {
 
 const VuePageStackPlugin = {};
 
-VuePageStackPlugin.install = function(Vue, { router, name = VuePageStack.name, keyName = 'stack-key' }) {
+VuePageStackPlugin.install = function(Vue, { router, name = 'VuePageStack', keyName = 'stack-key' }) {
   Vue.component(name, VuePageStack(keyName));
   mixin(router);
   router.beforeEach((to, from, next) => {
-    // console.log('router.beforeEach');
-    // console.log('to', to);
-    // console.log('from', from);
-    // 检查目标路由是否含有keyName
     if (!hasKey(to.query, keyName)) {
-      // console.log('has no key');
-      // 判断匹配的路由是否一致
       if (hasSameMatched(to, from)) {
-        // console.log('hasSameMatched');
         to.query[keyName] = from.query[keyName];
       } else {
         to.query[keyName] = getKey('xxxxxxxx');
       }
       let replace = history.action === 'replace' || !hasKey(from.query, keyName);
-      // console.log('replace', replace);
       next({
         hash: to.hash,
         path: to.path,
@@ -52,7 +44,6 @@ VuePageStackPlugin.install = function(Vue, { router, name = VuePageStack.name, k
         replace: replace
       });
     } else {
-      // 此处确定是forward 还是 back
       let index = getIndexByKey(to.query[keyName]);
       if (index === -1) {
         to.params[keyName + '-dir'] = 'forward';
