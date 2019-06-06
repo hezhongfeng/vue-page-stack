@@ -1,4 +1,5 @@
 import history from './history';
+import config from './config/config';
 
 let eventRegister = function(router) {
   const routerPush = router.push.bind(router);
@@ -8,27 +9,27 @@ let eventRegister = function(router) {
   const routerForward = router.forward.bind(router);
 
   router.push = (location, onComplete, onAbort) => {
-    history.action = 'push';
+    history.action = config.pushName;
     routerPush(location, onComplete, onAbort);
   };
 
   router.go = n => {
-    history.action = 'go';
+    history.action = config.goName;
     routerGo(n);
   };
 
   router.replace = (location, onComplete, onAbort) => {
-    history.action = 'replace';
+    history.action = config.replaceName;
     routerReplace(location, onComplete, onAbort);
   };
 
   router.back = () => {
-    history.action = 'back';
+    history.action = config.backName;
     routerBack();
   };
 
   router.forward = () => {
-    history.action = 'forward';
+    history.action = config.forwardName;
     routerForward();
   };
 };

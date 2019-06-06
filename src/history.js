@@ -1,5 +1,7 @@
+import config from './config/config';
+
 const histoty = {
-  action: 'push'
+  action: config.pushName
 };
 
 export default histoty;

@@ -1,4 +1,5 @@
 import history from '../history';
+import config from '../config/config';
 
 function isDef(v) {
   return v !== undefined && v !== null;
@@ -32,7 +33,7 @@ function getIndexByKey(key) {
 
 let VuePageStack = keyName => {
   return {
-    name: 'VuePageStack',
+    name: config.componentName,
     abstract: true,
     data() {
       return {};
@@ -57,7 +58,7 @@ let VuePageStack = keyName => {
         vnode.componentInstance = stack[index].vnode.componentInstance;
         stack.splice(index + 1);
       } else {
-        if (history.action === 'replace') {
+        if (history.action === config.replaceName) {
           stack.splice(stack.length - 1);
         }
         stack.push({ key, vnode });

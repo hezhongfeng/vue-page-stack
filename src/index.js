@@ -1,6 +1,7 @@
 import { VuePageStack, getIndexByKey } from './components/VuePageStack';
 import mixin from './mixin';
 import history from './history';
+import config from './config/config';
 
 function hasKey(query, keyName) {
   return !!query[keyName];
@@ -23,7 +24,10 @@ function hasSameMatched(to, from) {
 
 const VuePageStackPlugin = {};
 
-VuePageStackPlugin.install = function(Vue, { router, name = 'VuePageStack', keyName = 'stack-key' }) {
+VuePageStackPlugin.install = function(Vue, { router, name = config.componentName, keyName = config.keyName }) {
+  if (!router) {
+    throw Error('\n vue-router is necessary. \n\n');
+  }
   Vue.component(name, VuePageStack(keyName));
   mixin(router);
   router.beforeEach((to, from, next) => {
@@ -33,7 +37,7 @@ VuePageStackPlugin.install = function(Vue, { router, name = 'VuePageStack', keyN
       } else {
         to.query[keyName] = getKey('xxxxxxxx');
       }
-      let replace = history.action === 'replace' || !hasKey(from.query, keyName);
+      let replace = history.action === config.replaceName || !hasKey(from.query, keyName);
       next({
         hash: to.hash,
         path: to.path,
@@ -46,9 +50,9 @@ VuePageStackPlugin.install = function(Vue, { router, name = 'VuePageStack', keyN
     } else {
       let index = getIndexByKey(to.query[keyName]);
       if (index === -1) {
-        to.params[keyName + '-dir'] = 'forward';
+        to.params[keyName + '-dir'] = config.forwardName;
       } else {
-        to.params[keyName + '-dir'] = 'back';
+        to.params[keyName + '-dir'] = config.backName;
       }
       next({ params: to.params });
     }
