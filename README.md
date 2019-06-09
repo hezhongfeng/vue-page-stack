@@ -78,6 +78,16 @@ export default {
 
 ```
 
+### CDN使用
+```
+<script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.js"></script>
+```
+
+```
+Vue.use(VuePageStack.default, { router });
+```
+
+
 ## API
 
 ### 注册

@@ -59,9 +59,4 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
   });
 };
 
-if (window && window.Vue) {
-  // window
-  window.Vue.use(VuePageStackPlugin, { router, name, keyName });
-}
-
 export default VuePageStackPlugin;
