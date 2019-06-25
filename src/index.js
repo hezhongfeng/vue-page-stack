@@ -16,6 +16,9 @@ function getKey(src) {
 }
 
 function hasSameMatched(to, from) {
+  if (to.matched.length === 0) {
+    throw Error('\n this path ' + to.path + ' has no matched. \n\n');
+  }
   if (from.matched[0] && from.matched[0].path === to.matched[0].path) {
     return true;
   }
