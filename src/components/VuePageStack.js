@@ -56,9 +56,15 @@ let VuePageStack = keyName => {
       let index = getIndexByKey(key);
       if (index !== -1) {
         vnode.componentInstance = stack[index].vnode.componentInstance;
+        // destroy the instances that will be spliced
+        for (let i = index + 1; i < stack.length; i++) {
+          stack[i].vnode.componentInstance.$destroy();
+        }
         stack.splice(index + 1);
       } else {
         if (history.action === config.replaceName) {
+          // destroy the instance
+          stack[stack.length - 1].vnode.componentInstance.$destroy();
           stack.splice(stack.length - 1);
         }
         stack.push({ key, vnode });
