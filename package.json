@@ -1,7 +1,7 @@
 {
   "name": "vue-page-stack",
-  "version": "0.0.5",
-  "description": "A vue page instances stack manager",
+  "version": "0.0.6",
+  "description": "A vue page stack manager",
   "author": "hezf",
   "scripts": {
     "build": "webpack --mode=production --progress"
