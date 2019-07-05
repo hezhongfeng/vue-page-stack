@@ -1,11 +1,3 @@
-# vue-page-stack
-
-[![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
-
-Caching Vue component instances without destroying them like native App in Vue SPA.
-
-## Installation
-
 ## 整体功能描述
 
 <!-- <p align="center">
@@ -41,9 +33,9 @@ Vue页面堆栈管理器，一个在移动端`Web App`使用的，模仿原生Ap
 8. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
 9. 可以在前进和后退的时候添加不同的动画，也可以在特殊页面添加特殊的动画
 
-## Installation and use
+## 安装和用法
 
-### Installation
+### 安装
 
 ```
 npm install vue-page-stack
@@ -51,13 +43,13 @@ npm install vue-page-stack
 yarn add vue-page-stack
 ```
 
-### use
+### 使用
 
 ```
 import Vue from 'vue'
 import VuePageStack from 'vue-page-stack';
 
-// vue-router is necessary
+// vue-router是必须的
 Vue.use(VuePageStack, { router }); 
 ```
 
