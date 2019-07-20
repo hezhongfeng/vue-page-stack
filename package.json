@@ -1,7 +1,7 @@
 {
   "name": "vue-page-stack",
   "version": "0.0.9",
-  "description": "A vue page stack manager",
+  "description": "Routing and navigation for your Vue SPA. Vue 单页应用导航管理器",
   "author": "hezf",
   "scripts": {
     "build": "webpack --mode=production --progress"

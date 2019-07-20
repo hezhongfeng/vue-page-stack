@@ -4,42 +4,9 @@
 
 Caching Vue component instances without destroying them like native App in Vue SPA.
 
-## Installation
-
-## 整体功能描述
-
-<!-- <p align="center">
-  <img src="https://i.loli.net/2019/05/22/5ce4f2d09e77326615.png">
-</p> -->
-
-> A vue page stack manager Vue页面堆栈管理器
-
 <p align="center">
   <img src="https://i.loli.net/2019/06/04/5cf64c9ea1f1d71714.gif">
 </p>
-
-> 示例展示了一般的前进、后退（有activited）和replace的场景，同时还展示了同一个路由可以存在多层的效果（输入必要信息）
-
-[预览](https://hezhongfeng.github.io/vue-page-stack-example/)
-
-[示例源码](https://github.com/hezhongfeng/vue-page-stack-example)
-
-Vue页面堆栈管理器，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
-`A->B`，新渲染页面B,`back`一下就会返回到A，并且A的状态是进入B时候的状态，不需要重新渲染，同时有activited的钩子激活。
-
-**目前版本还没有经过整体业务的测试，欢迎有同样需求的进行试用**
-
-## 功能说明
-
-1. 在vue-router上扩展，原有导航逻辑不需改变
-2. `push`或者`forward`的时候重新渲染页面，Stack中会添加新渲染的页面
-3. `back`或者`go(负数)`的时候不会重新渲染，从Stack中读取先前的页面，会保留好先前的内容状态，例如表单内容，滚动条滑动的位置等
-4. `back`或者`go(负数)`的时候会把不用的页面从Stack中移除
-5. `replace`会更新Stack中页面信息
-6. 回退到之前页面的时候有activited钩子函数触发
-7. 支持浏览器的后退，前进事件
-8. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
-9. 可以在前进和后退的时候添加不同的动画，也可以在特殊页面添加特殊的动画
 
 ## Installation and use
 
@@ -70,23 +37,9 @@ Vue.use(VuePageStack, { router });
     </vue-page-stack>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'App',
-  data() {
-    return {
-    };
-  },
-  components: {},
-  created() {},
-  methods: {}
-};
-</script>
-
 ```
 
-### CDN使用
+### CDN
 ```
 <script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.js"></script>
 ```
@@ -95,6 +48,32 @@ export default {
 Vue.use(VuePageStack.default, { router });
 ```
 
+## 整体功能描述
+
+> A vue page stack manager Vue页面堆栈管理器
+
+> 示例展示了一般的前进、后退（有activited）和replace的场景，同时还展示了同一个路由可以存在多层的效果（输入必要信息）
+
+[预览](https://hezhongfeng.github.io/vue-page-stack-example/)
+
+[示例源码](https://github.com/hezhongfeng/vue-page-stack-example)
+
+Vue页面堆栈管理器，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
+`A->B`，新渲染页面B,`back`一下就会返回到A，并且A的状态是进入B时候的状态，不需要重新渲染，同时有activited的钩子激活。
+
+**目前版本还没有经过整体业务的测试，欢迎有同样需求的进行试用**
+
+## 功能说明
+
+1. 在vue-router上扩展，原有导航逻辑不需改变
+2. `push`或者`forward`的时候重新渲染页面，Stack中会添加新渲染的页面
+3. `back`或者`go(负数)`的时候不会重新渲染，从Stack中读取先前的页面，会保留好先前的内容状态，例如表单内容，滚动条滑动的位置等
+4. `back`或者`go(负数)`的时候会把不用的页面从Stack中移除
+5. `replace`会更新Stack中页面信息
+6. 回退到之前页面的时候有activited钩子函数触发
+7. 支持浏览器的后退，前进事件
+8. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
+9. 可以在前进和后退的时候添加不同的动画，也可以在特殊页面添加特殊的动画
 
 ## API
 
