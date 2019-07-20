@@ -9,14 +9,14 @@
   "main": "dist/vue-page-stack.js",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@vue/eslint-config-standard": "^4.0.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
-    "eslint": "^5.16.0",
-    "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2"
+    "eslint": "^6.0.1",
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6"
   },
   "browserslist": [
     "> 1%",
