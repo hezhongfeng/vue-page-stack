@@ -5,7 +5,7 @@
 Caching Vue component instances without destroying them like native App in Vue SPA.
 
 <div align="center">
-  <img src="https://i.loli.net/2019/06/04/5cf64c9ea1f1d71714.gif">
+  <img src="https://i.loli.net/2019/07/22/5d35618b25fb449357.gif">
 </div>
 
 ---
