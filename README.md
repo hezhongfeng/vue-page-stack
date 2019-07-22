@@ -4,9 +4,31 @@
 
 Caching Vue component instances without destroying them like native App in Vue SPA.
 
-<p align="center">
+<div align="center">
   <img src="https://i.loli.net/2019/06/04/5cf64c9ea1f1d71714.gif">
-</p>
+
+  English | [简体中文](./README.zh-CN.md)
+</div>
+
+---
+
+## Example
+
+[preview](https://hezhongfeng.github.io/vue-page-stack-example/)
+
+[demo](https://github.com/hezhongfeng/vue-page-stack-example)
+
+## Features
+
+- 🐉expanded on vue-router, the original navigation logic remains unchanged
+- ⚽render the page when `push` or `forward`, the newly rendered page will be added to the Stack.
+- 🏆`back` or `go (negative)` will not be re-rendered. Reading the previous page from the Stack,and will preserve the previous content state, such as the form content, the position of the scroll bar
+- 🏈`back` or `go (negative)` will remove unused pages from the Stack
+- 🎓`replace` will update the current page in the stack
+- 🎉activited hook function triggers when rolling back to the previous page
+- 🚀support browser back, forward events
+- 🍕support for changes in response routing parameters, such as navigating from /user/foo to /user/bar, component instances are reused
+- 🐰provide routing direction changes, add different animations when entering or leaving
 
 ## Installation and use
 
@@ -48,51 +70,54 @@ Vue.use(VuePageStack, { router });
 Vue.use(VuePageStack.default, { router });
 ```
 
-## 整体功能描述
-
-> A vue page stack manager Vue页面堆栈管理器
-
-> 示例展示了一般的前进、后退（有activited）和replace的场景，同时还展示了同一个路由可以存在多层的效果（输入必要信息）
-
-[预览](https://hezhongfeng.github.io/vue-page-stack-example/)
-
-[示例源码](https://github.com/hezhongfeng/vue-page-stack-example)
-
-Vue页面堆栈管理器，一个在移动端`Web App`使用的，模仿原生App的`UI Stack`的一个插件。主要功能是能够实现页面前进的时候刷新，后退的时候返回原页面。例如：
-`A->B`，新渲染页面B,`back`一下就会返回到A，并且A的状态是进入B时候的状态，不需要重新渲染，同时有activited的钩子激活。
-
-**目前版本还没有经过整体业务的测试，欢迎有同样需求的进行试用**
-
-## 功能说明
-
-1. 在vue-router上扩展，原有导航逻辑不需改变
-2. `push`或者`forward`的时候重新渲染页面，Stack中会添加新渲染的页面
-3. `back`或者`go(负数)`的时候不会重新渲染，从Stack中读取先前的页面，会保留好先前的内容状态，例如表单内容，滚动条滑动的位置等
-4. `back`或者`go(负数)`的时候会把不用的页面从Stack中移除
-5. `replace`会更新Stack中页面信息
-6. 回退到之前页面的时候有activited钩子函数触发
-7. 支持浏览器的后退，前进事件
-8. 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
-9. 可以在前进和后退的时候添加不同的动画，也可以在特殊页面添加特殊的动画
-
 ## API
 
-### 注册
-注册的时候可以指定VuePageStack的名字和keyName
+### install
+use `Vue.use` to install `vue-page-stack`
+```
+Vue.use(VuePageStack, options);
+// example
+Vue.use(VuePageStack, { router });
+```
+
+Options description：
+
+Attribute | Description | Type | Accepted Values | Default
+---|---|---|---|---
+router | vue-router instance | Object | vue-router instance | -
+name | VuePageStack name | String | 'VuePageStack' | 'VuePageStack'
+keyName | stack-key name | String | 'stack-key' | 'stack-key'
+
+you can customize VuePageStack's name and keyName
 ```
 Vue.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
 ```
 
-### 前进和后退
-可以在`router-view`的页面watch `$route`，通过`stack-key-dir(自定义keyName这里也随之变化)`参数判断此时的方向，可以参考[实例](https://github.com/hezhongfeng/vue-page-stack-example)
+### forward or backward
+If you want to make some animate entering or leaving, `vue-page-stack` offers `stack-key-dir` to judge forward or backward.
 
-## 相关说明
+```
+// App.vue
+$route(to, from) {
+  if (to.params['stack-key-dir'] === 'forward') {
+    this.transitionName = 'forward';
+  } else {
+    this.transitionName = 'back';
+  }
+}
+```
+[example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
+
+## Notes
 
 ### keyName
-为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特点在微信公众号和小程序很重要
 
-### 原理
-获取当前页面Stack部分参考了keep-alive的部分
+Why is the parameter `keyName` added to the route? To support the browser's backward and forward events，this is important in webApp or wechat.
 
-## 感谢
-这个插件同时借鉴了[vue-navigation](https://github.com/zack24q/vue-navigation)和[vue-nav](https://github.com/nearspears/vue-nav)，很感谢他们给的灵感。
+### Principle
+
+Getting the current page instance refers to the `keep-alive` section of `Vue`.
+
+## Thanks
+
+The plug-in draws on both [vue-navigation](https://github.com/zack24q/vue-navigation) and [vue-nav](https://github.com/nearspears/vue-nav)，Thank you very much for their inspiration.
