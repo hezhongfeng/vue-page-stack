@@ -6,11 +6,11 @@ Vue 单页应用导航管理器
 
 <div align="center">
   <img src="https://i.loli.net/2019/06/04/5cf64c9ea1f1d71714.gif">
-
-  [English](./CHANGELOG.md) | 简体中文
 </div>
 
 ---
+
+[English](./README.md) | 简体中文
 
 ## Example
 

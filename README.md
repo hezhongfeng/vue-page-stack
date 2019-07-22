@@ -6,11 +6,11 @@ Caching Vue component instances without destroying them like native App in Vue S
 
 <div align="center">
   <img src="https://i.loli.net/2019/06/04/5cf64c9ea1f1d71714.gif">
-
-  English | [简体中文](./README.zh-CN.md)
 </div>
 
 ---
+
+English | [简体中文](./README.zh-cn.md)
 
 ## Example
 
