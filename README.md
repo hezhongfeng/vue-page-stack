@@ -2,15 +2,15 @@
 
 [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
+English | [简体中文](./README.zh-cn.md)
+
+---
+
 Caching Vue component instances without destroying them like native App in Vue SPA.
 
 <div align="center">
   <img src="https://i.loli.net/2019/07/22/5d35618b25fb449357.gif">
 </div>
-
----
-
-English | [简体中文](./README.zh-cn.md)
 
 ## Example
 

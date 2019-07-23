@@ -1,16 +1,16 @@
-## 整体功能描述
+# vue-page-stack
 
 [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
+
+[English](./README.md) | 简体中文
+
+---
 
 Vue 单页应用导航管理器
 
 <div align="center">
   <img src="https://i.loli.net/2019/07/22/5d35618b25fb449357.gif">
 </div>
-
----
-
-[English](./README.md) | 简体中文
 
 ## Example
 
