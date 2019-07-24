@@ -6,7 +6,7 @@ English | [简体中文](./README.zh-cn.md)
 
 ---
 
-Caching Vue component instances without destroying them like native App in Vue SPA.
+A Vue SPA navigation manager,cache the UI in the SPA like a native application, rather than destroy it.
 
 <div align="center">
   <img src="https://i.loli.net/2019/07/22/5d35618b25fb449357.gif">
@@ -16,19 +16,19 @@ Caching Vue component instances without destroying them like native App in Vue S
 
 [preview](https://hezhongfeng.github.io/vue-page-stack-example/)
 
-[demo](https://github.com/hezhongfeng/vue-page-stack-example)
+[demo code](https://github.com/hezhongfeng/vue-page-stack-example)
 
 ## Features
 
 - 🐉expanded on vue-router, the original navigation logic remains unchanged
-- ⚽render the page when `push` or `forward`, the newly rendered page will be added to the Stack.
+- ⚽When a page is re-rendered as a `push` or `forward`, the newly rendered page will be added to the Stack
 - 🏆`back` or `go (negative)` will not be re-rendered. Reading the previous page from the Stack,and will preserve the previous content state, such as the form content, the position of the scroll bar
 - 🏈`back` or `go (negative)` will remove unused pages from the Stack
 - 🎓`replace` will update the current page in the stack
 - 🎉activited hook function triggers when rolling back to the previous page
-- 🚀support browser back, forward events
+- 🚀support for browser back, forward events
 - 🍕support for changes in response routing parameters, such as navigating from /user/foo to /user/bar, component instances are reused
-- 🐰provide routing direction changes, add different animations when entering or leaving
+- 🐰provides routing direction changes, add different animations when entering or leaving
 
 ## Installation and use
 
