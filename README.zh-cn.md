@@ -6,7 +6,7 @@
 
 ---
 
-Vue 单页应用导航管理器
+Vue 单页应用导航管理器，像原生app一样管理页面栈而不是销毁。
 
 <div align="center">
   <img src="https://i.loli.net/2019/07/22/5d35618b25fb449357.gif">
