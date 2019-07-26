@@ -22,13 +22,13 @@ A Vue SPA navigation manager,cache the UI in the SPA like a native application, 
 
 - 🐉expanded on vue-router, the original navigation logic remains unchanged
 - ⚽When a page is re-rendered as a `push` or `forward`, the newly rendered page will be added to the Stack.
-- 🏆`back` or `go (negative)` will not be re-rendered. Reading the previous page from the Stack,and will preserve the previous content state, such as the form content, the position of the scroll bar
+- 🏆When `back` or `go(negative number)`, the previous pages are not re-rendered, but instead are read from the Stack, and these pages retain the previous content state, such as the form content, the position of the scroll bar
 - 🏈`back` or `go (negative)` will remove unused pages from the Stack
 - 🎓`replace` will update the current page in the stack
 - 🎉activited hook function triggers when rolling back to the previous page
-- 🚀support for browser back, forward events
-- 🍕support for changes in response routing parameters, such as navigating from /user/foo to /user/bar, component instances are reused
-- 🐰provides routing direction changes, add different animations when entering or leaving
+- 🚀Browser back and forward events are supporded
+- 🍕Responding to changes in routes with Parameters is supporded, such as navigating from `/user/foo` to `/user/bar`, component instances are reused
+- 🐰provides routing direction changes, and you can add different animations when forward or backward
 
 ## Installation and use
 
