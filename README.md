@@ -27,7 +27,7 @@ A Vue SPA navigation manager,cache the UI in the SPA like a native application, 
 - 🎓`replace` will update the current page in the stack
 - 🎉activited hook function triggers when rolling back to the previous page
 - 🚀Browser back and forward events are supporded
-- 🍕Changes  are supporded in response routing parameters, such as navigating from `/user/foo` to `/user/bar`, component instances are reused
+- 🍕Responding to changes in routes with Parameters is supporded, such as navigating from `/user/foo` to `/user/bar`, component instances are reused
 - 🐰provides routing direction changes, add different animations when entering or leaving
 
 ## Installation and use
