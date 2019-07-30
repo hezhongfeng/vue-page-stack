@@ -116,6 +116,11 @@ $route(to, from) {
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
 
+### 获取当前UI栈
+```
+let UIStack = this.$pageStack.getStack();
+```
+
 ## 相关说明
 
 ### keyName
