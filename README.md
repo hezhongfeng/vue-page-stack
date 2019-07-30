@@ -111,8 +111,9 @@ $route(to, from) {
 ### get current UI stack
 ```
 let UIStack = this.$pageStack.getStack();
-```
 
+```
+[example code](https://github.com/hezhongfeng/vue-page-stack-example/blob/814f5ad8b8804e6fd81002f7254d266df3311770/src/views/main/MainList.vue#L30)
 ## Notes
 
 ### keyName
