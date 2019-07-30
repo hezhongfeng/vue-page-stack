@@ -77,11 +77,8 @@ let VuePageStack = keyName => {
   };
 };
 
-/**
- * 获取缓存栈中的内容
- */
-let getStackList = () => {
-  return stack
+function getStack() {
+  return stack;
 }
 
-export { VuePageStack, getIndexByKey, getStackList };
+export { VuePageStack, getIndexByKey, getStack };

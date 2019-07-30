@@ -1,4 +1,4 @@
-import { VuePageStack, getIndexByKey, getStackList } from './components/VuePageStack';
+import { VuePageStack, getIndexByKey, getStack } from './components/VuePageStack';
 import mixin from './mixin';
 import history from './history';
 import config from './config/config';
@@ -32,12 +32,10 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
     throw Error('\n vue-router is necessary. \n\n');
   }
   Vue.component(name, VuePageStack(keyName));
-  /**
-  * 添加获取缓存栈内容的方法
-  */
+  
   Vue.prototype.$pageStack = {
-    getStackList
-  }
+    getStack
+  };
 
   mixin(router);
   router.beforeEach((to, from, next) => {
