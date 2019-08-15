@@ -34,7 +34,8 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
   Vue.component(name, VuePageStack(keyName));
   
   Vue.prototype.$pageStack = {
-    getStack
+    getStack,
+    getIndexByKey
   };
 
   mixin(router);
