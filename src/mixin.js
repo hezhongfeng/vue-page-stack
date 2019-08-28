@@ -8,9 +8,16 @@ let eventRegister = function(router) {
   const routerBack = router.back.bind(router);
   const routerForward = router.forward.bind(router);
 
-  router.push = (location, onComplete, onAbort) => {
+  router.push = (location, onResolve, onReject) => {
     history.action = config.pushName;
-    routerPush(location, onComplete, onAbort);
+    if (onResolve || onReject) {
+      return routerPush(location, onResolve, onReject);
+    }
+    return routerPush(location).catch(error => {
+      if (error !== undefined) {
+        console.log(error);
+      }
+    });
   };
 
   router.go = n => {
@@ -18,9 +25,16 @@ let eventRegister = function(router) {
     routerGo(n);
   };
 
-  router.replace = (location, onComplete, onAbort) => {
+  router.replace = (location, onResolve, onReject) => {
     history.action = config.replaceName;
-    routerReplace(location, onComplete, onAbort);
+    if (onResolve || onReject) {
+      return routerReplace(location, onResolve, onReject);
+    }
+    return routerReplace(location).catch(error => {
+      if (error !== undefined) {
+        console.log(error);
+      }
+    });
   };
 
   router.back = () => {
