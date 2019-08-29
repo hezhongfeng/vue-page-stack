@@ -37,5 +37,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hezhongfeng/vue-page-stack.git"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/hezhongfeng/vue-page-stack/issues"
+  },
+  "homepage": "https://github.com/hezhongfeng/vue-page-stack#readme"
 }
