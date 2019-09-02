@@ -64,11 +64,11 @@ Vue.use(VuePageStack, { router });
 
 ### CDN
 ```
-<script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.js"></script>
+<script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.umd.min.js"></script>
 ```
 
 ```
-Vue.use(VuePageStack.default, { router });
+Vue.use(VuePageStack, { router });
 ```
 
 
