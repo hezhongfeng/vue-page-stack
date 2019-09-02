@@ -5,9 +5,10 @@
   "author": "hezf",
   "scripts": {
     "test:unit": "vue-cli-service test:unit",
-    "build": "webpack --mode=production --progress"
+    "build": "vue-cli-service build --target lib --name vue-page-stack ./src/index.js",
+    "lint": "vue-cli-service lint"
   },
-  "main": "dist/vue-page-stack.js",
+  "main": "dist/vue-page-stack.common.js",
   "dependencies": {},
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
