@@ -120,6 +120,9 @@ let UIStack = this.$pageStack.getStack();
 
 Why is the parameter `keyName` added to the route? To support the browser's backward and forward events，this is important in webApp or wechat.
 
+### Changelog
+Details changes for each release are documented in the [release notes](https://github.com/hezhongfeng/vue-page-stack/releases).
+
 ### Principle
 
 Getting the current page instance refers to the `keep-alive` section of `Vue`.

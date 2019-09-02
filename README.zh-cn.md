@@ -127,6 +127,9 @@ let UIStack = this.$pageStack.getStack();
 ### keyName
 为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特性在webApp,微信公众号和小程序很重要
 
+### 更新日志
+主要的更新日志在 [release notes](https://github.com/hezhongfeng/vue-page-stack/releases)
+
 ### 原理
 获取当前页面实例部分参考了`Vue`源码中`keep-alive`的部分
 
