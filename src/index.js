@@ -15,16 +15,6 @@ function getKey(src) {
   });
 }
 
-function hasSameMatched(to, from) {
-  if (to.matched.length === 0) {
-    throw Error('\n this path ' + to.path + ' has no matched. \n\n');
-  }
-  if (from.matched[0] && from.matched[0].path === to.matched[0].path) {
-    return true;
-  }
-  return false;
-}
-
 const VuePageStackPlugin = {};
 
 VuePageStackPlugin.install = function(Vue, { router, name = config.componentName, keyName = config.keyName }) {
@@ -40,11 +30,7 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
   mixin(router);
   router.beforeEach((to, from, next) => {
     if (!hasKey(to.query, keyName)) {
-      if (hasSameMatched(to, from)) {
-        to.query[keyName] = from.query[keyName];
-      } else {
-        to.query[keyName] = getKey('xxxxxxxx');
-      }
+      to.query[keyName] = getKey('xxxxxxxx');
       let replace = history.action === config.replaceName || !hasKey(from.query, keyName);
       next({
         hash: to.hash,

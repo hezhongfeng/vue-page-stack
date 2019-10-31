@@ -1683,18 +1683,6 @@ function getKey(src) {
   });
 }
 
-function hasSameMatched(to, from) {
-  if (to.matched.length === 0) {
-    throw Error('\n this path ' + to.path + ' has no matched. \n\n');
-  }
-
-  if (from.matched[0] && from.matched[0].path === to.matched[0].path) {
-    return true;
-  }
-
-  return false;
-}
-
 var VuePageStackPlugin = {};
 
 VuePageStackPlugin.install = function (Vue, _ref) {
@@ -1715,12 +1703,7 @@ VuePageStackPlugin.install = function (Vue, _ref) {
   mixin(router);
   router.beforeEach(function (to, from, next) {
     if (!hasKey(to.query, keyName)) {
-      if (hasSameMatched(to, from)) {
-        to.query[keyName] = from.query[keyName];
-      } else {
-        to.query[keyName] = getKey('xxxxxxxx');
-      }
-
+      to.query[keyName] = getKey('xxxxxxxx');
       var replace = src_history.action === config.replaceName || !hasKey(from.query, keyName);
       next({
         hash: to.hash,
