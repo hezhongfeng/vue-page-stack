@@ -9,7 +9,7 @@ English | [简体中文](./README.zh-cn.md)
 A Vue SPA navigation manager,cache the UI in the SPA like a native application, rather than destroy it.
 
 <div align="center">
-  <img src="https://i.loli.net/2019/07/22/5d35618b25fb449357.gif">
+  <img src="https://i.loli.net/2019/10/31/HKYfJBVWjXdZozm.gif">
 </div>
 
 ## Example
