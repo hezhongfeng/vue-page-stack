@@ -52,9 +52,7 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
     }
   }
   router.beforeEach(intercept);
-  let index = router.beforeHooks.findIndex(hook => {
-    return hook === a
-  })
+  let index = router.beforeHooks.findIndex(hook => hook === intercept)
   router.beforeHooks.unshift(router.beforeHooks.splice(index, 1)[0])
 };
 
