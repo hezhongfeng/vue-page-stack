@@ -42,7 +42,6 @@ yarn add vue-page-stack
 
 ### 使用
 
-
 ```
 import Vue from 'vue'
 import VuePageStack from 'vue-page-stack';
@@ -63,6 +62,7 @@ Vue.use(VuePageStack, { router });
 ```
 
 ### CDN
+
 ```
 <script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.umd.min.js"></script>
 ```
@@ -117,6 +117,7 @@ $route(to, from) {
 
 
 ### 获取当前UI栈
+
 ```
 let UIStack = this.$pageStack.getStack();
 ```
@@ -125,13 +126,29 @@ let UIStack = this.$pageStack.getStack();
 ## 相关说明
 
 ### keyName
+
 为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特性在webApp,微信公众号和小程序很重要
 
 ### 更新日志
+
 主要的更新日志在 [release notes](https://github.com/hezhongfeng/vue-page-stack/releases)
 
 ### 原理
+
 获取当前页面实例部分参考了`Vue`源码中`keep-alive`的部分
 
 ## 感谢
+
 这个插件同时借鉴了[vue-navigation](https://github.com/zack24q/vue-navigation)和[vue-nav](https://github.com/nearspears/vue-nav)，很感谢他们给的灵感。
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<table>
+  <tr>
+    <td align="center"><a href="http://hezf.online"><img src="https://avatars2.githubusercontent.com/u/12163050?v=4" width="100px;" alt="hezf"/><br /><sub><b>hezf</b></sub></a><br /><a href="#design-hezhongfeng" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/woshilina"><img src="https://avatars0.githubusercontent.com/u/28744945?v=4" width="100px;" alt="李娜"/><br /><sub><b>李娜</b></sub></a><br /><a href="https://github.com/hezhongfeng/vue-page-stack/commits?author=woshilina" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/yuxiaolei1989"><img src="https://avatars0.githubusercontent.com/u/7732447?v=4" width="100px;" alt="余小磊"/><br /><sub><b>余小磊</b></sub></a><br /><a href="https://github.com/hezhongfeng/vue-page-stack/commits?author=yuxiaolei1989" title="Code">💻</a></td>
+  </tr>
+</table>
