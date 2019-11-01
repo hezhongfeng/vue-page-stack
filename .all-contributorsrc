@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "hezhongfeng",
+      "name": "hezf",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12163050?v=4",
+      "profile": "http://hezf.online",
+      "contributions": [
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "vue-page-stack",
+  "projectOwner": "hezhongfeng",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
