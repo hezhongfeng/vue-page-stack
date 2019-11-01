@@ -28,7 +28,7 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
   };
 
   mixin(router);
-  router.beforeEach((to, from, next) => {
+  function intercept(to, from, next) {
     if (!hasKey(to.query, keyName)) {
       to.query[keyName] = getKey('xxxxxxxx');
       let replace = history.action === config.replaceName || !hasKey(from.query, keyName);
@@ -50,7 +50,12 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
       }
       next({ params: to.params });
     }
-  });
+  }
+  router.beforeEach(intercept);
+  let index = router.beforeHooks.findIndex(hook => {
+    return hook === a
+  })
+  router.beforeHooks.unshift(router.beforeHooks.splice(index, 1)[0])
 };
 
 export default VuePageStackPlugin;
