@@ -1692,7 +1692,8 @@ VuePageStackPlugin.install = function (Vue, _ref) {
     getStack: getStack
   };
   mixin(router);
-  router.beforeEach(function (to, from, next) {
+
+  function beforeEach(to, from, next) {
     if (!hasKey(to.query, keyName)) {
       to.query[keyName] = getKey('xxxxxxxx');
       var replace = src_history.action === config.replaceName || !hasKey(from.query, keyName);
@@ -1718,7 +1719,9 @@ VuePageStackPlugin.install = function (Vue, _ref) {
         params: to.params
       });
     }
-  });
+  }
+
+  router.beforeHooks.unshift(beforeEach);
 };
 
 /* harmony default export */ var src = (VuePageStackPlugin);
