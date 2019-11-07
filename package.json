@@ -1,6 +1,6 @@
 {
   "name": "vue-page-stack",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Routing and navigation for your Vue SPA. Vue 单页应用导航管理器",
   "author": "hezf",
   "scripts": {

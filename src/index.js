@@ -22,13 +22,14 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
     throw Error('\n vue-router is necessary. \n\n');
   }
   Vue.component(name, VuePageStack(keyName));
-  
+
   Vue.prototype.$pageStack = {
     getStack
   };
 
   mixin(router);
-  function intercept(to, from, next) {
+
+  function beforeEach(to, from, next) {
     if (!hasKey(to.query, keyName)) {
       to.query[keyName] = getKey('xxxxxxxx');
       let replace = history.action === config.replaceName || !hasKey(from.query, keyName);
@@ -51,9 +52,8 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
       next({ params: to.params });
     }
   }
-  router.beforeEach(intercept);
-  let index = router.beforeHooks.findIndex(hook => hook === intercept)
-  router.beforeHooks.unshift(router.beforeHooks.splice(index, 1)[0])
+
+  router.beforeHooks.unshift(beforeEach);
 };
 
 export default VuePageStackPlugin;
