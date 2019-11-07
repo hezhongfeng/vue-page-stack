@@ -53,6 +53,7 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
     }
   }
 
+  // ensure it's the first beforeEach hook
   router.beforeHooks.unshift(beforeEach);
 };
 
