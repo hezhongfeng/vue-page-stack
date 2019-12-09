@@ -1,6 +1,6 @@
 # vue-page-stack
 
-[![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
+[![Financial Contributors on Open Collective](https://opencollective.com/vue-page-stack/all/badge.svg?label=financial+contributors)](https://opencollective.com/vue-page-stack) [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
 English | [简体中文](./README.zh-cn.md)
 
@@ -143,3 +143,33 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/yellowbeee"><img src="https://avatars0.githubusercontent.com/u/16685984?v=4" width="100px;" alt="yellowbeee"/><br /><sub><b>yellowbeee</b></sub></a><br /><a href="https://github.com/hezhongfeng/vue-page-stack/commits?author=yellowbeee" title="Code">💻</a></td>
   </tr>
 </table>
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/hezhongfeng/vue-page-stack/graphs/contributors"><img src="https://opencollective.com/vue-page-stack/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/vue-page-stack/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/vue-page-stack"><img src="https://opencollective.com/vue-page-stack/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/vue-page-stack/contribute)]
+
+<a href="https://opencollective.com/vue-page-stack/organization/0/website"><img src="https://opencollective.com/vue-page-stack/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/1/website"><img src="https://opencollective.com/vue-page-stack/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/2/website"><img src="https://opencollective.com/vue-page-stack/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/3/website"><img src="https://opencollective.com/vue-page-stack/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/4/website"><img src="https://opencollective.com/vue-page-stack/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/5/website"><img src="https://opencollective.com/vue-page-stack/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/6/website"><img src="https://opencollective.com/vue-page-stack/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/7/website"><img src="https://opencollective.com/vue-page-stack/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/8/website"><img src="https://opencollective.com/vue-page-stack/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/vue-page-stack/organization/9/website"><img src="https://opencollective.com/vue-page-stack/organization/9/avatar.svg"></a>
