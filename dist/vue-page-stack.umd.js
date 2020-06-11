@@ -886,7 +886,7 @@ module.exports = function (exec) {
 /***/ "8378":
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.9' };
+var core = module.exports = { version: '2.6.11' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -1465,6 +1465,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
@@ -1506,7 +1507,8 @@ var es6_number_constructor = __webpack_require__("c5f6");
 // CONCATENATED MODULE: ./src/history.js
 
 var histoty = {
-  action: config.pushName
+  action: config.pushName,
+  direction: config.forwardName
 };
 /* harmony default export */ var src_history = (histoty);
 // CONCATENATED MODULE: ./src/components/VuePageStack.js
@@ -1620,44 +1622,31 @@ var mixin_eventRegister = function eventRegister(router) {
 
   router.push = function (location, onResolve, onReject) {
     src_history.action = config.pushName;
-
-    if (onResolve || onReject) {
-      return routerPush(location, onResolve, onReject);
-    }
-
-    return routerPush(location).catch(function (error) {
-      if (error !== undefined) {
-        console.log(error);
-      }
-    });
+    src_history.direction = config.forwardName;
+    return routerPush(location, onResolve, onReject);
   };
 
   router.go = function (n) {
     src_history.action = config.goName;
+    src_history.direction = n < 0 ? config.backName : config.forwardName;
     routerGo(n);
   };
 
   router.replace = function (location, onResolve, onReject) {
     src_history.action = config.replaceName;
-
-    if (onResolve || onReject) {
-      return routerReplace(location, onResolve, onReject);
-    }
-
-    return routerReplace(location).catch(function (error) {
-      if (error !== undefined) {
-        console.log(error);
-      }
-    });
+    src_history.direction = location.back ? config.backName : config.forwardName;
+    return routerReplace(location, onResolve, onReject);
   };
 
   router.back = function () {
     src_history.action = config.backName;
+    src_history.direction = config.backName;
     routerBack();
   };
 
   router.forward = function () {
     src_history.action = config.forwardName;
+    src_history.direction = config.forwardName;
     routerForward();
   };
 };
@@ -1716,19 +1705,13 @@ VuePageStackPlugin.install = function (Vue, _ref) {
         replace: replace
       });
     } else {
-      var index = getIndexByKey(to.query[keyName]);
-
-      if (index === -1) {
-        to.params[keyName + '-dir'] = config.forwardName;
-      } else {
-        to.params[keyName + '-dir'] = config.backName;
-      }
-
+      to.params[keyName + '-dir'] = src_history.direction;
       next({
         params: to.params
       });
     }
-  }
+  } // ensure it's the first beforeEach hook
+
 
   router.beforeHooks.unshift(beforeEach);
 };

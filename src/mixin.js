@@ -10,26 +10,31 @@ let eventRegister = function(router) {
 
   router.push = (location, onResolve, onReject) => {
     history.action = config.pushName;
+    history.direction = config.forwardName;
     return routerPush(location, onResolve, onReject);
   };
 
   router.go = n => {
     history.action = config.goName;
+    history.direction = n < 0 ? config.backName : config.forwardName;
     routerGo(n);
   };
 
   router.replace = (location, onResolve, onReject) => {
     history.action = config.replaceName;
+    history.direction = location.back ? config.backName : config.forwardName;
     return routerReplace(location, onResolve, onReject);
   };
 
   router.back = () => {
     history.action = config.backName;
+    history.direction = config.backName;
     routerBack();
   };
 
   router.forward = () => {
     history.action = config.forwardName;
+    history.direction = config.forwardName;
     routerForward();
   };
 };
