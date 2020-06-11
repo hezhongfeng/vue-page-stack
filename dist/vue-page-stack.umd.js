@@ -1494,6 +1494,12 @@ var es6_regexp_replace = __webpack_require__("a481");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.number.constructor.js
 var es6_number_constructor = __webpack_require__("c5f6");
 
+// CONCATENATED MODULE: ./src/history.js
+var histoty = {
+  action: null,
+  direction: null
+};
+/* harmony default export */ var src_history = (histoty);
 // CONCATENATED MODULE: ./src/config/config.js
 /* harmony default export */ var config = ({
   componentName: 'VuePageStack',
@@ -1504,13 +1510,6 @@ var es6_number_constructor = __webpack_require__("c5f6");
   backName: 'back',
   forwardName: 'forward'
 });
-// CONCATENATED MODULE: ./src/history.js
-
-var histoty = {
-  action: config.pushName,
-  direction: config.forwardName
-};
-/* harmony default export */ var src_history = (histoty);
 // CONCATENATED MODULE: ./src/components/VuePageStack.js
 
 
