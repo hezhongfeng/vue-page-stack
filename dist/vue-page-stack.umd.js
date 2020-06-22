@@ -1626,9 +1626,7 @@ var mixin_eventRegister = function eventRegister(router) {
     }
 
     return routerPush(location).catch(function (error) {
-      if (error !== undefined) {
-        console.log(error);
-      }
+      return error;
     });
   };
 
@@ -1645,9 +1643,7 @@ var mixin_eventRegister = function eventRegister(router) {
     }
 
     return routerReplace(location).catch(function (error) {
-      if (error !== undefined) {
-        console.log(error);
-      }
+      return error;
     });
   };
 
@@ -1728,7 +1724,8 @@ VuePageStackPlugin.install = function (Vue, _ref) {
         params: to.params
       });
     }
-  }
+  } // ensure it's the first beforeEach hook
+
 
   router.beforeHooks.unshift(beforeEach);
 };

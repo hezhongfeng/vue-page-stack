@@ -13,11 +13,7 @@ let eventRegister = function(router) {
     if (onResolve || onReject) {
       return routerPush(location, onResolve, onReject);
     }
-    return routerPush(location).catch(error => {
-      if (error !== undefined) {
-        console.log(error);
-      }
-    });
+    return routerPush(location).catch(error => error);
   };
 
   router.go = n => {
@@ -30,11 +26,7 @@ let eventRegister = function(router) {
     if (onResolve || onReject) {
       return routerReplace(location, onResolve, onReject);
     }
-    return routerReplace(location).catch(error => {
-      if (error !== undefined) {
-        console.log(error);
-      }
-    });
+    return routerReplace(location).catch(error => error);
   };
 
   router.back = () => {
