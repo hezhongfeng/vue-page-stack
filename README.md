@@ -47,7 +47,7 @@ import Vue from 'vue'
 import VuePageStack from 'vue-page-stack';
 
 // vue-router is necessary
-Vue.use(VuePageStack, { router }); 
+Vue.use(VuePageStack, { router });
 ```
 
 ```
@@ -62,6 +62,7 @@ Vue.use(VuePageStack, { router });
 ```
 
 ### CDN
+
 ```
 <script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.umd.min.js"></script>
 ```
@@ -73,7 +74,9 @@ Vue.use(VuePageStack, { router });
 ## API
 
 ### install
+
 use `Vue.use` to install `vue-page-stack`
+
 ```
 Vue.use(VuePageStack, options);
 // example
@@ -82,18 +85,20 @@ Vue.use(VuePageStack, { router });
 
 Options description：
 
-Attribute | Description | Type | Accepted Values | Default
----|---|---|---|---
-router | vue-router instance | Object | vue-router instance | -
-name | VuePageStack name | String | 'VuePageStack' | 'VuePageStack'
-keyName | stack-key name | String | 'stack-key' | 'stack-key'
+| Attribute | Description         | Type   | Accepted Values     | Default        |
+| --------- | ------------------- | ------ | ------------------- | -------------- |
+| router    | vue-router instance | Object | vue-router instance | -              |
+| name      | VuePageStack name   | String | 'VuePageStack'      | 'VuePageStack' |
+| keyName   | stack-key name      | String | 'stack-key'         | 'stack-key'    |
 
 you can customize VuePageStack's name and keyName
+
 ```
 Vue.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
 ```
 
 ### forward or backward
+
 If you want to make some animate entering or leaving, `vue-page-stack` offers `stack-key-dir` to judge forward or backward.
 
 ```
@@ -106,14 +111,18 @@ $route(to, from) {
   }
 }
 ```
+
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
 ### get current UI stack
+
 ```
 let UIStack = this.$pageStack.getStack();
 
 ```
+
 [example code](https://github.com/hezhongfeng/vue-page-stack-example/blob/814f5ad8b8804e6fd81002f7254d266df3311770/src/views/main/MainList.vue#L30)
+
 ## Notes
 
 ### keyName
@@ -121,6 +130,7 @@ let UIStack = this.$pageStack.getStack();
 Why is the parameter `keyName` added to the route? To support the browser's backward and forward events，this is important in webApp or wechat.
 
 ### Changelog
+
 Details changes for each release are documented in the [release notes](https://github.com/hezhongfeng/vue-page-stack/releases).
 
 ### Principle
