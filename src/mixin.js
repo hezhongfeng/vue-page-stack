@@ -1,7 +1,7 @@
 import history from './history';
 import config from './config/config';
 
-let eventRegister = function(router) {
+let eventRegister = function (router) {
   const routerPush = router.push.bind(router);
   const routerGo = router.go.bind(router);
   const routerReplace = router.replace.bind(router);
