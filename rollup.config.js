@@ -1,11 +1,13 @@
 import ts from '@wessberg/rollup-plugin-ts';
+import { uglify } from 'rollup-plugin-uglify';
 
-export default {
+const config = {
   input: './src/index.ts',
   plugins: [
     ts({
       browserslist: ['last 2 version', '> 1%']
-    })
+    }),
+    uglify()
   ],
   output: [
     {
@@ -20,3 +22,5 @@ export default {
     }
   ]
 };
+
+export default config;
