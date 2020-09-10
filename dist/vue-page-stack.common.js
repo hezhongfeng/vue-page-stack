@@ -1,14 +1,5 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["VuePageStack"] = factory();
-	else
-		root["VuePageStack"] = factory();
-})((typeof self !== 'undefined' ? self : this), function() {
-return /******/ (function(modules) { // webpackBootstrap
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -231,5 +222,4 @@ var VuePageStackPlugin = {
 /***/ })
 
 /******/ })["default"];
-});
-//# sourceMappingURL=VuePageStack.umd.js.map
+//# sourceMappingURL=vue-page-stack.common.js.map

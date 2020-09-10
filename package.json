@@ -5,7 +5,7 @@
   "author": "hezf",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name VuePageStack ./src/index.ts",
+    "build": "vue-cli-service build --target lib --name vue-page-stack ./src/index.ts",
     "lint": "vue-cli-service lint --no-fix",
     "fix": "vue-cli-service lint",
     "cz": "git-cz"
