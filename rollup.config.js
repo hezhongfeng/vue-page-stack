@@ -14,12 +14,13 @@ const config = {
       // CommonJS
       format: 'cjs',
       file: 'dist/vue-page-stack.common.js'
-    },
-    // umd
-    {
-      format: 'umd',
-      file: 'dist/vue-page-stack.umd.js'
     }
+    // umd
+    // {
+    //   format: 'umd',
+    //   file: 'dist/vue-page-stack.umd.js',
+    //   name: 'VuePageStack'
+    // }
   ]
 };
 
