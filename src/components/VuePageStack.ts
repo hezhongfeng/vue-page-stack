@@ -1,28 +1,27 @@
 import history from '../history';
 import config from '../config/config';
 
-function isDef(v) {
+function isDef(v: any) {
   return v !== undefined && v !== null;
 }
 
-function isAsyncPlaceholder(node) {
+function isAsyncPlaceholder(node: any) {
   return node.isComment && node.asyncFactory;
 }
 
-function getFirstComponentChild(children) {
+function getFirstComponentChild(children: any) {
   if (Array.isArray(children)) {
-    for (let i = 0; i < children.length; i++) {
-      const c = children[i];
-      if (isDef(c) && (isDef(c.componentOptions) || isAsyncPlaceholder(c))) {
-        return c;
+    for (const child of children) {
+      if (isDef(child) && (isDef(child.componentOptions) || isAsyncPlaceholder(child))) {
+        return child;
       }
     }
   }
 }
 
-const stack = [];
+const stack: any[] = [];
 
-function getIndexByKey(key) {
+function getIndexByKey(key: string) {
   for (let index = 0; index < stack.length; index++) {
     if (stack[index].key === key) {
       return index;
@@ -31,7 +30,7 @@ function getIndexByKey(key) {
   return -1;
 }
 
-let VuePageStack = keyName => {
+const VuePageStack = (keyName: string): any => {
   return {
     name: config.componentName,
     abstract: true,
@@ -43,17 +42,17 @@ let VuePageStack = keyName => {
         type: [String, Number],
         default() {
           return '';
-        }
-      }
+        },
+      },
     },
     render() {
-      let key = this.$route.query[keyName];
+      const key: string = this.$route.query[keyName];
       const slot = this.$slots.default;
       const vnode = getFirstComponentChild(slot);
       if (!vnode) {
         return vnode;
       }
-      let index = getIndexByKey(key);
+      const index: number = getIndexByKey(key);
       if (index !== -1) {
         vnode.componentInstance = stack[index].vnode.componentInstance;
         // destroy the instances that will be spliced
@@ -73,7 +72,7 @@ let VuePageStack = keyName => {
       }
       vnode.data.keepAlive = true;
       return vnode;
-    }
+    },
   };
 };
 

@@ -4,10 +4,7 @@
   "description": "Routing and navigation for your Vue SPA. Vue 单页应用导航管理器",
   "author": "hezf",
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name vue-page-stack ./src/index.ts",
-    "lint": "vue-cli-service lint --no-fix",
-    "fix": "vue-cli-service lint",
     "cz": "git-cz"
   },
   "main": "dist/vue-page-stack.common.js",
