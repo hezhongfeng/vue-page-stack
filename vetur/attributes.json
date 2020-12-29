@@ -1,0 +1,8 @@
+{
+  "component": {
+    "description": "Component of `<router-view>` matched."
+  },
+  "route": {
+    "description": "Route of `<router-view>` matched."
+  }
+}

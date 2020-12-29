@@ -1,0 +1,6 @@
+{
+  "stack-router-view": {
+    "attributes": ["component", "route"],
+    "description": "Component that renders the matched component for the current location. "
+  }
+}

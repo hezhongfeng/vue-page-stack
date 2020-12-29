@@ -1,0 +1,17 @@
+{
+  "name": "playground",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "^3.8.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0-alpha.0",
+    "@vue/cli-service": "~5.0.0-alpha.0",
+    "@vue/compiler-sfc": "^3.0.4"
+  }
+}
