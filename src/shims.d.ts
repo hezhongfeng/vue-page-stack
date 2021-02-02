@@ -1,11 +1,6 @@
-/*
- * @Descripttion:
- * @version: v1.0
- * @Author: hezf
- * @Date: 2021-01-21 10:12:43
- */
+/* eslint-disable */
+import type { DefineComponent } from 'vue';
 declare module '*.vue' {
-  import { ComponentOptions } from 'vue';
-  const componentOptions: ComponentOptions;
-  export default componentOptions;
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
 }
