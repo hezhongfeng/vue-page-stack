@@ -1,17 +1,13 @@
 <template>
-  <button @click="count++">count is: {{ count }}</button>
-  2222222
+  <van-button type="primary" to="about">路由跳转</van-button>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'HelloWorld',
   props: {},
-  setup: () => {
-    const count = ref(0);
-    return { count };
-  },
+  setup: () => {},
 });
 </script>
 
