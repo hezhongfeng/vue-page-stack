@@ -24,20 +24,47 @@ interface Option {
 }
 
 const VuePageStackPlugin = {
-  install(Vue: any, { router, name = config.componentName, keyName = config.keyName }: Option) {
+  install(app: any, { router, name = config.componentName, keyName = config.keyName }: Option) {
     if (!router) {
       throw Error('\n vue-router is necessary. \n\n');
     }
-    Vue.component(name, VuePageStack(keyName));
-    Vue.prototype.$pageStack = {
+    app.component(name, VuePageStack(keyName));
+
+    app.$pageStack = {
       getStack,
     };
     mixin(router);
     function beforeEach(to: any, from: any, next: any) {
+      //   if (!hasKey(to.query, keyName)) {
+      //     to.query[keyName] = getKey('xxxxxxxx');
+      //     const replace = history.action === config.replaceName || !hasKey(from.query, keyName);
+      //     next({
+      //       hash: to.hash,
+      //       path: to.path,
+      //       name: to.name,
+      //       params: to.params,
+      //       query: to.query,
+      //       meta: to.meta,
+      //       replace,
+      //     });
+      //   } else {
+      //     const index = getIndexByKey(to.query[keyName]);
+      //     if (index === -1) {
+      //       to.params[keyName + '-dir'] = config.forwardName;
+      //     } else {
+      //       to.params[keyName + '-dir'] = config.backName;
+      //     }
+      //     next({ params: to.params });
+      //   }
+      // }
+      console.log(60);
       if (!hasKey(to.query, keyName)) {
+        console.log(61);
         to.query[keyName] = getKey('xxxxxxxx');
+        console.log(to.query);
         const replace = history.action === config.replaceName || !hasKey(from.query, keyName);
-        next({
+        console.log(to.query);
+        return {
           hash: to.hash,
           path: to.path,
           name: to.name,
@@ -45,7 +72,7 @@ const VuePageStackPlugin = {
           query: to.query,
           meta: to.meta,
           replace,
-        });
+        };
       } else {
         const index = getIndexByKey(to.query[keyName]);
         if (index === -1) {
@@ -57,7 +84,33 @@ const VuePageStackPlugin = {
       }
     }
     // ensure it's the first beforeEach hook
-    router.beforeHooks.unshift(beforeEach);
+    // router.beforeEach = beforeEach;
+    router.beforeEach((to: any, from: any) => {
+      if (!hasKey(to.query, keyName)) {
+        to.query[keyName] = getKey('xxxxxxxx');
+        const replace = history.action === config.replaceName || !hasKey(from.query, keyName);
+        return {
+          hash: to.hash,
+          path: to.path,
+          name: to.name,
+          params: to.params,
+          query: to.query,
+          meta: to.meta,
+          replace,
+        };
+      } else {
+        const index = getIndexByKey(to.query[keyName]);
+        if (index === -1) {
+          to.params[keyName + '-dir'] = config.forwardName;
+          console.log('前进');
+        } else {
+          to.params[keyName + '-dir'] = config.backName;
+          console.log('后退');
+        }
+        // next({ params: to.params });
+      }
+    });
+    // console.log(router);
   },
 };
 

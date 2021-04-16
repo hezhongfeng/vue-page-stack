@@ -3,7 +3,7 @@ import config from '../config/config';
 import {
   callWithAsyncErrorHandling,
   ComponentInternalInstance,
-  ConcreteComponent,
+  defineComponent,
   getCurrentInstance,
   SetupContext,
   onBeforeUnmount,
@@ -18,6 +18,7 @@ import {
   queuePostFlushCb,
 } from 'vue';
 import { isArray, invokeArrayFns } from '@vue/shared';
+import { useRoute } from 'vue-router';
 
 const stack: any[] = [];
 
@@ -101,29 +102,17 @@ type KeepAliveContext = {
   deactivate: (vnode: VNode) => void;
 };
 
-type CacheKey = string | number | ConcreteComponent;
-type Cache = Map<CacheKey, VNode>;
-type Keys = Set<CacheKey>;
-
 const VuePageStack = (keyName: string): any => {
-  return {
+  return defineComponent({
     name: config.componentName,
-
-    // Marker for special handling inside the renderer. We are not using a ===
-    // check directly on KeepAlive in the renderer, because importing it directly
-    // would prevent it from being tree-shaken.
+    inheritRef: true,
     __isKeepAlive: true,
-
-    setup(props = null, { slots }: SetupContext) {
+    setup(props, { slots }: SetupContext) {
       const instance = getCurrentInstance()! as any;
-      // KeepAlive communicates with the instantiated renderer via the
-      // ctx where the renderer passes in its internals,
-      // and the KeepAlive instance exposes activate/deactivate implementations.
-      // The whole point of this is to avoid importing KeepAlive directly in the
-      // renderer to facilitate tree-shaking.
+
       const sharedContext = instance.ctx as KeepAliveContext;
 
-      const cache: Cache = new Map();
+      const cache = new Map();
       const keys: Keys = new Set();
       let current: VNode | null = null;
 
@@ -182,21 +171,9 @@ const VuePageStack = (keyName: string): any => {
       };
 
       function unmount(vnode: VNode) {
-        // reset the shapeFlag so it can be properly unmounted
         resetShapeFlag(vnode);
         _unmount(vnode, instance, parentSuspense);
       }
-
-      // cache sub tree after render
-      let pendingCacheKey: CacheKey | null = null;
-      const cacheSubtree = () => {
-        // fix #1621, the pendingCacheKey could be 0
-        if (pendingCacheKey != null) {
-          cache.set(pendingCacheKey, getInnerChild(instance.subTree));
-        }
-      };
-      onMounted(cacheSubtree);
-      onUpdated(cacheSubtree);
 
       onBeforeUnmount(() => {
         cache.forEach(cached => {
@@ -215,8 +192,6 @@ const VuePageStack = (keyName: string): any => {
       });
 
       return () => {
-        const key: string = this.$route.query[keyName];
-
         if (!slots.default) {
           return null;
         }
@@ -224,14 +199,12 @@ const VuePageStack = (keyName: string): any => {
         const children = slots.default();
         const rawVNode = children[0];
         if (children.length > 1) {
-          current = null;
           return children;
         } else if (
           !isVNode(rawVNode) ||
           (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) &&
             !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))
         ) {
-          current = null;
           return rawVNode;
         }
 
@@ -244,18 +217,12 @@ const VuePageStack = (keyName: string): any => {
             rawVNode.ssContent = vnode;
           }
         }
-        // #1513 it's possible for the returned vnode to be cloned due to attr
-        // fallthrough or scopeId, so the vnode here may not be the final vnode
-        // that is mounted. Instead of caching it directly, we store the pending
-        // key and cache `instance.subTree` (the normalized vnode) in
-        // beforeMount/beforeUpdate hooks.
 
+        const route = useRoute();
+        const key: any = route.query[keyName];
         const index: number = getIndexByKey(key);
-        if (index !== -1) {
-          vnode.el = stack[index].vnode.el;
-          vnode.component = stack[index].vnode.component;
 
-          // avoid vnode being mounted as fresh
+        if (index !== -1) {
           vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
 
           // destroy the instances that will be spliced
@@ -264,6 +231,8 @@ const VuePageStack = (keyName: string): any => {
             stack[i] = null;
           }
           stack.splice(index + 1);
+          vnode.component = stack[index].vnode.component;
+          vnode.el = stack[index].vnode.el;
         } else {
           if (history.action === config.replaceName) {
             // destroy the instance
@@ -273,16 +242,13 @@ const VuePageStack = (keyName: string): any => {
           }
           stack.push({ key, vnode });
         }
-        // return vnode;
 
         // avoid vnode being unmounted
         vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
-
-        current = vnode;
-        return rawVNode;
+        return vnode;
       };
     },
-  };
+  });
 };
 
 function getStack() {
