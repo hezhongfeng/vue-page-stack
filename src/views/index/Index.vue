@@ -207,7 +207,7 @@
       <p class="version">v3.0.0</p>
     </div>
     <div class="form">
-      <van-button @click="onExperience" type="primary" block>开始</van-button>
+      <van-button @click="onExperience" type="primary" block>开始体验</van-button>
     </div>
   </div>
 </template>
@@ -221,7 +221,7 @@ export default defineComponent({
   setup: () => {
     const router = useRouter();
     const onExperience = () => {
-      router.push('/about');
+      router.push('/home');
     };
 
     return {
