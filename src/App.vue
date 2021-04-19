@@ -9,7 +9,7 @@
     </keep-alive>
   </router-view> -->
 
-  <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component }" class="router-view-c">
     <vue-page-stack>
       <component :is="Component" />
     </vue-page-stack>
@@ -25,10 +25,15 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   position: relative;
   height: 100%;
+  .router-view-c {
+    position: absolute;
+    transition: opacity 0.5s, transform 0.5s;
+    width: 100%;
+  }
 }
 </style>

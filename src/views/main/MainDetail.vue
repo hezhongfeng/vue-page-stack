@@ -1,86 +1,67 @@
 <template>
-  <div class="main-detail">
+  <div class="detail">
     <stack-header></stack-header>
-    <div class="p-scroll-wrap">
+    detail
+    <!-- <div class="p-scroll-wrap">
       <cube-scroll ref="scroll">
         <div class="desc-wrap">
-          <div class="desc">{{$t('detail.desc')}}</div>
+          <div class="desc">可以在下面的input中输入内容，然后push到下一页面</div>
         </div>
         <div class="form">
-          <cube-input v-model="textValue" :placeholder="$t('detail.placeholder')"></cube-input>
-          <cube-button @click="onPushSame">{{$t('detail.push.same')}}</cube-button>
-          <cube-button @click="onLogin">{{$t('detail.push.login')}}</cube-button>
-          <cube-button @click="onPush">{{$t('detail.push.list')}}</cube-button>
-          <cube-button @click="onReplace">{{$t('detail.replace')}}</cube-button>
-          <cube-button>{{$t('detail.currentPageNumber')}}{{' '+animatedNumber}}</cube-button>
+          <cube-input v-model="textValue" placeholder="输入一些信息"></cube-input>
+          <cube-button @click="onPushSame">Push到下一页</cube-button>
+          <cube-button @click="onLogin">Push到登录</cube-button>
+          <cube-button @click="onPush">Push到列表(可以缓存相同的页面)</cube-button>
+          <cube-button @click="onReplace">Replace当前页</cube-button>
+          <cube-button>当前页码{{ ' ' + animatedNumber }}</cube-button>
         </div>
       </cube-scroll>
-    </div>
+    </div> -->
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { useRouter } from 'vue-router';
 import StackHeader from '@/components/header/StackHeader.vue';
 import { TweenLite } from 'gsap/TweenMax';
+import { defineComponent, ref, computed } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'MainDetail',
   components: { StackHeader },
-  props: {},
-  data() {
+  setup: () => {
+    const textValue = ref('');
+    const router = useRouter();
+    const onBack = () => {
+      router.back();
+    };
+    const onLogin = () => {
+      router.push('/login');
+    };
+    const onReplace = () => {
+      router.replace('/main-detail/' + (Number(this.$route.params.id) + 1));
+    };
+    const onPushSame = () => {
+      router.push('/main-detail/' + (Number(this.$route.params.id) + 1));
+    };
+    const onPush = () => {
+      router.push('/home');
+    };
+
     return {
-      userName: '',
-      textValue: '',
-      pageIndex: 0
+      textValue,
+      onBack,
+      onLogin,
+      onReplace,
+      onPushSame,
+      onPush,
     };
   },
-  created() {
-    console.log('detail created');
-    TweenLite.to(this, 0.7, { pageIndex: Number(this.$route.params.id) });
-  },
-  mounted() {
-    console.log('detail mounted');
-  },
-  activated() {
-    console.log('detail activated');
-    if (window.sessionStorage.username) {
-      this.userName = window.sessionStorage.username;
-    }
-    if (this.textValue) {
-      this.textValue = this.textValue + ' + activated';
-    }
-  },
-  beforeRouteUpdate(to, from, next) {
-    TweenLite.to(this, 0.7, { pageIndex: Number(to.params.id) });
-    next();
-  },
-  computed: {
-    animatedNumber() {
-      return this.pageIndex.toFixed(1);
-    }
-  },
-  methods: {
-    back() {
-      this.$router.back();
-    },
-    onLogin() {
-      this.$router.push('/login');
-    },
-    onReplace() {
-      this.$router.replace('/main-detail/' + (Number(this.$route.params.id) + 1));
-    },
-    onPushSame() {
-      this.$router.push('/main-detail/' + (Number(this.$route.params.id) + 1));
-    },
-    onPush() {
-      this.$router.push('/home/0');
-    }
-  }
-};
+});
 </script>
 
 <style lang="scss">
-.main-detail {
+.detail {
   min-height: 100%;
   .p-scroll-wrap {
     height: calc(100% - 90px);

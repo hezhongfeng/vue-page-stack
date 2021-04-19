@@ -5,7 +5,7 @@
         <i @click="onBack" class="iconfont iconfanhui"></i>
       </slot>
     </div>
-    <h1>{{ title }}</h1>
+    <div class="h-title">{{ title }}</div>
     <div class="h-right">
       <slot name="h-right">
         <i @click="onForward" class="iconfont iconqianjin2"></i>
@@ -59,11 +59,10 @@ export default defineComponent({
   text-align: center;
   background-color: #fff;
   border-bottom: #e5e5e5 1px solid;
-  > h1 {
-    font-size: 20px;
+  > .h-title {
+    font-size: 18px;
     color: #5b5a67;
   }
-
   > .h-left {
     position: absolute;
     top: 0;
@@ -75,7 +74,6 @@ export default defineComponent({
       color: #5b5a67;
     }
   }
-
   > .h-right {
     position: absolute;
     top: 0;

@@ -2,73 +2,54 @@
   <div class="home">
     <div class="h-body">
       <van-tabs v-model:active="active">
-        <van-tab>
+        <van-tab name="0">
           <main-list />
         </van-tab>
-        <van-tab>
+        <van-tab name="1">
           <about />
         </van-tab>
       </van-tabs>
     </div>
     <div class="tabbars">
       <van-tabbar v-model="active">
-        <van-tabbar-item icon="home-o">Home</van-tabbar-item>
-        <van-tabbar-item icon="search">关于</van-tabbar-item>
+        <van-tabbar-item name="0"
+          >Home
+          <template #icon>
+            <i class="iconfont iconhome_fill_light" v-if="active === '0'"></i>
+            <i class="iconfont iconhome_light" v-else></i>
+          </template>
+        </van-tabbar-item>
+        <van-tabbar-item name="1"
+          >关于
+          <template #icon>
+            <i class="iconfont iconmy_light" v-if="active === '0'"></i>
+            <i class="iconfont iconmy_fill_light" v-else></i>
+          </template>
+        </van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import MainList from '@/views/main/MainList.vue';
 import About from '@/views/about/About.vue';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onActivated, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'Home',
   components: { About, MainList },
-  props: {},
-  // data() {
-  //   return {
-  //     selectedIndex: '0',
-  //   };
-  // },
-  // computed: {
-  //   tabs() {
-  //     return [
-  //       {
-  //         value: '0',
-  //         label: this.$t('home'),
-  //         icon:
-  //           'iconfont ' + (this.selectedIndex === '0' ? 'iconhome_fill_light' : 'iconhome_light'),
-  //       },
-  //       {
-  //         value: '1',
-  //         label: this.$t('about'),
-  //         icon: 'iconfont ' + (this.selectedIndex === '1' ? 'iconmy_fill_light' : 'iconmy_light'),
-  //       },
-  //     ];
-  //   },
-  // },
-  // watch: {
-  //   $route(to, from) {
-  //     console.log('$route change');
-  //   },
-  // },
-  // beforeRouteUpdate(to, from, next) {
-  //   console.log('beforeRouteUpdate');
-  //   next();
-  // },
-  // created() {
-  //   console.log('Home created');
-  //   this.selectedIndex = this.$route.params.tab || '0';
-  // },
-  // activated() {
-  //   console.log('Home activated');
-  // },
+  beforeRouteUpdate() {
+    console.log('beforeRouteUpdate');
+  },
   setup: () => {
-    const active = ref(2);
+    const active = ref('0');
+
+    onActivated(() => {
+      console.log('Home activated');
+    });
+
     return {
       active,
     };
@@ -77,6 +58,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import url('@/common/style/color.scss');
 .home {
   height: 100%;
   .h-body {
@@ -85,8 +67,11 @@ export default defineComponent({
       display: none;
     }
   }
-  .h-tabbars {
+  .tabbars {
     height: 50px;
+    .van-tabbar-item--active {
+      color: #41b883;
+    }
   }
 }
 </style>

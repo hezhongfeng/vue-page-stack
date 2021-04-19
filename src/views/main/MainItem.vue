@@ -6,45 +6,43 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, ref, computed } from 'vue';
+
+export default defineComponent({
   name: 'MainItem',
-  components: {},
   props: {
     index: {
-      type: Number
+      type: Number,
     },
     item: {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
-  data() {
+  setup: (props, ctx) => {
+    const isAnimationend = ref(false);
+    const styleObject = computed(() => {
+      return {
+        'background-color': props.item.background || '',
+        animation: isAnimationend ? 'none' : 'show ' + ((props.index + 1) * 0.2 + 0.1) + 's 1',
+      };
+    });
+    const onClick = () => {
+      ctx.emit('click');
+    };
+    const animationend = () => {
+      isAnimationend = true;
+    };
     return {
-      isAnimationend: false
+      onClick,
+      animationend,
+      styleObject,
     };
   },
-  computed: {
-    styleObject() {
-      return {
-        'background-color': this.item.background || '',
-        animation: this.isAnimationend ? 'none' : 'show ' + ((this.index + 1) * 0.2 + 0.1) + 's 1'
-      };
-    }
-  },
-  watch: {},
-  created() {},
-  methods: {
-    onClick() {
-      this.$emit('click');
-    },
-    animationend() {
-      this.isAnimationend = true;
-    }
-  }
-};
+});
 </script>
 
 <style lang="scss">
