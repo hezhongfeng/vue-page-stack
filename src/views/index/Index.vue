@@ -267,6 +267,10 @@ export default defineComponent({
   .form {
     margin: 10px;
     padding-top: 80px;
+    .van-button {
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
   }
   .change-language {
     padding: 10px;

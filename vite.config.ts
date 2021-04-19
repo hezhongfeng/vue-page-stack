@@ -11,6 +11,14 @@ export default defineConfig({
       name: 'VuePageStack',
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // scss变量
+        additionalData: '@import "@/common/style/color.scss";',
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'), // 设置 `@` 指向 `src` 目录

@@ -58,7 +58,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import url('@/common/style/color.scss');
 .home {
   height: 100%;
   .h-body {
@@ -70,7 +69,7 @@ export default defineComponent({
   .tabbars {
     height: 50px;
     .van-tabbar-item--active {
-      color: #41b883;
+      color: $color-primary;
     }
   }
 }
