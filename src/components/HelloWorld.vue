@@ -24,7 +24,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="postcss">
+<style lang="scss">
 .ppp {
   color: aquamarine;
 }
