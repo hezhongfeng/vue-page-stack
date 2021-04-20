@@ -17,6 +17,7 @@
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.4.1",
     "@vuedx/typescript-plugin-vue": "^0.4.1",
+    "better-scroll": "^2.3.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^4.3.8",

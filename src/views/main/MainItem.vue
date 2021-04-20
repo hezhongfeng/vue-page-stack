@@ -34,7 +34,7 @@ export default defineComponent({
       ctx.emit('click');
     };
     const animationend = () => {
-      isAnimationend = true;
+      isAnimationend.value = true;
     };
     return {
       onClick,
