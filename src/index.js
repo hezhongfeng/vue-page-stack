@@ -9,18 +9,24 @@ function hasKey(query, keyName) {
 
 function getKey(src) {
   return src.replace(/[xy]/g, function(c) {
-    let r = (Math.random() * 16) | 0;
-    let v = c === 'x' ? r : (r & 0x3) | 0x8;
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
 
 const VuePageStackPlugin = {};
 
-VuePageStackPlugin.install = function(Vue, { router, name = config.componentName, keyName = config.keyName }) {
+VuePageStackPlugin.install = function(Vue, {
+  router,
+  name = config.componentName,
+  keyName = config.keyName,
+  keepQuery = [], // 全局参数
+}) {
   if (!router) {
     throw Error('\n vue-router is necessary. \n\n');
   }
+  config.keyName = keyName;
   Vue.component(name, VuePageStack(keyName));
 
   Vue.prototype.$pageStack = {
@@ -32,7 +38,17 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
   function beforeEach(to, from, next) {
     if (!hasKey(to.query, keyName)) {
       to.query[keyName] = getKey('xxxxxxxx');
-      let replace = history.action === config.replaceName || !hasKey(from.query, keyName);
+      const replace = history.action === config.replaceName || !hasKey(from.query, keyName);
+      // keep 参数 特殊参数向下传递
+      keepQuery.forEach(q => {
+        if (from.query[q] !== undefined && to.query[q] === undefined) {
+          to.query[q] = from.query[q];
+        }
+      });
+      if (replace) {
+        // 自替换 只修改query，不修改path的replace
+        history.isSelfReplace = to.name === from.name;
+      }
       next({
         hash: to.hash,
         path: to.path,
@@ -43,7 +59,7 @@ VuePageStackPlugin.install = function(Vue, { router, name = config.componentName
         replace: replace
       });
     } else {
-      let index = getIndexByKey(to.query[keyName]);
+      const index = getIndexByKey(to.query[keyName]);
       if (index === -1) {
         to.params[keyName + '-dir'] = config.forwardName;
       } else {

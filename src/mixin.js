@@ -1,7 +1,22 @@
 import history from './history';
 import config from './config/config';
 
-let eventRegister = function(router) {
+function removeKey(location) {
+  if (!location) {
+    return location;
+  }
+  if (typeof location === 'string') {
+    return location;
+  } 
+  if (typeof location === 'object') {
+    const query = location.query;
+    if (query && query[config.keyName]) {
+      delete query[config.keyName];
+    }
+  }
+}
+
+const eventRegister = function(router) {
   const routerPush = router.push.bind(router);
   const routerGo = router.go.bind(router);
   const routerReplace = router.replace.bind(router);
@@ -10,6 +25,7 @@ let eventRegister = function(router) {
 
   router.push = (location, onResolve, onReject) => {
     history.action = config.pushName;
+    removeKey(location);
     if (onResolve || onReject) {
       return routerPush(location, onResolve, onReject);
     }
@@ -23,6 +39,7 @@ let eventRegister = function(router) {
 
   router.replace = (location, onResolve, onReject) => {
     history.action = config.replaceName;
+    removeKey(location);
     if (onResolve || onReject) {
       return routerReplace(location, onResolve, onReject);
     }

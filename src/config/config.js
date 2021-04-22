@@ -5,5 +5,6 @@ export default {
   goName: 'go',
   replaceName: 'replace',
   backName: 'back',
-  forwardName: 'forward'
+  forwardName: 'forward',
+  none: 'none',
 };
