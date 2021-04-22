@@ -1,7 +1,8 @@
 <template>
   <div class="main-list">
     <stack-header></stack-header>
-    <div ref="scrollViewInstance" class="bs-wrapper">
+    <div ref="bsView" class="bs-wrapper">
+      <!-- 这里必须有一个content包着 -->
       <div class="scroll-content">
         <main-item
           v-for="(item, index) in list"
@@ -35,20 +36,18 @@ export default defineComponent({
     setTimeout(() => {
       list.value = data.mainList;
     }, 20);
-    const scrollViewInstance = ref<HTMLDivElement | null>(null);
-    const scrollInstance = ref<BScroll | null>(null);
+    const bsView = ref<HTMLDivElement | null>(null);
     onMounted(() => {
       setTimeout(() => {
-        scrollInstance.value = new BScroll(scrollViewInstance.value, {
-          click: true,
+        new BScroll(bsView.value, {
           scrollY: true,
+          click: true,
         });
       }, 100);
     });
 
     return {
-      scrollInstance,
-      scrollViewInstance,
+      bsView,
       list,
       onClick,
     };
@@ -58,11 +57,10 @@ export default defineComponent({
 
 <style lang="scss">
 .main-list {
-  height: calc(100% - 45px);
+  height: calc(100vh - 50px);
   .bs-wrapper {
-    height: 500px;
+    height: calc(100% - 45px);
     overflow: hidden;
-    position: relative;
   }
 }
 </style>

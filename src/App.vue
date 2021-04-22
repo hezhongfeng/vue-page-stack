@@ -9,7 +9,7 @@
     </keep-alive>
   </router-view> -->
 
-  <router-view v-slot="{ Component }" class="router-view-c">
+  <router-view v-slot="{ Component }" :key="$route.fullPath" class="router-view-c">
     <vue-page-stack>
       <component :is="Component" />
     </vue-page-stack>

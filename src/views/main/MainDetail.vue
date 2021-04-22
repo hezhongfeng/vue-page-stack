@@ -1,60 +1,56 @@
 <template>
   <div class="detail">
     <stack-header></stack-header>
-    detail
-    <!-- <div class="p-scroll-wrap">
-      <cube-scroll ref="scroll">
-        <div class="desc-wrap">
-          <div class="desc">可以在下面的input中输入内容，然后push到下一页面</div>
-        </div>
-        <div class="form">
-          <cube-input v-model="textValue" placeholder="输入一些信息"></cube-input>
-          <cube-button @click="onPushSame">Push到下一页</cube-button>
-          <cube-button @click="onLogin">Push到登录</cube-button>
-          <cube-button @click="onPush">Push到列表(可以缓存相同的页面)</cube-button>
-          <cube-button @click="onReplace">Replace当前页</cube-button>
-          <cube-button>当前页码{{ ' ' + animatedNumber }}</cube-button>
-        </div>
-      </cube-scroll>
-    </div> -->
+    <div class="p-scroll-wrap">
+      <div class="desc-wrap">
+        <div class="desc">可以在下面的input中输入内容，然后push到下一页面</div>
+      </div>
+      <div class="form">
+        <van-field v-model="textValue" placeholder="输入一些信息"></van-field>
+        <van-button type="primary" block @click="onPushSame">Push到下一页</van-button>
+        <van-button type="primary" block @click="onPush">Push到列表(可以缓存相同的页面)</van-button>
+        <van-button type="primary" block @click="onReplace">Replace当前页</van-button>
+        <van-button type="primary" block disabled>当前页码{{ ' ' + id }}</van-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import StackHeader from '@/components/header/StackHeader.vue';
-import { TweenLite } from 'gsap/TweenMax';
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'MainDetail',
   components: { StackHeader },
   setup: () => {
+    console.log('setup');
+
     const textValue = ref('');
     const router = useRouter();
+    const route = useRoute();
     const onBack = () => {
       router.back();
     };
-    const onLogin = () => {
-      router.push('/login');
-    };
     const onReplace = () => {
-      router.replace('/main-detail/' + (Number(this.$route.params.id) + 1));
+      router.replace('/main-detail/' + (Number(route.params.id) + 1));
     };
     const onPushSame = () => {
-      router.push('/main-detail/' + (Number(this.$route.params.id) + 1));
+      router.push('/main-detail/' + (Number(route.params.id) + 1));
     };
     const onPush = () => {
       router.push('/home');
     };
+    const id = route.params.id;
 
     return {
       textValue,
       onBack,
-      onLogin,
       onReplace,
       onPushSame,
       onPush,
+      id,
     };
   },
 });
@@ -74,10 +70,10 @@ export default defineComponent({
   }
   .form {
     padding: 0 10px 10px 10px;
-    .cube-input {
+    .van-field {
       margin-bottom: 10px;
     }
-    .cube-btn {
+    .van-button {
       margin-bottom: 10px;
     }
   }
