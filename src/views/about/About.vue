@@ -198,7 +198,7 @@
         </g>
       </svg>
       <div class="package">
-        <div class="version">v1.0.0</div>
+        <div class="version">v3.0.0</div>
         <div class="auther">Author: hezf</div>
       </div>
     </div>

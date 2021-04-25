@@ -27,7 +27,7 @@ export default defineComponent({
     const styleObject = computed(() => {
       return {
         'background-color': props.item.background || '',
-        animation: isAnimationend ? 'none' : 'show ' + ((props.index + 1) * 0.2 + 0.1) + 's 1',
+        animation: isAnimationend.value ? 'none' : 'show ' + ((props.index + 1) * 0.2 + 0.1) + 's 1',
       };
     });
     const onClick = () => {
