@@ -7,4 +7,4 @@ import VuePageStack from './lib/index';
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
-createApp(App).use(VuePageStack, { router }).use(router).use(store, key).use(Vant).mount('#app');
+createApp(App).use(router).use(VuePageStack, { router }).use(store, key).use(Vant).mount('#app');

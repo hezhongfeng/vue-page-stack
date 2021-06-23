@@ -90,6 +90,17 @@ function invokeVNodeHook(
   callWithAsyncErrorHandling(hook, instance, 7, [vnode, prevVNode]);
 }
 
+function setTransitionHooks(vnode: VNode, hooks: any) {
+  if (vnode.shapeFlag & ShapeFlags.COMPONENT && vnode.component) {
+    setTransitionHooks(vnode.component.subTree, hooks);
+  } else if (__FEATURE_SUSPENSE__ && vnode.shapeFlag & ShapeFlags.SUSPENSE) {
+    vnode.ssContent!.transition = hooks.clone(vnode.ssContent!);
+    vnode.ssFallback!.transition = hooks.clone(vnode.ssFallback!);
+  } else {
+    vnode.transition = hooks;
+  }
+}
+
 type KeepAliveContext = {
   renderer: any;
   activate: (
@@ -105,16 +116,19 @@ type KeepAliveContext = {
 const VuePageStack = (keyName: string): any => {
   return defineComponent({
     name: config.componentName,
-    inheritRef: true,
     __isKeepAlive: true,
     setup(props, { slots }: SetupContext) {
       const instance = getCurrentInstance()! as any;
 
+      console.log(123);
+
+      // console.log(instance);
+
       const sharedContext = instance.ctx as KeepAliveContext;
 
-      const cache = new Map();
-      const keys: Keys = new Set();
-      let current: VNode | null = null;
+      if (!sharedContext.renderer) {
+        return slots.default;
+      }
 
       const parentSuspense = instance.suspense;
 
@@ -140,7 +154,7 @@ const VuePageStack = (keyName: string): any => {
           instance,
           parentSuspense,
           isSVG,
-          (vnode as any).slotScopeIds,
+          vnode.slotScopeIds,
           optimized
         );
         queueEffectWithSuspense(() => {
@@ -175,19 +189,27 @@ const VuePageStack = (keyName: string): any => {
         _unmount(vnode, instance, parentSuspense);
       }
 
+      let key: any;
+      onMounted(() => {
+        stack.push({ key, vnode: getInnerChild(instance.subTree) });
+      });
+      onUpdated(() => {
+        stack.find(item => item.key === key).vnode = getInnerChild(instance.subTree);
+      });
+
       onBeforeUnmount(() => {
-        cache.forEach(cached => {
+        stack.forEach(({ key, vnode }) => {
           const { subTree, suspense } = instance;
-          const vnode = getInnerChild(subTree);
-          if (cached.type === vnode.type) {
+          const currentVnode = getInnerChild(subTree);
+          if (vnode.type === currentVnode.type) {
             // current instance will be unmounted as part of keep-alive's unmount
-            resetShapeFlag(vnode);
+            resetShapeFlag(currentVnode);
             // but invoke its deactivated hook here
-            const da = (vnode.component! as any).da;
+            const da = (currentVnode.component! as any).da;
             da && queueEffectWithSuspense(da, suspense);
             return;
           }
-          unmount(cached);
+          unmount(vnode);
         });
       });
 
@@ -219,20 +241,26 @@ const VuePageStack = (keyName: string): any => {
         }
 
         const route = useRoute();
-        const key: any = route.query[keyName];
+        key = route.query[keyName];
         const index: number = getIndexByKey(key);
 
         if (index !== -1) {
+          vnode.component = stack[index].vnode.component;
+          vnode.el = stack[index].vnode.el;
+
+          if (vnode.transition) {
+            // recursively update transition hooks on subTree
+            setTransitionHooks(vnode, vnode.transition!);
+          }
+
           vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
 
           // destroy the instances that will be spliced
           for (let i = index + 1; i < stack.length; i++) {
-            unmount(stack[i]);
+            // unmount(stack[i]);
             stack[i] = null;
           }
           stack.splice(index + 1);
-          vnode.component = stack[index].vnode.component;
-          vnode.el = stack[index].vnode.el;
         } else {
           if (history.action === config.replaceName) {
             // destroy the instance
@@ -240,12 +268,12 @@ const VuePageStack = (keyName: string): any => {
             stack[stack.length - 1] = null;
             stack.splice(stack.length - 1);
           }
-          stack.push({ key, vnode });
         }
 
         // avoid vnode being unmounted
         vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
-        return vnode;
+
+        return rawVNode;
       };
     },
   });
