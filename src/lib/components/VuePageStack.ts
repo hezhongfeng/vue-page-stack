@@ -1,5 +1,6 @@
 import history from '../history';
 import config from '../config/config';
+const __FEATURE_SUSPENSE__ = true;
 import {
   callWithAsyncErrorHandling,
   ComponentInternalInstance,
@@ -120,10 +121,6 @@ const VuePageStack = (keyName: string): any => {
     setup(props, { slots }: SetupContext) {
       const instance = getCurrentInstance()! as any;
 
-      console.log(123);
-
-      // console.log(instance);
-
       const sharedContext = instance.ctx as KeepAliveContext;
 
       if (!sharedContext.renderer) {
@@ -190,14 +187,37 @@ const VuePageStack = (keyName: string): any => {
       }
 
       let key: any;
+
+      const cacheSubtree = () => {
+        if (key) {
+          // 更新的时候，删除旧的 vnode ，存储更新的 vnode
+          if (stack.some(item => item.key === key)) {
+            const index: number = getIndexByKey(key);
+            stack.splice(index);
+          }
+          stack.push({ key, vnode: getInnerChild(instance.subTree) });
+        }
+      };
+
       onMounted(() => {
-        stack.push({ key, vnode: getInnerChild(instance.subTree) });
+        console.log('onMounted');
+        cacheSubtree();
+        console.log(stack);
       });
+
       onUpdated(() => {
-        stack.find(item => item.key === key).vnode = getInnerChild(instance.subTree);
+        console.log('onUpdated');
+        cacheSubtree();
+        console.log(stack);
+        setTimeout(() => {
+          console.log(stack);
+        }, 2000);
+        // stack.find(item => item.key === key).vnode = getInnerChild(instance.subTree);
       });
 
       onBeforeUnmount(() => {
+        console.log('onBeforeUnmount');
+
         stack.forEach(({ key, vnode }) => {
           const { subTree, suspense } = instance;
           const currentVnode = getInnerChild(subTree);
@@ -214,12 +234,20 @@ const VuePageStack = (keyName: string): any => {
       });
 
       return () => {
+        console.log('进入 return 函数');
+
         if (!slots.default) {
+          console.log(230);
           return null;
         }
 
         const children = slots.default();
         const rawVNode = children[0];
+
+        const route = useRoute();
+        key = route.query[keyName];
+        console.log(258, key);
+
         if (children.length > 1) {
           return children;
         } else if (
@@ -227,6 +255,7 @@ const VuePageStack = (keyName: string): any => {
           (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) &&
             !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))
         ) {
+          console.log(243);
           return rawVNode;
         }
 
@@ -240,13 +269,13 @@ const VuePageStack = (keyName: string): any => {
           }
         }
 
-        const route = useRoute();
-        key = route.query[keyName];
         const index: number = getIndexByKey(key);
 
+        console.log('命中缓存', stack);
+
         if (index !== -1) {
-          vnode.component = stack[index].vnode.component;
           vnode.el = stack[index].vnode.el;
+          vnode.component = stack[index].vnode.component;
 
           if (vnode.transition) {
             // recursively update transition hooks on subTree
@@ -272,6 +301,7 @@ const VuePageStack = (keyName: string): any => {
 
         // avoid vnode being unmounted
         vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
+        console.log(292);
 
         return rawVNode;
       };

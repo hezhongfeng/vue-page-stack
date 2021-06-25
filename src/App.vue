@@ -9,17 +9,9 @@
 
   <!-- <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
-      <vue-page-stack>
+      <keep-alive>
         <component :is="Component" :key="$route.fullPath"></component>
-      </vue-page-stack>
-    </transition>
-  </router-view> -->
-
-  <!-- <router-view v-slot="{ Component }">
-    <transition name="fade" mode="out-in">
-      <keep-alive-test>
-        <component :is="Component" :key="$route.fullPath"></component>
-      </keep-alive-test>
+      </keep-alive>
     </transition>
   </router-view> -->
 
@@ -30,22 +22,48 @@
       </keep-alive>
     </transition>
   </router-view> -->
-  
-  <router-view v-slot="{ Component }">
+
+  <!-- <router-view v-slot="{ Component }">
     <transition>
       <vue-page-stack>
-        <component :is="Component" />
+        <component :is="Component"></component>
       </vue-page-stack>
     </transition>
-  </router-view>
+  </router-view> -->
 
-  <!-- <transition name="fade" mode="out-in">
+  <!-- <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component"></component>
+      </keep-alive>
+  </router-view> -->
+
+  <!-- <router-view v-slot="{ Component }">
+    <vue-page-stack>
+      <component :is="Component"></component>
+    </vue-page-stack>
+  </router-view> -->
+
+  <!-- <router-view v-slot="{ Component }">
+    <vue-page-stack>
+      <component :is="Component" :key="$route.fullPath"></component>
+    </vue-page-stack>
+  </router-view> -->
+
+  <!-- <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <vue-page-stack>
+        <component :is="Component" :key="$route.fullPath"></component>
+      </vue-page-stack>
+    </transition>
+  </router-view> -->
+
+  <transition name="fade" mode="out-in">
     <router-view v-slot="{ Component }">
       <vue-page-stack>
         <component :is="Component" :key="$route.fullPath" />
       </vue-page-stack>
     </router-view>
-  </transition> -->
+  </transition>
 </template>
 
 <script lang="ts">
