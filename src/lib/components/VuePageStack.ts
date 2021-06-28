@@ -17,6 +17,8 @@ import {
   isVNode,
   SuspenseBoundary,
   queuePostFlushCb,
+  ComponentOptions,
+  VNodeProps,
 } from 'vue';
 import { isArray, invokeArrayFns } from '@vue/shared';
 import { useRoute } from 'vue-router';
@@ -119,6 +121,8 @@ const VuePageStack = (keyName: string): any => {
     name: config.componentName,
     __isKeepAlive: true,
     setup(props, { slots }: SetupContext) {
+      console.log('setup');
+
       const instance = getCurrentInstance()! as any;
 
       const sharedContext = instance.ctx as KeepAliveContext;
@@ -271,14 +275,16 @@ const VuePageStack = (keyName: string): any => {
 
         const index: number = getIndexByKey(key);
 
-        console.log('命中缓存', stack);
-
+        console.log(274);
         if (index !== -1) {
+          console.log('命中缓存', stack);
           vnode.el = stack[index].vnode.el;
           vnode.component = stack[index].vnode.component;
 
           if (vnode.transition) {
             // recursively update transition hooks on subTree
+            console.log(282);
+
             setTransitionHooks(vnode, vnode.transition!);
           }
 
@@ -286,7 +292,7 @@ const VuePageStack = (keyName: string): any => {
 
           // destroy the instances that will be spliced
           for (let i = index + 1; i < stack.length; i++) {
-            // unmount(stack[i]);
+            unmount(stack[i]);
             stack[i] = null;
           }
           stack.splice(index + 1);

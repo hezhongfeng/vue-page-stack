@@ -1,12 +1,4 @@
 <template>
-  <!-- <router-view v-slot="{ Component }" :key="$route.fullPath">
-    <vue-page-stack>
-      <transition name="forward">
-        <component :is="Component" />
-      </transition>
-    </vue-page-stack>
-  </router-view> -->
-
   <!-- <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <keep-alive>
@@ -15,55 +7,13 @@
     </transition>
   </router-view> -->
 
-  <!-- <router-view v-slot="{ Component }">
-    <transition>
-      <keep-alive>
-        <component :is="Component"></component>
-      </keep-alive>
-    </transition>
-  </router-view> -->
-
-  <!-- <router-view v-slot="{ Component }">
-    <transition>
-      <vue-page-stack>
-        <component :is="Component"></component>
-      </vue-page-stack>
-    </transition>
-  </router-view> -->
-
-  <!-- <router-view v-slot="{ Component }">
-      <keep-alive>
-        <component :is="Component"></component>
-      </keep-alive>
-  </router-view> -->
-
-  <!-- <router-view v-slot="{ Component }">
-    <vue-page-stack>
-      <component :is="Component"></component>
-    </vue-page-stack>
-  </router-view> -->
-
-  <!-- <router-view v-slot="{ Component }">
-    <vue-page-stack>
-      <component :is="Component" :key="$route.fullPath"></component>
-    </vue-page-stack>
-  </router-view> -->
-
-  <!-- <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
-      <vue-page-stack>
+      <k-keep-alive>
         <component :is="Component" :key="$route.fullPath"></component>
-      </vue-page-stack>
+      </k-keep-alive>
     </transition>
-  </router-view> -->
-
-  <transition name="fade" mode="out-in">
-    <router-view v-slot="{ Component }">
-      <vue-page-stack>
-        <component :is="Component" :key="$route.fullPath" />
-      </vue-page-stack>
-    </router-view>
-  </transition>
+  </router-view>
 </template>
 
 <script lang="ts">
