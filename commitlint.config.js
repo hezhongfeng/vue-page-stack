@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
-  extends: ['@commitlint/config-angular']
+  extends: ['git-commit-emoji', 'cz']
 };
