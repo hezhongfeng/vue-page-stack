@@ -1,4 +1,4 @@
-import { VuePageStack, getIndexByKey, getStack } from './components/VuePageStack';
+import { VuePageStack, getIndexByKey, getStack } from './components/VuePageStack.js';
 import mixin from './mixin';
 import history from './history';
 import config from './config/config';

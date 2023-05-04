@@ -1,7 +1,15 @@
 <template>
   <router-view v-slot="{ Component }">
-    <keep-alive>
+    <!-- <keep-alive>
       <component :is="Component" :key="$route.fullPath"></component>
-    </keep-alive>
+    </keep-alive> -->
+
+    <vue-page-stack>
+      <component :is="Component" :key="$route.fullPath"></component>
+    </vue-page-stack>
   </router-view>
 </template>
+
+<script setup></script>
+
+<style lang="scss" scoped></style>
