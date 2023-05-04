@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
-    Home
+  <div class="step">
+    Step
     <input type="text" v-model="text" />
-    <router-link to="/step">Go to Step</router-link>
+    <router-link to="/">Go to Home</router-link>
   </div>
 </template>
 
@@ -13,6 +13,6 @@ const text = ref('');
 </script>
 
 <style lang="scss">
-.home {
+.step {
 }
 </style>
