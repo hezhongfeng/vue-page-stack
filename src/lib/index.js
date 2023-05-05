@@ -1,5 +1,5 @@
-import { VuePageStack, getIndexByKey, getStack } from './components/VuePageStack.js';
-import mixin from './mixin';
+import { VuePageStack, getIndexByKey } from './components/VuePageStack.js';
+// import mixin from './mixin';
 import history from './history';
 import config from './config/config';
 
@@ -9,9 +9,7 @@ function hasKey(query, keyName) {
 
 function getKey(str) {
   return str.replace(/[xy]/g, c => {
-    // tslint:disable-next-line: no-bitwise
     const r = (Math.random() * 16) | 0;
-    // tslint:disable-next-line: no-bitwise
     const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
@@ -24,11 +22,12 @@ const VuePageStackPlugin = {
     }
     app.component(name, VuePageStack(keyName));
 
-    app.$pageStack = {
-      getStack
-    };
-    mixin(router);
+    // app.$pageStack = {
+    //   getStack
+    // };
+    // mixin(router);
     router.beforeEach((to, from) => {
+      console.log('beforeEach');
       if (!hasKey(to.query, keyName)) {
         to.query[keyName] = getKey('xxxxxxxx');
         const replace = history.action === config.replaceName || !hasKey(from.query, keyName);
@@ -43,6 +42,7 @@ const VuePageStackPlugin = {
         };
       } else {
         const index = getIndexByKey(to.query[keyName]);
+        // console.log(index);
         if (index === -1) {
           to.params[keyName + '-dir'] = config.forwardName;
           console.log('前进');
