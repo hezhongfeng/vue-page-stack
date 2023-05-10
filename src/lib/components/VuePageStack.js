@@ -1,5 +1,5 @@
 // import history from '../history';
-// import config from '../config/config';
+import config from '../config/config';
 import {
   callWithAsyncErrorHandling,
   defineComponent,
@@ -7,10 +7,9 @@ import {
   onBeforeUnmount,
   onMounted,
   onUpdated,
-  // cloneVNode,
+  cloneVNode,
   isVNode,
-  queuePostFlushCb,
-  cloneVNode
+  queuePostFlushCb
 } from 'vue';
 
 import { useRoute } from 'vue-router';
@@ -24,40 +23,6 @@ const invokeArrayFns = (fns, arg) => {
 function invokeVNodeHook(hook, instance, vnode, prevVNode) {
   callWithAsyncErrorHandling(hook, instance, ErrorCodes.VNODE_HOOK, [vnode, prevVNode]);
 }
-
-// const isSuspense = type => type.__isSuspense;
-
-// const isAsyncWrapper = i => !!i.type.__asyncLoader;
-
-// const isArray = Array.isArray;
-
-// const isString = val => typeof val === 'string';
-
-// const objectToString = Object.prototype.toString;
-
-// const toTypeString = value => objectToString.call(value);
-
-// const isRegExp = val => toTypeString(val) === '[object RegExp]';
-
-// const isFunction = val => typeof val === 'function';
-
-// function getComponentName(Component, includeInferred = true) {
-//   return isFunction(Component)
-//     ? Component.displayName || Component.name
-//     : Component.name || (includeInferred && Component.__name);
-// }
-
-// function matches(pattern, name) {
-//   if (isArray(pattern)) {
-//     return pattern.some(p => matches(p, name));
-//   } else if (isString(pattern)) {
-//     return pattern.split(',').includes(name);
-//   } else if (isRegExp(pattern)) {
-//     return pattern.test(name);
-//   }
-//   /* istanbul ignore next */
-//   return false;
-// }
 
 export const MoveType = {
   ENTER: 0,
@@ -112,7 +77,7 @@ function getIndexByKey(key) {
 
 const VuePageStack = keyName => {
   return defineComponent({
-    name: 'vue-page-stack',
+    name: config.componentName,
     __isKeepAlive: true,
     setup(props, { slots }) {
       console.log('VuePageStack setup');
@@ -218,20 +183,13 @@ const VuePageStack = keyName => {
 
         // 这里会提前return
         if (children.length > 1) {
-          // current = null;
           return children;
         } else if (
           !isVNode(rawVNode) ||
           (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))
         ) {
-          // current = null;
-          console.log(
-            'else if (!isVNode(rawVNode) || (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))'
-          );
           return rawVNode;
         }
-
-        console.log(233);
 
         let vnode = getInnerChild(rawVNode);
 
@@ -241,7 +199,6 @@ const VuePageStack = keyName => {
             rawVNode.ssContent = vnode;
           }
         }
-        // console.log(rawVNode);
         let index = getIndexByKey(key);
         if (index !== -1) {
           // vnode.componentInstance = stack[index].vnode.componentInstance;
