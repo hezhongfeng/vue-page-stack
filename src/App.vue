@@ -12,4 +12,8 @@
 
 <script setup></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+:root {
+  --van-primary-color: #41b883;
+}
+</style>

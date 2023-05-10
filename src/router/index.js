@@ -1,11 +1,19 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import Home from '../views/Home.vue';
-import Step from '../views/Step.vue';
+// import Home from '../views/Home.vue';
+// import Step from '../views/Step.vue';
+import Index from '../views/index/Index.vue';
+import Home from '../views/home/Home.vue';
+import MainDetail from '../views/main/MainDetail.vue';
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/step', component: Step }
+  { path: '/', component: Index },
+  { path: '/home/:tab', component: Home },
+  {
+    path: '/main-detail/:id',
+    component: MainDetail
+  },
+  // { path: '/step', component: Step }
 ];
 
 const router = createRouter({

@@ -11,7 +11,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{vue,js,ts,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore"
+    "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore"
   },
   "config": {
     "commitizen": {
@@ -19,6 +19,7 @@
     }
   },
   "dependencies": {
+    "vant": "^4.3.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
@@ -35,6 +36,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "sass": "^1.62.1",
+    "unplugin-vue-components": "^0.24.1",
     "vite": "^4.3.2"
   }
 }
