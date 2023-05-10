@@ -186,6 +186,7 @@ const VuePageStack = () => {
 
       function pruneCacheEntry(key) {
         const cached = cache.get(key);
+        console.log('pruneCacheEntry current', current);
         if (!current) {
           unmount(cached);
         } else if (current) {
@@ -200,9 +201,12 @@ const VuePageStack = () => {
       // cache sub tree after render
       let pendingCacheKey = null;
       const cacheSubtree = () => {
+        console.log('cacheSubtree');
         // fix #1621, the pendingCacheKey could be 0
         if (pendingCacheKey != null) {
+          console.log('pendingCacheKey != null');
           cache.set(pendingCacheKey, getInnerChild(instance.subTree));
+          console.log('cache', cache);
         }
       };
       onMounted(cacheSubtree);
@@ -225,9 +229,11 @@ const VuePageStack = () => {
       });
 
       return () => {
+        console.log('return');
         pendingCacheKey = null;
 
         if (!slots.default) {
+          console.log(232);
           return null;
         }
 
@@ -235,14 +241,20 @@ const VuePageStack = () => {
         const rawVNode = children[0];
         if (children.length > 1) {
           current = null;
+          console.log(240);
           return children;
         } else if (
           !isVNode(rawVNode) ||
           (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))
         ) {
           current = null;
+          console.log(
+            'else if (!isVNode(rawVNode) || (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))'
+          );
           return rawVNode;
         }
+
+        console.log(248);
 
         let vnode = getInnerChild(rawVNode);
         const comp = vnode.type;
@@ -255,6 +267,7 @@ const VuePageStack = () => {
 
         if ((include && (!name || !matches(include, name))) || (exclude && name && matches(exclude, name))) {
           current = vnode;
+          console.log(259);
           return rawVNode;
         }
 
@@ -294,6 +307,7 @@ const VuePageStack = () => {
           keys.add(key);
           // prune oldest entry
           if (max && keys.size > parseInt(max, 10)) {
+            console.log('max && keys.size > parseInt(max, 10)');
             pruneCacheEntry(keys.values().next().value);
           }
         }
@@ -301,6 +315,7 @@ const VuePageStack = () => {
         vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
 
         current = vnode;
+        console.log('isSuspense(rawVNode.type)', isSuspense(rawVNode.type));
         return isSuspense(rawVNode.type) ? rawVNode : vnode;
       };
     }

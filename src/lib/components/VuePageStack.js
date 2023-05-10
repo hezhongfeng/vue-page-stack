@@ -116,15 +116,8 @@ const VuePageStack = keyName => {
     __isKeepAlive: true,
     setup(props, { slots }) {
       console.log('VuePageStack setup');
-
-      // key = route.query[keyName];
-
       const instance = getCurrentInstance();
       const sharedContext = instance.ctx;
-
-      const cache = new Map();
-      // const keys = new Set();
-      // let current = null;
 
       const parentSuspense = instance.suspense;
 
@@ -177,22 +170,26 @@ const VuePageStack = keyName => {
       }
 
       // cache sub tree after render
-      let pendingCacheKey = null;
+      let pendingCacheKey = false;
       const cacheSubtree = () => {
+        console.log('cacheSubtree');
         // fix #1621, the pendingCacheKey could be 0
-        if (pendingCacheKey != null) {
-          cache.set(pendingCacheKey, getInnerChild(instance.subTree));
+        if (pendingCacheKey) {
+          console.log('pendingCacheKey');
+          stack.push({ key: pendingCacheKey, vnode: getInnerChild(instance.subTree) });
+          console.log(stack);
         }
       };
       onMounted(cacheSubtree);
       onUpdated(cacheSubtree);
 
+      // clear all cache
       onBeforeUnmount(() => {
-        cache.forEach(cached => {
+        console.log('onBeforeUnmount');
+        for (const cacheStack of stack) {
           const { subTree, suspense } = instance;
-          console.log(192);
           const vnode = getInnerChild(subTree);
-          if (cached.type === vnode.type && cached.key === vnode.key) {
+          if (cacheStack.vnode.type === vnode.type && cacheStack.key === vnode.key) {
             // current instance will be unmounted as part of keep-alive's unmount
             resetShapeFlag(vnode);
             // but invoke its deactivated hook here
@@ -200,8 +197,8 @@ const VuePageStack = keyName => {
             da && queuePostFlushCb(da, suspense);
             return;
           }
-          unmount(cached);
-        });
+          unmount(cacheStack.vnode);
+        }
       });
 
       return () => {
@@ -228,6 +225,9 @@ const VuePageStack = keyName => {
           (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))
         ) {
           // current = null;
+          console.log(
+            'else if (!isVNode(rawVNode) || (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))'
+          );
           return rawVNode;
         }
 
@@ -251,19 +251,6 @@ const VuePageStack = keyName => {
           vnode.component = cachedVNode.component;
           vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
 
-          // // copy over mounted state
-          // vnode.el = cachedVNode.el;
-          // vnode.component = cachedVNode.component;
-          // // if (vnode.transition) {
-          // //   // recursively update transition hooks on subTree
-          // //   setTransitionHooks(vnode, vnode.transition);
-          // // }
-          // // avoid vnode being mounted as fresh
-          // vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
-          // // make this key the freshest
-          // keys.delete(key);
-          // keys.add(key);
-
           // destroy the instances that will be spliced
           for (let i = index + 1; i < stack.length; i++) {
             // stack[i].vnode.componentInstance.$destroy();
@@ -274,18 +261,11 @@ const VuePageStack = keyName => {
           console.log(267);
           return vnode;
         } else {
-          console.log('else');
-          // if (history.action === config.replaceName) {
-          //   // destroy the instance
-          //   stack[stack.length - 1].vnode.componentInstance.$destroy();
-          //   stack[stack.length - 1] = null;
-          //   stack.splice(stack.length - 1);
-          // }
-
+          console.log('else 需要存储vnode');
           // 第一次没有subTree，第二次是有的，这两次的区别是什么
-          stack.push({ key, vnode: getInnerChild(instance.subTree) });
+
+          pendingCacheKey = key;
         }
-        console.log(stack);
 
         return rawVNode;
       };
