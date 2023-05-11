@@ -57,11 +57,6 @@ selectedIndex.value = route.params.tab || '0';
   height: 100%;
   .h-body {
     height: calc(100% - 50px);
-    .cube-tab-panels,
-    .cube-tab-panels-group,
-    .cube-tab-panel {
-      height: 100%;
-    }
   }
 }
 </style>

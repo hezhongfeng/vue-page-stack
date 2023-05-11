@@ -1,19 +1,23 @@
 <template>
   <div class="main-list">
-    <stack-header title="home"></stack-header>
-    <div>
-      <main-item
-        v-for="(item, index) in list"
-        :key="index"
-        :item="item"
-        :index="index"
-        @click="onClick(item)"
-      ></main-item>
+    <div style="height: 45px"></div>
+    <div class="scroll" ref="wrapper">
+      <div class="scroll-content">
+        <main-item
+          v-for="(item, index) in list"
+          :key="index"
+          :item="item"
+          :index="index"
+          @click="onClick(item)"
+        ></main-item>
+      </div>
     </div>
+    <stack-header title="home"></stack-header>
   </div>
 </template>
 
 <script setup>
+import BScroll from '@better-scroll/core';
 import { ref, onMounted, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import data from '../../utils/data';
@@ -24,17 +28,20 @@ const router = useRouter();
 
 const list = ref([]);
 
+const wrapper = ref(null);
+
 const onClick = item => {
   router.push('/main-detail/' + item.id);
 };
 const getList = () => {
-  setTimeout(() => {
-    list.value = data.mainList;
-  }, 200);
+  list.value = data.mainList;
 };
 
 onMounted(() => {
-  // console.log(this.$pageStack.getStack());
+  new BScroll(wrapper.value, {
+    click: true,
+    wheel: true
+  });
 });
 
 onActivated(() => {
@@ -46,6 +53,10 @@ getList();
 
 <style lang="scss">
 .main-list {
-  height: calc(100% - 45px);
+  height: 100%;
+  position: relative;
+  .scroll {
+    height: calc(100% - 70px);
+  }
 }
 </style>

@@ -203,12 +203,11 @@
       </div>
     </div>
     <div class="content">
-      <!-- <p class="explain">{{ $t('explain') }}</p> -->
+      <p class="explain">explain</p>
       <p class="version">v1.0.0</p>
     </div>
     <div class="form">
       <van-button type="primary" @click="onExperience" block>开始体验</van-button>
-      <!-- <cube-button @click="onExperience">开始体验</cube-button> -->
     </div>
   </div>
 </template>

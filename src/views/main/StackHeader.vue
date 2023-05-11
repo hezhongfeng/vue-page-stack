@@ -53,7 +53,8 @@ const onForward = () => {
   text-align: center;
   background-color: #fff;
   border-bottom: #e5e5e5 1px solid;
-  position: relative;
+  position: fixed;
+  top: 0;
   > h1 {
     font-size: 20px;
     color: #5b5a67;

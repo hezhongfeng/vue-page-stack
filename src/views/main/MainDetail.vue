@@ -80,9 +80,6 @@ const onPush = () => {
     .input {
       margin-bottom: 10px;
     }
-    .cube-btn {
-      margin-bottom: 10px;
-    }
   }
   .index {
     margin-top: 20vw;
