@@ -2,19 +2,17 @@
   <div class="main-detail">
     <stack-header></stack-header>
     <div class="p-scroll-wrap">
-      <cube-scroll ref="scroll">
-        <div class="desc-wrap">
-          <div class="desc">detail.desc</div>
-        </div>
-        <div class="form">
-          <cube-input v-model="textValue"></cube-input>
-          <van-button @click="onPushSame">detail.push.same</van-button>
-          <van-button @click="onLogin">detail.push.login</van-button>
-          <van-button @click="onPush">detail.push.list</van-button>
-          <van-button @click="onReplace">detail.replace</van-button>
-          <van-button>detail.currentPageNumber{{ ' ' + animatedNumber }}</van-button>
-        </div>
-      </cube-scroll>
+      <div class="desc-wrap">
+        <div class="desc">detail.desc</div>
+      </div>
+      <div class="form">
+        <van-field v-model="textValue" placeholder="顶部对齐" />
+        <van-button @click="onPushSame">detail.push.same</van-button>
+        <van-button @click="onLogin">detail.push.login</van-button>
+        <van-button @click="onPush">detail.push.list</van-button>
+        <van-button @click="onReplace">detail.replace</van-button>
+        <van-button>detail.currentPageNumber{{ ' ' + animatedNumber }}</van-button>
+      </div>
     </div>
   </div>
 </template>
@@ -51,9 +49,6 @@ const animatedNumber = computed(() => {
   return pageIndex.value.toFixed(1);
 });
 
-// const back = () => {
-//   router.back();
-// };
 const onLogin = () => {
   router.push('/login');
 };

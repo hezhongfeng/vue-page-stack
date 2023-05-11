@@ -1,6 +1,6 @@
 <template>
   <div class="main-list">
-    <stack-header :title="'home'"></stack-header>
+    <stack-header title="home"></stack-header>
     <div>
       <main-item
         v-for="(item, index) in list"

@@ -15,5 +15,10 @@
 <style lang="scss">
 :root {
   --van-primary-color: #41b883;
+  --van-font-size-md: 16px;
+}
+#app {
+  height: 100%;
+  background-color: rgb(247, 247, 250);
 }
 </style>

@@ -1,10 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-// import Home from '../views/Home.vue';
-// import Step from '../views/Step.vue';
 import Index from '../views/index/Index.vue';
 import Home from '../views/home/Home.vue';
 import MainDetail from '../views/main/MainDetail.vue';
+import Login from '../views/login/Login.vue';
 
 const routes = [
   { path: '/', component: Index },
@@ -13,7 +12,7 @@ const routes = [
     path: '/main-detail/:id',
     component: MainDetail
   },
-  // { path: '/step', component: Step }
+  { path: '/login', component: Login }
 ];
 
 const router = createRouter({

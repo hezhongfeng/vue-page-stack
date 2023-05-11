@@ -1,15 +1,11 @@
 <template>
   <header class="stack-header">
     <div class="h-left">
-      <slot name="h-left">
-        <i @click="onBack" class="iconfont iconfanhui"></i>
-      </slot>
+      <van-icon @click="onBack" size="20" name="arrow-left" />
     </div>
     <h1>{{ title }}</h1>
     <div class="h-right">
-      <slot name="h-right">
-        <i @click="onForward" class="iconfont iconqianjin2"></i>
-      </slot>
+      <van-icon @click="onForward" size="20" name="arrow" />
     </div>
   </header>
 </template>
@@ -30,7 +26,9 @@ const props = defineProps({
 const emit = defineEmits(['back', 'forward']);
 
 watch(
-  props.title,
+  () => {
+    return props.title;
+  },
   title => {
     window.document.title = title;
   },
@@ -55,9 +53,11 @@ const onForward = () => {
   text-align: center;
   background-color: #fff;
   border-bottom: #e5e5e5 1px solid;
+  position: relative;
   > h1 {
     font-size: 20px;
     color: #5b5a67;
+    margin: 0;
   }
 
   > .h-left {
@@ -66,10 +66,8 @@ const onForward = () => {
     left: 0;
     height: 44px;
     font-size: 16px;
-    .iconfont {
-      padding: 0 15px;
-      color: #5b5a67;
-    }
+    padding-left: 10px;
+    color: #5b5a67;
   }
 
   > .h-right {
@@ -77,14 +75,9 @@ const onForward = () => {
     top: 0;
     right: 0;
     height: 44px;
-    i {
-      font-size: 16px;
-      color: #a3a3a3;
-    }
     font-size: 16px;
-    color: #ccc;
     padding-right: 10px;
-    display: flex;
+    color: #5b5a67;
   }
 }
 </style>
