@@ -7,11 +7,11 @@
       </div>
       <div class="form">
         <van-field v-model="textValue" placeholder="顶部对齐" />
-        <van-button @click="onPushSame">detail.push.same</van-button>
-        <van-button @click="onLogin">detail.push.login</van-button>
-        <van-button @click="onPush">detail.push.list</van-button>
-        <van-button @click="onReplace">detail.replace</van-button>
-        <van-button>detail.currentPageNumber{{ ' ' + animatedNumber }}</van-button>
+        <van-button @click="onPushSame" type="primary" block>detail.push.same</van-button>
+        <van-button @click="onLogin" type="primary" block>detail.push.login</van-button>
+        <van-button @click="onPush" type="primary" block>detail.push.list</van-button>
+        <van-button @click="onReplace" type="primary" block>detail.replace</van-button>
+        <van-button type="primary" block>detail.currentPageNumber</van-button>
       </div>
     </div>
   </div>
@@ -45,6 +45,7 @@ onActivated(() => {
 
 onBeforeRouteUpdate(() => {});
 
+// eslint-disable-next-line no-unused-vars
 const animatedNumber = computed(() => {
   return pageIndex.value.toFixed(1);
 });
@@ -59,13 +60,14 @@ const onPushSame = () => {
   router.push('/main-detail/' + (Number(route.params.id) + 1));
 };
 const onPush = () => {
-  router.push('/home/0');
+  router.push('/home');
 };
 </script>
 
 <style lang="scss">
 .main-detail {
   min-height: 100%;
+  padding-top: 45px;
   .p-scroll-wrap {
     height: calc(100% - 90px);
   }
@@ -77,8 +79,8 @@ const onPush = () => {
   }
   .form {
     padding: 0 10px 10px 10px;
-    .input {
-      margin-bottom: 10px;
+    > * {
+      margin-top: 10px;
     }
   }
   .index {

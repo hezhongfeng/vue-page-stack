@@ -59,6 +59,7 @@ const onForward = () => {
     font-size: 20px;
     color: #5b5a67;
     margin: 0;
+    font-weight: 400;
   }
 
   > .h-left {

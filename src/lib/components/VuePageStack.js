@@ -131,7 +131,6 @@ const VuePageStack = keyName => {
         }, parentSuspense);
       };
 
-      // eslint-disable-next-line no-unused-vars
       function unmount(vnode) {
         // reset the shapeFlag so it can be properly unmounted
         resetShapeFlag(vnode);
@@ -158,7 +157,9 @@ const VuePageStack = keyName => {
 
       // clear all cache
       onBeforeUnmount(() => {
-        console.log('onBeforeUnmount');
+        for (const cachedStack of stack) {
+          unmount(cachedStack.vnode);
+        }
       });
 
       return () => {
@@ -207,7 +208,6 @@ const VuePageStack = keyName => {
 
           // destroy the instances that will be spliced
           for (let i = index + 1; i < stack.length; i++) {
-            // stack[i].vnode.componentInstance.$destroy();
             stack[i] = null;
           }
           stack.splice(index + 1);
