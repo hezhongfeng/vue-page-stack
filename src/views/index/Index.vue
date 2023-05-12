@@ -218,7 +218,8 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const onExperience = () => {
-  router.push('/home/0');
+  console.log('开始体验 onExperience');
+  router.push('/home');
 };
 </script>
 

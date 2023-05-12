@@ -1,4 +1,5 @@
 // import history from '../history';
+
 import config from '../config/config';
 import {
   callWithAsyncErrorHandling,
@@ -23,6 +24,8 @@ const invokeArrayFns = (fns, arg) => {
 function invokeVNodeHook(hook, instance, vnode, prevVNode) {
   callWithAsyncErrorHandling(hook, instance, ErrorCodes.VNODE_HOOK, [vnode, prevVNode]);
 }
+
+const isSuspense = type => type.__isSuspense;
 
 export const MoveType = {
   ENTER: 0,
@@ -66,14 +69,14 @@ function getInnerChild(vnode) {
 
 const stack = [];
 
-function getIndexByKey(key) {
+const getIndexByKey = key => {
   for (let index = 0; index < stack.length; index++) {
     if (stack[index].key === key) {
       return index;
     }
   }
   return -1;
-}
+};
 
 const VuePageStack = keyName => {
   return defineComponent({
@@ -128,6 +131,7 @@ const VuePageStack = keyName => {
         }, parentSuspense);
       };
 
+      // eslint-disable-next-line no-unused-vars
       function unmount(vnode) {
         // reset the shapeFlag so it can be properly unmounted
         resetShapeFlag(vnode);
@@ -135,14 +139,18 @@ const VuePageStack = keyName => {
       }
 
       // cache sub tree after render
-      let pendingCacheKey = false;
+      let pendingCacheKey = null;
+      let useCache = false;
+
       const cacheSubtree = () => {
-        console.log('cacheSubtree');
         // fix #1621, the pendingCacheKey could be 0
-        if (pendingCacheKey) {
-          console.log('pendingCacheKey');
-          stack.push({ key: pendingCacheKey, vnode: getInnerChild(instance.subTree) });
-          console.log(stack);
+        console.log('cacheSubtree');
+        if (pendingCacheKey != null) {
+          if (useCache) {
+            stack[stack.length - 1].vnode = getInnerChild(instance.subTree);
+          } else {
+            stack.push({ key: pendingCacheKey, vnode: getInnerChild(instance.subTree) });
+          }
         }
       };
       onMounted(cacheSubtree);
@@ -151,28 +159,16 @@ const VuePageStack = keyName => {
       // clear all cache
       onBeforeUnmount(() => {
         console.log('onBeforeUnmount');
-        for (const cacheStack of stack) {
-          const { subTree, suspense } = instance;
-          const vnode = getInnerChild(subTree);
-          if (cacheStack.vnode.type === vnode.type && cacheStack.key === vnode.key) {
-            // current instance will be unmounted as part of keep-alive's unmount
-            resetShapeFlag(vnode);
-            // but invoke its deactivated hook here
-            const da = vnode.component.da;
-            da && queuePostFlushCb(da, suspense);
-            return;
-          }
-          unmount(cacheStack.vnode);
-        }
       });
 
       return () => {
         console.log('return');
+        pendingCacheKey = null;
+        useCache = false;
         // 这里可以访问到route
         const route = useRoute();
+        // 路由上的Key
         const key = route.query[keyName];
-
-        pendingCacheKey = null;
 
         if (!slots.default) {
           return null;
@@ -180,8 +176,6 @@ const VuePageStack = keyName => {
 
         const children = slots.default();
         const rawVNode = children[0];
-
-        // 这里会提前return
         if (children.length > 1) {
           return children;
         } else if (
@@ -193,12 +187,15 @@ const VuePageStack = keyName => {
 
         let vnode = getInnerChild(rawVNode);
 
+        // clone vnode if it's reused because we are going to mutate it
         if (vnode.el) {
           vnode = cloneVNode(vnode);
           if (rawVNode.shapeFlag & ShapeFlags.SUSPENSE) {
             rawVNode.ssContent = vnode;
           }
         }
+        pendingCacheKey = key;
+
         let index = getIndexByKey(key);
         if (index !== -1) {
           // vnode.componentInstance = stack[index].vnode.componentInstance;
@@ -214,17 +211,11 @@ const VuePageStack = keyName => {
             stack[i] = null;
           }
           stack.splice(index + 1);
-          // current = vnode;
-          console.log(267);
-          return vnode;
-        } else {
-          console.log('else 需要存储vnode');
-          // 第一次没有subTree，第二次是有的，这两次的区别是什么
-
-          pendingCacheKey = key;
+          useCache = true;
         }
 
-        return rawVNode;
+        vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
+        return isSuspense(rawVNode.type) ? rawVNode : vnode;
       };
     }
   });

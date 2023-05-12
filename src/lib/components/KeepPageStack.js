@@ -1,5 +1,5 @@
 // import history from '../history';
-// import config from '../config/config';
+import config from '../config/config';
 import {
   callWithAsyncErrorHandling,
   defineComponent,
@@ -10,12 +10,7 @@ import {
   cloneVNode,
   isVNode,
   queuePostFlushCb
-  // ShapeFlags,
-  // isSameVNodeType,
-  // isSuspense
 } from 'vue';
-// import { isArray, invokeArrayFns } from '@vue/shared';
-// import { useRoute } from 'vue-router';
 
 const invokeArrayFns = (fns, arg) => {
   for (let i = 0; i < fns.length; i++) {
@@ -27,39 +22,8 @@ function invokeVNodeHook(hook, instance, vnode, prevVNode) {
   callWithAsyncErrorHandling(hook, instance, ErrorCodes.VNODE_HOOK, [vnode, prevVNode]);
 }
 
+// eslint-disable-next-line no-unused-vars
 const isSuspense = type => type.__isSuspense;
-
-const isAsyncWrapper = i => !!i.type.__asyncLoader;
-
-const isArray = Array.isArray;
-
-const isString = val => typeof val === 'string';
-
-const objectToString = Object.prototype.toString;
-
-const toTypeString = value => objectToString.call(value);
-
-const isRegExp = val => toTypeString(val) === '[object RegExp]';
-
-const isFunction = val => typeof val === 'function';
-
-function getComponentName(Component, includeInferred = true) {
-  return isFunction(Component)
-    ? Component.displayName || Component.name
-    : Component.name || (includeInferred && Component.__name);
-}
-
-function matches(pattern, name) {
-  if (isArray(pattern)) {
-    return pattern.some(p => matches(p, name));
-  } else if (isString(pattern)) {
-    return pattern.split(',').includes(name);
-  } else if (isRegExp(pattern)) {
-    return pattern.test(name);
-  }
-  /* istanbul ignore next */
-  return false;
-}
 
 export const MoveType = {
   ENTER: 0,
@@ -103,18 +67,19 @@ function getInnerChild(vnode) {
 
 const stack = [];
 
-function getIndexByKey(key) {
+const getIndexByKey = key => {
   for (let index = 0; index < stack.length; index++) {
     if (stack[index].key === key) {
       return index;
     }
   }
   return -1;
-}
+};
 
-const VuePageStack = () => {
+// eslint-disable-next-line no-unused-vars
+const VuePageStack = keyName => {
   return defineComponent({
-    name: 'vue-page-stack',
+    name: config.componentName,
     __isKeepAlive: true,
     setup(props, { slots }) {
       console.log('VuePageStack setup');
@@ -123,7 +88,6 @@ const VuePageStack = () => {
 
       const cache = new Map();
       const keys = new Set();
-      let current = null;
 
       const parentSuspense = instance.suspense;
 
@@ -169,63 +133,29 @@ const VuePageStack = () => {
         }, parentSuspense);
       };
 
+      // eslint-disable-next-line no-unused-vars
       function unmount(vnode) {
         // reset the shapeFlag so it can be properly unmounted
         resetShapeFlag(vnode);
         _unmount(vnode, instance, parentSuspense, true);
       }
 
-      // function pruneCache(filter) {
-      //   cache.forEach((vnode, key) => {
-      //     const name = getComponentName(vnode.type);
-      //     if (name && (!filter || !filter(name))) {
-      //       pruneCacheEntry(key);
-      //     }
-      //   });
-      // }
-
-      function pruneCacheEntry(key) {
-        const cached = cache.get(key);
-        console.log('pruneCacheEntry current', current);
-        if (!current) {
-          unmount(cached);
-        } else if (current) {
-          // current active instance should no longer be kept-alive.
-          // we can't unmount it now but it might be later, so reset its flag now.
-          resetShapeFlag(current);
-        }
-        cache.delete(key);
-        keys.delete(key);
-      }
-
       // cache sub tree after render
       let pendingCacheKey = null;
+
       const cacheSubtree = () => {
-        console.log('cacheSubtree');
         // fix #1621, the pendingCacheKey could be 0
+        console.log('cacheSubtree');
         if (pendingCacheKey != null) {
-          console.log('pendingCacheKey != null');
           cache.set(pendingCacheKey, getInnerChild(instance.subTree));
-          console.log('cache', cache);
         }
       };
       onMounted(cacheSubtree);
       onUpdated(cacheSubtree);
 
+      // clear all cache
       onBeforeUnmount(() => {
-        cache.forEach(cached => {
-          const { subTree, suspense } = instance;
-          const vnode = getInnerChild(subTree);
-          if (cached.type === vnode.type && cached.key === vnode.key) {
-            // current instance will be unmounted as part of keep-alive's unmount
-            resetShapeFlag(vnode);
-            // but invoke its deactivated hook here
-            const da = vnode.component.da;
-            da && queuePostFlushCb(da, suspense);
-            return;
-          }
-          unmount(cached);
-        });
+        console.log('onBeforeUnmount');
       });
 
       return () => {
@@ -233,43 +163,22 @@ const VuePageStack = () => {
         pendingCacheKey = null;
 
         if (!slots.default) {
-          console.log(232);
           return null;
         }
 
         const children = slots.default();
         const rawVNode = children[0];
         if (children.length > 1) {
-          current = null;
-          console.log(240);
           return children;
         } else if (
           !isVNode(rawVNode) ||
           (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))
         ) {
-          current = null;
-          console.log(
-            'else if (!isVNode(rawVNode) || (!(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE))'
-          );
           return rawVNode;
         }
-
-        console.log(248);
 
         let vnode = getInnerChild(rawVNode);
         const comp = vnode.type;
-
-        // for async components, name check should be based in its loaded
-        // inner component if available
-        const name = getComponentName(isAsyncWrapper(vnode) ? vnode.type.__asyncResolved || {} : comp);
-
-        const { include, exclude, max } = props;
-
-        if ((include && (!name || !matches(include, name))) || (exclude && name && matches(exclude, name))) {
-          current = vnode;
-          console.log(259);
-          return rawVNode;
-        }
 
         const key = vnode.key == null ? comp : vnode.key;
         const cachedVNode = cache.get(key);
@@ -281,22 +190,13 @@ const VuePageStack = () => {
             rawVNode.ssContent = vnode;
           }
         }
-        // #1513 it's possible for the returned vnode to be cloned due to attr
-        // fallthrough or scopeId, so the vnode here may not be the final vnode
-        // that is mounted. Instead of caching it directly, we store the pending
-        // key and cache `instance.subTree` (the normalized vnode) in
-        // beforeMount/beforeUpdate hooks.
         pendingCacheKey = key;
 
         if (cachedVNode) {
+          console.log('cachedVNode');
           // copy over mounted state
           vnode.el = cachedVNode.el;
           vnode.component = cachedVNode.component;
-          // if (vnode.transition) {
-          //   // recursively update transition hooks on subTree
-          //   setTransitionHooks(vnode, vnode.transition);
-          // }
-          // avoid vnode being mounted as fresh
           vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
           // make this key the freshest
           keys.delete(key);
@@ -306,17 +206,14 @@ const VuePageStack = () => {
           console.log('cachedVNode else' + 293);
           keys.add(key);
           // prune oldest entry
-          if (max && keys.size > parseInt(max, 10)) {
-            console.log('max && keys.size > parseInt(max, 10)');
-            pruneCacheEntry(keys.values().next().value);
-          }
+          // if (max && keys.size > parseInt(max, 10)) {
+          //   console.log('max && keys.size > parseInt(max, 10)');
+          //   pruneCacheEntry(keys.values().next().value);
+          // }
         }
-        // avoid vnode being unmounted
-        vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
 
-        current = vnode;
-        console.log('isSuspense(rawVNode.type)', isSuspense(rawVNode.type));
-        return isSuspense(rawVNode.type) ? rawVNode : vnode;
+        vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
+        return vnode;
       };
     }
   });
