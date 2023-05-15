@@ -4,7 +4,7 @@
     <div class="scroll" ref="wrapper">
       <div class="scroll-content">
         <main-item
-          v-for="(item, index) in list"
+          v-for="(item, index) of list"
           :key="index"
           :item="item"
           :index="index"
@@ -30,6 +30,8 @@ const list = ref([]);
 
 const wrapper = ref(null);
 
+const bs = ref(null);
+
 const onClick = item => {
   router.push('/main-detail/' + item.id);
 };
@@ -38,7 +40,7 @@ const getList = () => {
 };
 
 onMounted(() => {
-  new BScroll(wrapper.value, {
+  bs.value = new BScroll(wrapper.value, {
     click: true,
     wheel: true
   });
@@ -48,7 +50,14 @@ onActivated(() => {
   console.log('activated');
 });
 
-getList();
+setTimeout(() => {
+  getList();
+
+  // 滚动区域动态填满后，需要刷新bs的滚动区域
+  setTimeout(() => {
+    bs.value.refresh();
+  }, 100);
+}, 200);
 </script>
 
 <style lang="scss">

@@ -20,5 +20,18 @@
 #app {
   height: 100%;
   background-color: rgb(247, 247, 250);
+  @keyframes show {
+    0% {
+      transform: translateY(100px);
+    }
+
+    60% {
+      transform: translateY(-80upx);
+    }
+
+    100% {
+      transform: translateY(0px);
+    }
+  }
 }
 </style>
