@@ -203,43 +203,53 @@
       </div>
     </div>
     <div class="content">
-      <p class="explain">explain</p>
+      <p class="explain">{{ t('explain') }}</p>
       <p class="version">v1.0.0</p>
     </div>
     <div class="form">
-      <van-button type="primary" @click="onExperience" block>开始体验</van-button>
+      <van-button type="primary" @click="onExperience" block>{{ t('quickStart') }}</van-button>
     </div>
     <div class="change-language">
-      <div class="language-title">{{ t('language') }}</div>
-      <!-- <cube-select v-model="value" :options="options" @change="changeLanguage"></cube-select> -->
-      <!-- <van-field
-        v-model="result"
-        is-link
-        readonly
-        name="picker"
-        :label="{{$t('language')}}"
-        placeholder="点击选择城市"
-        @click="showPicker = true"
-      />
+      <van-field v-model="language" is-link readonly name="picker" :label="t('language')" @click="showPicker = true" />
       <van-popup v-model:show="showPicker" position="bottom">
-        <van-picker :columns="columns" @confirm="onConfirm" @cancel="showPicker = false" />
-      </van-popup> -->
+        <van-picker
+          :columns="columns"
+          @confirm="onConfirm"
+          @cancel="showPicker = false"
+          :confirm-button-text="t('confirm-button-text')"
+          :cancel-button-text="t('cancel-button-text')"
+        />
+      </van-popup>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { setI18nLanguage, i18n } from '../../i18n.js';
+import { i18n, setI18nLanguage } from '../../i18n';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 const { t } = useI18n();
 
-// const currentLocale = ref(locale.value);
+const language = ref('简体中文');
 
-setI18nLanguage(i18n, 'zh');
+const showPicker = ref(false);
+
+const columns = [
+  { text: '简体中文', value: 'zh' },
+  { text: 'English', value: 'en' }
+];
+
+const onConfirm = ({ selectedOptions }) => {
+  language.value = selectedOptions[0]?.text;
+  showPicker.value = false;
+  setI18nLanguage(i18n, selectedOptions[0]?.value);
+};
+
+//
 
 const onExperience = () => {
   console.log('开始体验 onExperience');

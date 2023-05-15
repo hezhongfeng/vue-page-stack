@@ -202,11 +202,11 @@
       </div>
       <van-form>
         <van-cell-group inset>
-          <van-field v-model="userName" label="用户名" placeholder="placeholder.username"></van-field>
-          <van-field v-model="password" label="密码" type="password" placeholder="placeholder.password"></van-field>
+          <van-field v-model="userName" :placeholder="t('placeholder.username')"></van-field>
+          <van-field v-model="password" type="password" :placeholder="t('placeholder.password')"></van-field>
         </van-cell-group>
         <div style="margin: 16px">
-          <van-button @click="onLogin" type="primary" block>login</van-button>
+          <van-button @click="onLogin" type="primary" block>{{ t('login') }}</van-button>
         </div>
       </van-form>
     </div>
@@ -216,6 +216,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const userName = ref('');
 const password = ref('');

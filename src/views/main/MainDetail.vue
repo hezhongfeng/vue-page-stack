@@ -3,15 +3,15 @@
     <stack-header></stack-header>
     <div class="p-scroll-wrap">
       <div class="desc-wrap">
-        <div class="desc">detail.desc</div>
+        <div class="desc">{{ t('detail.desc') }}</div>
       </div>
       <div class="form">
-        <van-field v-model="textValue" placeholder="顶部对齐" />
-        <van-button @click="onPushSame" type="primary" block>detail.push.same</van-button>
-        <van-button @click="onLogin" type="primary" block>detail.push.login</van-button>
-        <van-button @click="onPush" type="primary" block>detail.push.list</van-button>
-        <van-button @click="onReplace" type="primary" block>detail.replace</van-button>
-        <van-button type="primary" block>detail.currentPageNumber</van-button>
+        <van-field v-model="textValue" :placeholder="t('detail.placeholder')" />
+        <van-button @click="onPushSame" type="primary" block>{{ t('detail.push.same') }}</van-button>
+        <van-button @click="onLogin" type="primary" block>{{ t('detail.push.login') }}</van-button>
+        <van-button @click="onPush" type="primary" block>{{ t('detail.push.list') }}</van-button>
+        <van-button @click="onReplace" type="primary" block>{{ t('detail.replace') }}</van-button>
+        <van-button type="primary" block>{{ t('detail.currentPageNumber') }}</van-button>
       </div>
     </div>
   </div>
@@ -20,7 +20,10 @@
 <script setup>
 import { ref, computed, onMounted, onActivated } from 'vue';
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import StackHeader from './StackHeader.vue';
+
+const { t } = useI18n();
 
 const router = useRouter();
 const route = useRoute();

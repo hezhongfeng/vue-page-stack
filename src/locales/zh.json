@@ -1,6 +1,8 @@
 {
   "language": "语言",
   "quickStart": "开始体验",
+  "confirm-button-text": "确认",
+  "cancel-button-text": "取消",
   "explain": "让Vue单页应用像原生App一样缓存UI页面",
   "home": "主页",
   "about": "关于",

@@ -17,12 +17,15 @@
 <script setup>
 import { ref, onActivated, computed } from 'vue';
 import { useRoute, onBeforeRouteUpdate } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import MainList from '../main/MainList.vue';
 import About from '../about/About.vue';
 
 const route = useRoute();
 
 const selectedIndex = ref('0');
+
+const { t } = useI18n();
 
 onActivated(() => {
   console.log('Home activated');
@@ -37,12 +40,12 @@ const tabs = computed(() => {
   return [
     {
       value: '0',
-      label: 'home',
+      label: t('home'),
       icon: selectedIndex.value === '0' ? 'wap-home' : 'wap-home-o'
     },
     {
       value: '1',
-      label: 'about',
+      label: t('about'),
       icon: selectedIndex.value === '1' ? 'manager' : 'manager-o'
     }
   ];

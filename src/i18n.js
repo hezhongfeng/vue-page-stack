@@ -1,8 +1,8 @@
-import { nextTick } from 'vue';
 import { createI18n } from 'vue-i18n';
 
 export const SUPPORT_LOCALES = ['en', 'zh'];
 
+import en from './locales/en.json';
 import zh from './locales/zh.json';
 
 export function getLocale(i18n) {
@@ -35,23 +35,12 @@ export function setI18nLanguage(i18n, locale) {
   document.querySelector('html').setAttribute('lang', locale);
 }
 
-const getResourceMessages = r => r.default || r;
-
-export async function loadLocaleMessages(i18n, locale) {
-  // load locale messages
-  const messages = await import(/* @vite-ignore */ `./locales/${locale}.json`).then(getResourceMessages);
-
-  // set locale and locale message
-  i18n.global.setLocaleMessage(locale, messages);
-
-  return nextTick();
-}
-
 export const i18n = setupI18n({
   legacy: false,
   locale: 'zh',
-  fallbackLocale: 'zh',
+  // fallbackLocale: 'zh',
   messages: {
-    zh
+    zh,
+    en
   }
 });

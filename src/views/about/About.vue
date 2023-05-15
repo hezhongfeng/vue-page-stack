@@ -1,7 +1,6 @@
 <template>
   <div class="my">
     <div class="logo">
-      <!-- <img src="~@/assets/design/logo1.png"> -->
       <svg
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#"
@@ -204,13 +203,16 @@
         <div class="auther">Author: hezf</div>
       </div>
     </div>
-    <div class="desc">aboutPage.desc1</div>
-    <div class="desc">aboutPage.desc2</div>
-    <div class="desc">aboutPage.desc3</div>
+    <div class="desc">{{ t('aboutPage.desc1') }}</div>
+    <div class="desc">{{ t('aboutPage.desc2') }}</div>
+    <div class="desc">{{ t('aboutPage.desc3') }}</div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+</script>
 
 <style lang="scss">
 .my {
