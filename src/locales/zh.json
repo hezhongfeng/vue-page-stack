@@ -1,0 +1,30 @@
+{
+  "language": "语言",
+  "quickStart": "开始体验",
+  "explain": "让Vue单页应用像原生App一样缓存UI页面",
+  "home": "主页",
+  "about": "关于",
+  "login": "登录",
+  "signup": "注册",
+  "placeholder": {
+    "username": "请输入用户名",
+    "password": "请输入密码"
+  },
+  "detail": {
+    "desc": "可以在下面的input中输入内容，然后push到下一页面",
+    "placeholder": "输入一些信息",
+    "push": {
+      "same": "Push到下一页",
+      "login": "Push到登录",
+      "list": "Push到列表(可以缓存相同的页面)"
+    },
+    "replace": "Replace当前页",
+    "currentPageNumber": "当前页码",
+    "currentUserName": "当前用户"
+  },
+  "aboutPage": {
+    "desc1": "Vue 单页应用导航管理器",
+    "desc2": "想法来源于实际业务需求，在进行公众号开发和Hybrid App开发的时候经常会有这样的需求，最后vue-stack-page诞生了",
+    "desc3": "欢迎使用，欢迎提PR，希望能帮到你"
+  }
+}

@@ -209,13 +209,37 @@
     <div class="form">
       <van-button type="primary" @click="onExperience" block>开始体验</van-button>
     </div>
+    <div class="change-language">
+      <div class="language-title">{{ t('language') }}</div>
+      <!-- <cube-select v-model="value" :options="options" @change="changeLanguage"></cube-select> -->
+      <!-- <van-field
+        v-model="result"
+        is-link
+        readonly
+        name="picker"
+        :label="{{$t('language')}}"
+        placeholder="点击选择城市"
+        @click="showPicker = true"
+      />
+      <van-popup v-model:show="showPicker" position="bottom">
+        <van-picker :columns="columns" @confirm="onConfirm" @cancel="showPicker = false" />
+      </van-popup> -->
+    </div>
   </div>
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n';
+import { setI18nLanguage, i18n } from '../../i18n.js';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
+const { t } = useI18n();
+
+// const currentLocale = ref(locale.value);
+
+setI18nLanguage(i18n, 'zh');
 
 const onExperience = () => {
   console.log('开始体验 onExperience');

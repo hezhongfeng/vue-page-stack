@@ -2,11 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
-English | [简体中文](./README.zh-cn.md)
+[English](./README.md) | 简体中文
 
 ---
 
-A Vue SPA navigation manager,cache the UI in the SPA like a native application, rather than destroy it.
+Vue 单页应用导航管理器，像原生app一样管理页面栈而不是销毁。
 
 <div align="center">
   <img src="https://i.loli.net/2019/10/31/HKYfJBVWjXdZozm.gif">
@@ -14,25 +14,25 @@ A Vue SPA navigation manager,cache the UI in the SPA like a native application, 
 
 ## Example
 
-[preview](https://hezhongfeng.github.io/vue-page-stack-example/)
+[预览](https://hezhongfeng.github.io/vue-page-stack-example/)
 
-[demo code](https://github.com/hezhongfeng/vue-page-stack-example)
+[示例源码](https://github.com/hezhongfeng/vue-page-stack-example)
 
-## Features
+## 功能特性
 
-- 🐉expanded on vue-router, the original navigation logic remains unchanged
-- ⚽When a page is re-rendered as a `push` or `forward`, the newly rendered page will be added to the Stack.
-- 🏆When `back` or `go(negative number)`, the previous pages are not re-rendered, but instead are read from the Stack, and these pages retain the previous content state, such as the form content, the position of the scroll bar
-- 🏈`back` or `go (negative)` will remove unused pages from the Stack
-- 🎓`replace` will update the current page in the stack
-- 🎉activated hook function triggers when rolling back to the previous page
-- 🚀Browser back and forward events are supporded
-- 🍕Responding to changes in routes with Parameters is supporded, such as navigating from `/user/foo` to `/user/bar`, component instances are reused
-- 🐰provides routing direction changes, and you can add different animations when forward or backward
+- 🐉在vue-router上扩展，原有导航逻辑不变
+- ⚽`push`或者`forward`的时候重新渲染页面，Stack中会添加新渲染的页面
+- 🏆`back`或者`go(负数)`的时候先前的页面不会重新渲染，而是从Stack中读取，并且这些页面保留着先前的内容状态，例如表单内容，滚动条滑动的位置等
+- 🏈`back`或者`go(负数)`的时候会把不用的页面从Stack中移除
+- 🎓`replace`会更新Stack中当前页面
+- 🎉回退到之前页面的时候有activated钩子函数触发
+- 🚀支持浏览器的后退，前进事件
+- 🍕支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
+- 🐰提供路由方向的变化，并且可以在前进和后退的时候添加不同的动画
 
-## Installation and use
+## 安装和用法
 
-### Installation
+### 安装
 
 ```
 npm install vue-page-stack
@@ -40,7 +40,7 @@ npm install vue-page-stack
 yarn add vue-page-stack
 ```
 
-### use
+### 使用
 
 ```
 import Vue from 'vue'
@@ -62,6 +62,7 @@ Vue.use(VuePageStack, { router });
 ```
 
 ### CDN
+
 ```
 <script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.umd.min.js"></script>
 ```
@@ -70,17 +71,23 @@ Vue.use(VuePageStack, { router });
 Vue.use(VuePageStack, { router });
 ```
 
+
 ## API
 
-### install
+### 注册插件
+
+注册的时候可以指定VuePageStack的名字和keyName
+
+
 use `Vue.use` to install `vue-page-stack`
+使用之前需要注册插件
 ```
 Vue.use(VuePageStack, options);
 // example
 Vue.use(VuePageStack, { router });
 ```
 
-Options description：
+Options 说明：
 
 Attribute | Description | Type | Accepted Values | Default
 ---|---|---|---|---
@@ -88,13 +95,13 @@ router | vue-router instance | Object | vue-router instance | -
 name | VuePageStack name | String | 'VuePageStack' | 'VuePageStack'
 keyName | stack-key name | String | 'stack-key' | 'stack-key'
 
-you can customize VuePageStack's name and keyName
+注册的时候可以指定VuePageStack的名字和keyName
 ```
 Vue.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
 ```
+### 前进和后退
 
-### forward or backward
-If you want to make some animate entering or leaving, `vue-page-stack` offers `stack-key-dir` to judge forward or backward.
+如果想在页面前进或者后退的时候添加一些动画，可以通过`stack-key-dir`进行判断
 
 ```
 // App.vue
@@ -108,28 +115,31 @@ $route(to, from) {
 ```
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
-### get current UI stack
-```
-let UIStack = this.$pageStack.getStack();
+
+### 获取当前UI栈
 
 ```
+let UIStack = this.$pageStack.getStack();
+```
 [example code](https://github.com/hezhongfeng/vue-page-stack-example/blob/814f5ad8b8804e6fd81002f7254d266df3311770/src/views/main/MainList.vue#L30)
-## Notes
+
+## 相关说明
 
 ### keyName
 
-Why is the parameter `keyName` added to the route? To support the browser's backward and forward events，this is important in webApp or wechat.
+为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特性在webApp,微信公众号和小程序很重要
 
-### Changelog
-Details changes for each release are documented in the [release notes](https://github.com/hezhongfeng/vue-page-stack/releases).
+### 更新日志
 
-### Principle
+主要的更新日志在 [release notes](https://github.com/hezhongfeng/vue-page-stack/releases)
 
-Getting the current page instance refers to the `keep-alive` section of `Vue`.
+### 原理
 
-## Thanks
+获取当前页面实例部分参考了`Vue`源码中`keep-alive`的部分
 
-The plug-in draws on both [vue-navigation](https://github.com/zack24q/vue-navigation) and [vue-nav](https://github.com/nearspears/vue-nav)，Thank you very much for their inspiration.
+## 感谢
+
+这个插件同时借鉴了[vue-navigation](https://github.com/zack24q/vue-navigation)和[vue-nav](https://github.com/nearspears/vue-nav)，很感谢他们给的灵感。
 
 ## Contributors ✨
 
