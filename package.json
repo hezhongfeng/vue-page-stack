@@ -20,26 +20,26 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.5.1",
-    "vant": "^4.3.1",
-    "vue": "^3.2.47",
+    "vant": "^4.3.2",
+    "vue": "^3.3.2",
     "vue-i18n": "^9.2.2",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.1",
+    "@commitlint/cli": "^17.6.3",
     "@intlify/unplugin-vue-i18n": "^0.10.0",
-    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue": "^4.2.3",
     "commitizen": "^4.3.0",
     "commitlint-config-cz": "^0.13.3",
     "commitlint-config-git-commit-emoji": "^1.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^7.0.0",
-    "eslint": "^8.39.0",
-    "eslint-plugin-vue": "^9.11.0",
+    "eslint": "^8.40.0",
+    "eslint-plugin-vue": "^9.13.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "sass": "^1.62.1",
     "unplugin-vue-components": "^0.24.1",
-    "vite": "^4.3.2"
+    "vite": "^4.3.6"
   }
 }

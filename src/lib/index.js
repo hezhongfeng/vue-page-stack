@@ -1,5 +1,6 @@
 import { VuePageStack, getIndexByKey } from './components/VuePageStack.js';
 // import { VuePageStack, getIndexByKey } from './components/KeepPageStack.js';
+// import { VuePageStack, getIndexByKey } from './components/KeepPageStack3.3.2.js';
 // import mixin from './mixin';
 import history from './history';
 import config from './config/config';
@@ -23,10 +24,6 @@ const VuePageStackPlugin = {
     }
     app.component(name, VuePageStack(keyName));
 
-    // app.$pageStack = {
-    //   getStack
-    // };
-    // mixin(router);
     router.beforeEach((to, from) => {
       console.log('beforeEach');
       if (!hasKey(to.query, keyName)) {
@@ -43,7 +40,6 @@ const VuePageStackPlugin = {
         };
       } else {
         const index = getIndexByKey(to.query[keyName]);
-        // console.log(index);
         if (index === -1) {
           to.params[keyName + '-dir'] = config.forwardName;
           console.log('前进');

@@ -10,7 +10,8 @@ import {
   onUpdated,
   cloneVNode,
   isVNode,
-  queuePostFlushCb
+  queuePostFlushCb,
+  setTransitionHooks
 } from 'vue';
 
 import { useRoute } from 'vue-router';
@@ -151,6 +152,7 @@ const VuePageStack = keyName => {
             stack.push({ key: pendingCacheKey, vnode: getInnerChild(instance.subTree) });
           }
         }
+        console.log(pendingCacheKey, stack);
       };
       onMounted(cacheSubtree);
       onUpdated(cacheSubtree);
@@ -175,6 +177,8 @@ const VuePageStack = keyName => {
           return null;
         }
 
+        console.log(180);
+
         const children = slots.default();
         const rawVNode = children[0];
         if (children.length > 1) {
@@ -186,6 +190,8 @@ const VuePageStack = keyName => {
           return rawVNode;
         }
 
+        console.log(191);
+
         let vnode = getInnerChild(rawVNode);
 
         // clone vnode if it's reused because we are going to mutate it
@@ -195,7 +201,10 @@ const VuePageStack = keyName => {
             rawVNode.ssContent = vnode;
           }
         }
+
         pendingCacheKey = key;
+
+        console.log('pendingCacheKey', pendingCacheKey);
 
         let index = getIndexByKey(key);
         if (index !== -1) {
@@ -204,6 +213,10 @@ const VuePageStack = keyName => {
 
           vnode.el = cachedVNode.el;
           vnode.component = cachedVNode.component;
+          if (vnode.transition) {
+            // recursively update transition hooks on subTree
+            setTransitionHooks(vnode, vnode.transition);
+          }
           vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
 
           // destroy the instances that will be spliced
@@ -214,7 +227,9 @@ const VuePageStack = keyName => {
           useCache = true;
         }
 
+        // avoid vnode being unmounted
         vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
+
         return isSuspense(rawVNode.type) ? rawVNode : vnode;
       };
     }
