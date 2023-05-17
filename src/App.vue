@@ -1,6 +1,9 @@
 <template>
   <!-- 注意这里的样式是为了实现enter和leave同步进行 -->
   <router-view v-slot="{ Component }" style="position: absolute; width: 100%">
+    <keep-alive>
+      <component :is="Component" :key="route.fullPath"></component>
+    </keep-alive>
     <!-- <Transition :name="transitionName">
       <vue-page-stack>
         <component :is="Component" :key="route.fullPath"></component>
@@ -8,9 +11,9 @@
     </Transition> -->
 
     <!-- <Transition :name="transitionName"> -->
-    <vue-page-stack>
+    <!-- <vue-page-stack>
       <component :is="Component" :key="route.fullPath"></component>
-    </vue-page-stack>
+    </vue-page-stack> -->
     <!-- </Transition> -->
 
     <!-- <vue-page-stack>

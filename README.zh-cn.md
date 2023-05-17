@@ -6,7 +6,7 @@
 
 ---
 
-Vue 单页应用导航管理器，像原生app一样管理页面栈而不是销毁。
+Vue 单页应用导航管理器，像原生 app 一样管理页面栈而不是销毁。
 
 <div align="center">
   <img src="https://i.loli.net/2019/10/31/HKYfJBVWjXdZozm.gif">
@@ -20,15 +20,21 @@ Vue 单页应用导航管理器，像原生app一样管理页面栈而不是销�
 
 ## 功能特性
 
-- 🐉在vue-router上扩展，原有导航逻辑不变
-- ⚽`push`或者`forward`的时候重新渲染页面，Stack中会添加新渲染的页面
-- 🏆`back`或者`go(负数)`的时候先前的页面不会重新渲染，而是从Stack中读取，并且这些页面保留着先前的内容状态，例如表单内容，滚动条滑动的位置等
-- 🏈`back`或者`go(负数)`的时候会把不用的页面从Stack中移除
-- 🎓`replace`会更新Stack中当前页面
-- 🎉回退到之前页面的时候有activated钩子函数触发
-- 🚀支持浏览器的后退，前进事件
-- 🍕支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
-- 🐰提供路由方向的变化，并且可以在前进和后退的时候添加不同的动画
+- 🐉 在 vue-router 上扩展，原有导航逻辑不变
+- ⚽`push`或者`forward`的时候重新渲染页面，Stack 中会添加新渲染的页面
+- 🏆`back`或者`go(负数)`的时候先前的页面不会重新渲染，而是从 Stack 中读取，并且这些页面保留着先前的内容状态，例如表单内容，滚动条滑动的位置等
+- 🏈`back`或者`go(负数)`的时候会把不用的页面从 Stack 中移除
+- 🎓`replace`会更新 Stack 中当前页面
+- 🎉 回退到之前页面的时候有 activated 钩子函数触发
+- 🚀 支持浏览器的后退，前进事件
+- 🍕 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
+- 🐰 提供路由方向的变化，并且可以在前进和后退的时候添加不同的动画
+
+## 和 KeepAlive 的区别
+
+- 🔒 VuePageStack 不提供 `include` `exclude` 和 `max` 参数，因为 VuePageStack 想要实现的是一个完整的页面栈管理，只能按照顺序进出
+- 💪 KeepAlive 缓存过页面之后会一直缓存这个页面，VuePageStack 会根据页面栈的层级而自助销毁多余的页面
+- 🔔 KeepAlive 进入（不是返回）相同的路由页面，会继续复用以前缓存的页面，而 VuePageStack 会重新渲染页面
 
 ## 安装和用法
 
@@ -42,20 +48,20 @@ yarn add vue-page-stack
 
 ### 使用
 
-```
-import Vue from 'vue'
+```js
+import Vue from 'vue';
 import VuePageStack from 'vue-page-stack';
 
 // vue-router is necessary
-Vue.use(VuePageStack, { router }); 
+Vue.use(VuePageStack, { router });
 ```
 
-```
+```js
 // App.vue
 <template>
-  <div id="app">
+  <div id='app'>
     <vue-page-stack>
-      <router-view ></router-view>
+      <router-view></router-view>
     </vue-page-stack>
   </div>
 </template>
@@ -63,24 +69,23 @@ Vue.use(VuePageStack, { router });
 
 ### CDN
 
-```
-<script src="https://unpkg.com/vue-page-stack/dist/vue-page-stack.umd.min.js"></script>
+```js
+<script src='https://unpkg.com/vue-page-stack/dist/vue-page-stack.umd.min.js'></script>
 ```
 
-```
+```js
 Vue.use(VuePageStack, { router });
 ```
-
 
 ## API
 
 ### 注册插件
 
-注册的时候可以指定VuePageStack的名字和keyName
-
+注册的时候可以指定 VuePageStack 的名字和 keyName
 
 use `Vue.use` to install `vue-page-stack`
 使用之前需要注册插件
+
 ```
 Vue.use(VuePageStack, options);
 // example
@@ -89,21 +94,23 @@ Vue.use(VuePageStack, { router });
 
 Options 说明：
 
-Attribute | Description | Type | Accepted Values | Default
----|---|---|---|---
-router | vue-router instance | Object | vue-router instance | -
-name | VuePageStack name | String | 'VuePageStack' | 'VuePageStack'
-keyName | stack-key name | String | 'stack-key' | 'stack-key'
+| Attribute | Description         | Type   | Accepted Values     | Default        |
+| --------- | ------------------- | ------ | ------------------- | -------------- |
+| router    | vue-router instance | Object | vue-router instance | -              |
+| name      | VuePageStack name   | String | 'VuePageStack'      | 'VuePageStack' |
+| keyName   | stack-key name      | String | 'stack-key'         | 'stack-key'    |
 
-注册的时候可以指定VuePageStack的名字和keyName
-```
+注册的时候可以指定 VuePageStack 的名字和 keyName
+
+```js
 Vue.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
 ```
+
 ### 前进和后退
 
 如果想在页面前进或者后退的时候添加一些动画，可以通过`stack-key-dir`进行判断
 
-```
+```js
 // App.vue
 $route(to, from) {
   if (to.params['stack-key-dir'] === 'forward') {
@@ -113,21 +120,22 @@ $route(to, from) {
   }
 }
 ```
+
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
+### 获取当前 UI 栈
 
-### 获取当前UI栈
-
-```
+```js
 let UIStack = this.$pageStack.getStack();
 ```
+
 [example code](https://github.com/hezhongfeng/vue-page-stack-example/blob/814f5ad8b8804e6fd81002f7254d266df3311770/src/views/main/MainList.vue#L30)
 
 ## 相关说明
 
 ### keyName
 
-为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特性在webApp,微信公众号和小程序很重要
+为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特性在 webApp,微信公众号和小程序很重要
 
 ### 更新日志
 
