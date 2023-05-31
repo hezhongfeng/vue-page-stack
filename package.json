@@ -1,6 +1,5 @@
 {
   "name": "vue-page-stack",
-  "private": true,
   "version": "3.0.0",
   "scripts": {
     "dev": "vite --host",
