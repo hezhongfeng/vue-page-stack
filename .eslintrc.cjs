@@ -1,24 +1,11 @@
 /* eslint-env node */
 module.exports = {
   root: true,
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended'],
+  env: { browser: true, node: true },
+  extends: ['eslint:recommended'],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
-  rules: {
-    'vue/max-attributes-per-line': [
-      'error',
-      {
-        singleline: {
-          max: 10
-        },
-        multiline: {
-          max: 1
-        }
-      }
-    ],
-    'vue/singleline-html-element-content-newline': ['off'],
-    'vue/multi-word-component-names': ['off'],
-    'vue/html-self-closing': ['off']
-  }
+  ignorePatterns: ['dist/']
 };
