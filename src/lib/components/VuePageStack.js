@@ -1,6 +1,5 @@
-// import history from '../history';
-
 import config from '../config/config';
+
 import {
   callWithAsyncErrorHandling,
   defineComponent,
@@ -16,7 +15,22 @@ import {
 
 import { useRoute } from 'vue-router';
 
-const invokeArrayFns = (fns, arg) => {
+var ShapeFlags;
+(function (ShapeFlags) {
+  ShapeFlags[(ShapeFlags['ELEMENT'] = 1)] = 'ELEMENT';
+  ShapeFlags[(ShapeFlags['FUNCTIONAL_COMPONENT'] = 2)] = 'FUNCTIONAL_COMPONENT';
+  ShapeFlags[(ShapeFlags['STATEFUL_COMPONENT'] = 4)] = 'STATEFUL_COMPONENT';
+  ShapeFlags[(ShapeFlags['TEXT_CHILDREN'] = 8)] = 'TEXT_CHILDREN';
+  ShapeFlags[(ShapeFlags['ARRAY_CHILDREN'] = 16)] = 'ARRAY_CHILDREN';
+  ShapeFlags[(ShapeFlags['SLOTS_CHILDREN'] = 32)] = 'SLOTS_CHILDREN';
+  ShapeFlags[(ShapeFlags['TELEPORT'] = 64)] = 'TELEPORT';
+  ShapeFlags[(ShapeFlags['SUSPENSE'] = 128)] = 'SUSPENSE';
+  ShapeFlags[(ShapeFlags['COMPONENT_SHOULD_KEEP_ALIVE'] = 256)] = 'COMPONENT_SHOULD_KEEP_ALIVE';
+  ShapeFlags[(ShapeFlags['COMPONENT_KEPT_ALIVE'] = 512)] = 'COMPONENT_KEPT_ALIVE';
+  ShapeFlags[(ShapeFlags['COMPONENT'] = 6)] = 'COMPONENT';
+})(ShapeFlags || (ShapeFlags = {}));
+
+export const invokeArrayFns = (fns, arg) => {
   for (let i = 0; i < fns.length; i++) {
     fns[i](arg);
   }
@@ -43,19 +57,6 @@ export const ErrorCodes = {
   NATIVE_EVENT_HANDLER: 5,
   COMPONENT_EVENT_HANDLER: 6,
   VNODE_HOOK: 7
-};
-
-export const ShapeFlags = {
-  ELEMENT: 1,
-  FUNCTIONAL_COMPONENT: 1 << 1,
-  STATEFUL_COMPONENT: 1 << 2,
-  TEXT_CHILDREN: 1 << 3,
-  ARRAY_CHILDREN: 1 << 4,
-  SLOTS_CHILDREN: 1 << 5,
-  TELEPORT: 1 << 6,
-  SUSPENSE: 1 << 7,
-  COMPONENT_SHOULD_KEEP_ALIVE: 1 << 8,
-  COMPONENT_KEPT_ALIVE: 1 << 9
 };
 
 function resetShapeFlag(vnode) {
@@ -217,6 +218,7 @@ const VuePageStack = keyName => {
             // recursively update transition hooks on subTree
             setTransitionHooks(vnode, vnode.transition);
           }
+          // avoid vnode being mounted as fresh
           vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
 
           // destroy the instances that will be spliced

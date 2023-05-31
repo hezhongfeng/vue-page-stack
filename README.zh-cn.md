@@ -27,14 +27,13 @@ Vue 单页应用导航管理器，像原生 app 一样管理页面栈而不是�
 - 🎓`replace`会更新 Stack 中当前页面
 - 🎉 回退到之前页面的时候有 activated 钩子函数触发
 - 🚀 支持浏览器的后退，前进事件
-- 🍕 支持响应路由参数的变化，例如从 /user/foo 导航到 /user/bar，组件实例会被复用
 - 🐰 提供路由方向的变化，并且可以在前进和后退的时候添加不同的动画
 
 ## 和 KeepAlive 的区别
 
-- 🔒 VuePageStack 不提供 `include` `exclude` 和 `max` 参数，因为 VuePageStack 想要实现的是一个完整的页面栈管理，只能按照顺序进出
-- 💪 KeepAlive 缓存过页面之后会一直缓存这个页面，VuePageStack 会根据页面栈的层级而自助销毁多余的页面
-- 🔔 KeepAlive 进入（不是返回）相同的路由页面，会继续复用以前缓存的页面，而 VuePageStack 会重新渲染页面
+- 🎣 VuePageStack 不提供 `include` `exclude` 和 `max` 参数，因为 VuePageStack 想要实现的是一个完整的页面栈管理，只能按照顺序进出
+- 🪁 KeepAlive 缓存过页面之后会一直缓存这个页面，VuePageStack 会根据页面栈的层级而自助销毁多余的页面
+- 🏕️ KeepAlive 进入（不是返回）相同的路由页面，会继续复用以前缓存的页面，而 VuePageStack 会重新渲染页面
 
 ## 安装和用法
 
