@@ -10,6 +10,7 @@
     "lint-fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
+  "main": "dist/vue-page-stack.js",
   "lint-staged": {
     "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore"
   },

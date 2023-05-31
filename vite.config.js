@@ -8,7 +8,8 @@ export default defineConfig({
       entry: resolve(__dirname, 'lib/main.js'),
       name: 'VuePageStack',
       // the proper extensions will be added
-      fileName: 'vue-page-stack'
+      fileName: 'vue-page-stack',
+      formats: ['cjs', 'es', 'iife', 'umd']
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
