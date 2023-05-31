@@ -11,6 +11,7 @@
     backName: "back",
     forwardName: "forward"
   };
+  console.log(vueRouter.useRoute);
   var ShapeFlags;
   (function(ShapeFlags2) {
     ShapeFlags2[ShapeFlags2["ELEMENT"] = 1] = "ELEMENT";
@@ -70,7 +71,7 @@
       name: config.componentName,
       __isKeepAlive: true,
       setup(props, { slots }) {
-        console.log("VuePageStack setup");
+        console.log("VuePageStack setup", keyName);
         const instance = vue.getCurrentInstance();
         const sharedContext = instance.ctx;
         const parentSuspense = instance.suspense;
@@ -141,6 +142,7 @@
           pendingCacheKey = null;
           useCache = false;
           const route = vueRouter.useRoute();
+          console.log(route);
           const key = route.query[keyName];
           if (!slots.default) {
             return null;

@@ -1,6 +1,6 @@
 {
   "name": "vue-page-stack",
-  "version": "3.0.0-beta4",
+  "version": "3.0.0-beta5",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",

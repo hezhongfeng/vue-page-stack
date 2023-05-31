@@ -9,6 +9,7 @@ const config = {
   backName: "back",
   forwardName: "forward"
 };
+console.log(useRoute);
 var ShapeFlags;
 (function(ShapeFlags2) {
   ShapeFlags2[ShapeFlags2["ELEMENT"] = 1] = "ELEMENT";
@@ -68,7 +69,7 @@ const VuePageStack = (keyName) => {
     name: config.componentName,
     __isKeepAlive: true,
     setup(props, { slots }) {
-      console.log("VuePageStack setup");
+      console.log("VuePageStack setup", keyName);
       const instance = getCurrentInstance();
       const sharedContext = instance.ctx;
       const parentSuspense = instance.suspense;
@@ -139,6 +140,7 @@ const VuePageStack = (keyName) => {
         pendingCacheKey = null;
         useCache = false;
         const route = useRoute();
+        console.log(route);
         const key = route.query[keyName];
         if (!slots.default) {
           return null;
