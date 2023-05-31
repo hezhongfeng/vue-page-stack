@@ -1,6 +1,6 @@
 (function(global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory(require("vue")) : typeof define === "function" && define.amd ? define(["vue"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.VuePageStack = factory(global.Vue));
-})(this, function(vue) {
+  typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory(require("vue"), require("vue-router")) : typeof define === "function" && define.amd ? define(["vue", "vue-router"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.VuePageStack = factory(global.Vue, global.vueRouter));
+})(this, function(vue, vueRouter) {
   "use strict";
   const config = {
     componentName: "VuePageStack",
@@ -11,37 +11,6 @@
     backName: "back",
     forwardName: "forward"
   };
-  /*!
-    * vue-router v4.2.0
-    * (c) 2023 Eduardo San Martin Morote
-    * @license MIT
-    */
-  var NavigationType;
-  (function(NavigationType2) {
-    NavigationType2["pop"] = "pop";
-    NavigationType2["push"] = "push";
-  })(NavigationType || (NavigationType = {}));
-  var NavigationDirection;
-  (function(NavigationDirection2) {
-    NavigationDirection2["back"] = "back";
-    NavigationDirection2["forward"] = "forward";
-    NavigationDirection2["unknown"] = "";
-  })(NavigationDirection || (NavigationDirection = {}));
-  Symbol(process.env.NODE_ENV !== "production" ? "navigation failure" : "");
-  var NavigationFailureType;
-  (function(NavigationFailureType2) {
-    NavigationFailureType2[NavigationFailureType2["aborted"] = 4] = "aborted";
-    NavigationFailureType2[NavigationFailureType2["cancelled"] = 8] = "cancelled";
-    NavigationFailureType2[NavigationFailureType2["duplicated"] = 16] = "duplicated";
-  })(NavigationFailureType || (NavigationFailureType = {}));
-  Symbol(process.env.NODE_ENV !== "production" ? "router view location matched" : "");
-  Symbol(process.env.NODE_ENV !== "production" ? "router view depth" : "");
-  Symbol(process.env.NODE_ENV !== "production" ? "router" : "");
-  const routeLocationKey = Symbol(process.env.NODE_ENV !== "production" ? "route location" : "");
-  Symbol(process.env.NODE_ENV !== "production" ? "router view location" : "");
-  function useRoute() {
-    return vue.inject(routeLocationKey);
-  }
   var ShapeFlags;
   (function(ShapeFlags2) {
     ShapeFlags2[ShapeFlags2["ELEMENT"] = 1] = "ELEMENT";
@@ -171,7 +140,7 @@
           console.log("return");
           pendingCacheKey = null;
           useCache = false;
-          const route = useRoute();
+          const route = vueRouter.useRoute();
           const key = route.query[keyName];
           if (!slots.default) {
             return null;

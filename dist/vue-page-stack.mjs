@@ -1,4 +1,5 @@
-import { inject, defineComponent, getCurrentInstance, queuePostFlushCb, onMounted, onUpdated, onBeforeUnmount, isVNode, cloneVNode, setTransitionHooks, callWithAsyncErrorHandling } from "vue";
+import { defineComponent, getCurrentInstance, queuePostFlushCb, onMounted, onUpdated, onBeforeUnmount, isVNode, cloneVNode, setTransitionHooks, callWithAsyncErrorHandling } from "vue";
+import { useRoute } from "vue-router";
 const config = {
   componentName: "VuePageStack",
   keyName: "stack-key",
@@ -8,37 +9,6 @@ const config = {
   backName: "back",
   forwardName: "forward"
 };
-/*!
-  * vue-router v4.2.0
-  * (c) 2023 Eduardo San Martin Morote
-  * @license MIT
-  */
-var NavigationType;
-(function(NavigationType2) {
-  NavigationType2["pop"] = "pop";
-  NavigationType2["push"] = "push";
-})(NavigationType || (NavigationType = {}));
-var NavigationDirection;
-(function(NavigationDirection2) {
-  NavigationDirection2["back"] = "back";
-  NavigationDirection2["forward"] = "forward";
-  NavigationDirection2["unknown"] = "";
-})(NavigationDirection || (NavigationDirection = {}));
-Symbol(process.env.NODE_ENV !== "production" ? "navigation failure" : "");
-var NavigationFailureType;
-(function(NavigationFailureType2) {
-  NavigationFailureType2[NavigationFailureType2["aborted"] = 4] = "aborted";
-  NavigationFailureType2[NavigationFailureType2["cancelled"] = 8] = "cancelled";
-  NavigationFailureType2[NavigationFailureType2["duplicated"] = 16] = "duplicated";
-})(NavigationFailureType || (NavigationFailureType = {}));
-Symbol(process.env.NODE_ENV !== "production" ? "router view location matched" : "");
-Symbol(process.env.NODE_ENV !== "production" ? "router view depth" : "");
-Symbol(process.env.NODE_ENV !== "production" ? "router" : "");
-const routeLocationKey = Symbol(process.env.NODE_ENV !== "production" ? "route location" : "");
-Symbol(process.env.NODE_ENV !== "production" ? "router view location" : "");
-function useRoute() {
-  return inject(routeLocationKey);
-}
 var ShapeFlags;
 (function(ShapeFlags2) {
   ShapeFlags2[ShapeFlags2["ELEMENT"] = 1] = "ELEMENT";
