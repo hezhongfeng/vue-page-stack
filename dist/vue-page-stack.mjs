@@ -1,6 +1,5 @@
-import { defineComponent as S, getCurrentInstance as y, queuePostFlushCb as A, onMounted as D, onUpdated as K, onBeforeUnmount as k, isVNode as b, cloneVNode as q, setTransitionHooks as v, callWithAsyncErrorHandling as w } from "vue";
-import { useRoute as W } from "vue-router";
-const f = {
+import { inject, defineComponent, getCurrentInstance, queuePostFlushCb, onMounted, onUpdated, onBeforeUnmount, isVNode, cloneVNode, setTransitionHooks, callWithAsyncErrorHandling } from "vue";
+const config = {
   componentName: "VuePageStack",
   keyName: "stack-key",
   pushName: "push",
@@ -9,22 +8,66 @@ const f = {
   backName: "back",
   forwardName: "forward"
 };
-var i;
-(function(e) {
-  e[e.ELEMENT = 1] = "ELEMENT", e[e.FUNCTIONAL_COMPONENT = 2] = "FUNCTIONAL_COMPONENT", e[e.STATEFUL_COMPONENT = 4] = "STATEFUL_COMPONENT", e[e.TEXT_CHILDREN = 8] = "TEXT_CHILDREN", e[e.ARRAY_CHILDREN = 16] = "ARRAY_CHILDREN", e[e.SLOTS_CHILDREN = 32] = "SLOTS_CHILDREN", e[e.TELEPORT = 64] = "TELEPORT", e[e.SUSPENSE = 128] = "SUSPENSE", e[e.COMPONENT_SHOULD_KEEP_ALIVE = 256] = "COMPONENT_SHOULD_KEEP_ALIVE", e[e.COMPONENT_KEPT_ALIVE = 512] = "COMPONENT_KEPT_ALIVE", e[e.COMPONENT = 6] = "COMPONENT";
-})(i || (i = {}));
-const V = (e, o) => {
-  for (let s = 0; s < e.length; s++)
-    e[s](o);
-};
-function I(e, o, s, t) {
-  w(e, o, X.VNODE_HOOK, [s, t]);
+/*!
+  * vue-router v4.2.0
+  * (c) 2023 Eduardo San Martin Morote
+  * @license MIT
+  */
+var NavigationType;
+(function(NavigationType2) {
+  NavigationType2["pop"] = "pop";
+  NavigationType2["push"] = "push";
+})(NavigationType || (NavigationType = {}));
+var NavigationDirection;
+(function(NavigationDirection2) {
+  NavigationDirection2["back"] = "back";
+  NavigationDirection2["forward"] = "forward";
+  NavigationDirection2["unknown"] = "";
+})(NavigationDirection || (NavigationDirection = {}));
+Symbol(process.env.NODE_ENV !== "production" ? "navigation failure" : "");
+var NavigationFailureType;
+(function(NavigationFailureType2) {
+  NavigationFailureType2[NavigationFailureType2["aborted"] = 4] = "aborted";
+  NavigationFailureType2[NavigationFailureType2["cancelled"] = 8] = "cancelled";
+  NavigationFailureType2[NavigationFailureType2["duplicated"] = 16] = "duplicated";
+})(NavigationFailureType || (NavigationFailureType = {}));
+Symbol(process.env.NODE_ENV !== "production" ? "router view location matched" : "");
+Symbol(process.env.NODE_ENV !== "production" ? "router view depth" : "");
+Symbol(process.env.NODE_ENV !== "production" ? "router" : "");
+const routeLocationKey = Symbol(process.env.NODE_ENV !== "production" ? "route location" : "");
+Symbol(process.env.NODE_ENV !== "production" ? "router view location" : "");
+function useRoute() {
+  return inject(routeLocationKey);
 }
-const B = (e) => e.__isSuspense, R = {
+var ShapeFlags;
+(function(ShapeFlags2) {
+  ShapeFlags2[ShapeFlags2["ELEMENT"] = 1] = "ELEMENT";
+  ShapeFlags2[ShapeFlags2["FUNCTIONAL_COMPONENT"] = 2] = "FUNCTIONAL_COMPONENT";
+  ShapeFlags2[ShapeFlags2["STATEFUL_COMPONENT"] = 4] = "STATEFUL_COMPONENT";
+  ShapeFlags2[ShapeFlags2["TEXT_CHILDREN"] = 8] = "TEXT_CHILDREN";
+  ShapeFlags2[ShapeFlags2["ARRAY_CHILDREN"] = 16] = "ARRAY_CHILDREN";
+  ShapeFlags2[ShapeFlags2["SLOTS_CHILDREN"] = 32] = "SLOTS_CHILDREN";
+  ShapeFlags2[ShapeFlags2["TELEPORT"] = 64] = "TELEPORT";
+  ShapeFlags2[ShapeFlags2["SUSPENSE"] = 128] = "SUSPENSE";
+  ShapeFlags2[ShapeFlags2["COMPONENT_SHOULD_KEEP_ALIVE"] = 256] = "COMPONENT_SHOULD_KEEP_ALIVE";
+  ShapeFlags2[ShapeFlags2["COMPONENT_KEPT_ALIVE"] = 512] = "COMPONENT_KEPT_ALIVE";
+  ShapeFlags2[ShapeFlags2["COMPONENT"] = 6] = "COMPONENT";
+})(ShapeFlags || (ShapeFlags = {}));
+const invokeArrayFns = (fns, arg) => {
+  for (let i = 0; i < fns.length; i++) {
+    fns[i](arg);
+  }
+};
+function invokeVNodeHook(hook, instance, vnode, prevVNode) {
+  callWithAsyncErrorHandling(hook, instance, ErrorCodes.VNODE_HOOK, [vnode, prevVNode]);
+}
+const isSuspense = (type) => type.__isSuspense;
+const MoveType = {
   ENTER: 0,
   LEAVE: 1,
   REORDER: 2
-}, X = {
+};
+const ErrorCodes = {
   SETUP_FUNCTION: 0,
   RENDER_FUNCTION: 1,
   WATCH_GETTER: 2,
@@ -34,116 +77,185 @@ const B = (e) => e.__isSuspense, R = {
   COMPONENT_EVENT_HANDLER: 6,
   VNODE_HOOK: 7
 };
-function Y(e) {
-  e.shapeFlag &= ~i.COMPONENT_SHOULD_KEEP_ALIVE, e.shapeFlag &= ~i.COMPONENT_KEPT_ALIVE;
+function resetShapeFlag(vnode) {
+  vnode.shapeFlag &= ~ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
+  vnode.shapeFlag &= ~ShapeFlags.COMPONENT_KEPT_ALIVE;
 }
-function d(e) {
-  return e.shapeFlag & i.SUSPENSE ? e.ssContent : e;
+function getInnerChild(vnode) {
+  return vnode.shapeFlag & ShapeFlags.SUSPENSE ? vnode.ssContent : vnode;
 }
-const N = [], H = (e) => {
-  for (let o = 0; o < N.length; o++)
-    if (N[o].key === e)
-      return o;
-  return -1;
-}, G = (e) => S({
-  name: f.componentName,
-  __isKeepAlive: !0,
-  setup(o, { slots: s }) {
-    console.log("VuePageStack setup");
-    const t = y(), r = t.ctx, T = t.suspense, {
-      renderer: {
-        p: C,
-        m,
-        um: M,
-        o: { createElement: U }
-      }
-    } = r, h = U("div");
-    r.activate = (n, a, l, E, c) => {
-      const u = n.component;
-      m(n, a, l, R.ENTER, T), C(u.vnode, n, a, l, u, T, E, n.slotScopeIds, c), A(() => {
-        u.isDeactivated = !1, u.a && V(u.a);
-        const _ = n.props && n.props.onVnodeMounted;
-        _ && I(_, u.parent, n);
-      }, T);
-    }, r.deactivate = (n) => {
-      const a = n.component;
-      m(n, h, null, R.LEAVE, T), A(() => {
-        a.da && V(a.da);
-        const l = n.props && n.props.onVnodeUnmounted;
-        l && I(l, a.parent, n), a.isDeactivated = !0;
-      }, T);
-    };
-    function x(n) {
-      Y(n), M(n, t, T, !0);
+const stack = [];
+const getIndexByKey = (key) => {
+  for (let index = 0; index < stack.length; index++) {
+    if (stack[index].key === key) {
+      return index;
     }
-    let O = null, p = !1;
-    const L = () => {
-      console.log("cacheSubtree"), O != null && (p ? N[N.length - 1].vnode = d(t.subTree) : N.push({ key: O, vnode: d(t.subTree) })), console.log(O, N);
-    };
-    return D(L), K(L), k(() => {
-      for (const n of N)
-        x(n.vnode);
-    }), () => {
-      console.log("return"), O = null, p = !1;
-      const a = W().query[e];
-      if (!s.default)
-        return null;
-      console.log(180);
-      const l = s.default(), E = l[0];
-      if (l.length > 1)
-        return l;
-      if (!b(E) || !(E.shapeFlag & i.STATEFUL_COMPONENT) && !(E.shapeFlag & i.SUSPENSE))
-        return E;
-      console.log(191);
-      let c = d(E);
-      c.el && (c = q(c), E.shapeFlag & i.SUSPENSE && (E.ssContent = c)), O = a, console.log("pendingCacheKey", O);
-      let u = H(a);
-      if (u !== -1) {
-        const _ = N[u].vnode;
-        c.el = _.el, c.component = _.component, c.transition && v(c, c.transition), c.shapeFlag |= i.COMPONENT_KEPT_ALIVE;
-        for (let P = u + 1; P < N.length; P++)
-          N[P] = null;
-        N.splice(u + 1), p = !0;
-      }
-      return c.shapeFlag |= i.COMPONENT_SHOULD_KEEP_ALIVE, B(E.type) ? E : c;
-    };
   }
-});
-function g(e, o) {
-  return !!e[o];
+  return -1;
+};
+const VuePageStack = (keyName) => {
+  return defineComponent({
+    name: config.componentName,
+    __isKeepAlive: true,
+    setup(props, { slots }) {
+      console.log("VuePageStack setup");
+      const instance = getCurrentInstance();
+      const sharedContext = instance.ctx;
+      const parentSuspense = instance.suspense;
+      const {
+        renderer: {
+          p: patch,
+          m: move,
+          um: _unmount,
+          o: { createElement }
+        }
+      } = sharedContext;
+      const storageContainer = createElement("div");
+      sharedContext.activate = (vnode, container, anchor, isSVG, optimized) => {
+        const instance2 = vnode.component;
+        move(vnode, container, anchor, MoveType.ENTER, parentSuspense);
+        patch(instance2.vnode, vnode, container, anchor, instance2, parentSuspense, isSVG, vnode.slotScopeIds, optimized);
+        queuePostFlushCb(() => {
+          instance2.isDeactivated = false;
+          if (instance2.a) {
+            invokeArrayFns(instance2.a);
+          }
+          const vnodeHook = vnode.props && vnode.props.onVnodeMounted;
+          if (vnodeHook) {
+            invokeVNodeHook(vnodeHook, instance2.parent, vnode);
+          }
+        }, parentSuspense);
+      };
+      sharedContext.deactivate = (vnode) => {
+        const instance2 = vnode.component;
+        move(vnode, storageContainer, null, MoveType.LEAVE, parentSuspense);
+        queuePostFlushCb(() => {
+          if (instance2.da) {
+            invokeArrayFns(instance2.da);
+          }
+          const vnodeHook = vnode.props && vnode.props.onVnodeUnmounted;
+          if (vnodeHook) {
+            invokeVNodeHook(vnodeHook, instance2.parent, vnode);
+          }
+          instance2.isDeactivated = true;
+        }, parentSuspense);
+      };
+      function unmount(vnode) {
+        resetShapeFlag(vnode);
+        _unmount(vnode, instance, parentSuspense, true);
+      }
+      let pendingCacheKey = null;
+      let useCache = false;
+      const cacheSubtree = () => {
+        console.log("cacheSubtree");
+        if (pendingCacheKey != null) {
+          if (useCache) {
+            stack[stack.length - 1].vnode = getInnerChild(instance.subTree);
+          } else {
+            stack.push({ key: pendingCacheKey, vnode: getInnerChild(instance.subTree) });
+          }
+        }
+        console.log(pendingCacheKey, stack);
+      };
+      onMounted(cacheSubtree);
+      onUpdated(cacheSubtree);
+      onBeforeUnmount(() => {
+        for (const cachedStack of stack) {
+          unmount(cachedStack.vnode);
+        }
+      });
+      return () => {
+        console.log("return");
+        pendingCacheKey = null;
+        useCache = false;
+        const route = useRoute();
+        const key = route.query[keyName];
+        if (!slots.default) {
+          return null;
+        }
+        console.log(180);
+        const children = slots.default();
+        const rawVNode = children[0];
+        if (children.length > 1) {
+          return children;
+        } else if (!isVNode(rawVNode) || !(rawVNode.shapeFlag & ShapeFlags.STATEFUL_COMPONENT) && !(rawVNode.shapeFlag & ShapeFlags.SUSPENSE)) {
+          return rawVNode;
+        }
+        console.log(191);
+        let vnode = getInnerChild(rawVNode);
+        if (vnode.el) {
+          vnode = cloneVNode(vnode);
+          if (rawVNode.shapeFlag & ShapeFlags.SUSPENSE) {
+            rawVNode.ssContent = vnode;
+          }
+        }
+        pendingCacheKey = key;
+        console.log("pendingCacheKey", pendingCacheKey);
+        let index = getIndexByKey(key);
+        if (index !== -1) {
+          const cachedVNode = stack[index].vnode;
+          vnode.el = cachedVNode.el;
+          vnode.component = cachedVNode.component;
+          if (vnode.transition) {
+            setTransitionHooks(vnode, vnode.transition);
+          }
+          vnode.shapeFlag |= ShapeFlags.COMPONENT_KEPT_ALIVE;
+          for (let i = index + 1; i < stack.length; i++) {
+            stack[i] = null;
+          }
+          stack.splice(index + 1);
+          useCache = true;
+        }
+        vnode.shapeFlag |= ShapeFlags.COMPONENT_SHOULD_KEEP_ALIVE;
+        return isSuspense(rawVNode.type) ? rawVNode : vnode;
+      };
+    }
+  });
+};
+function hasKey(query, keyName) {
+  return !!query[keyName];
 }
-function j(e) {
-  return e.replace(/[xy]/g, (o) => {
-    const s = Math.random() * 16 | 0;
-    return (o === "x" ? s : s & 3 | 8).toString(16);
+function getKey(str) {
+  return str.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0;
+    const v = c === "x" ? r : r & 3 | 8;
+    return v.toString(16);
   });
 }
-const Q = {
-  install(e, { router: o, name: s = f.componentName, keyName: t = f.keyName }) {
-    if (!o)
-      throw Error(`
- vue-router is necessary. 
-
-`);
-    e.component(s, G(t)), o.beforeEach((r, T) => {
-      if (console.log("beforeEach"), g(r.query, t))
-        H(r.query[t]) === -1 ? (r.params[t + "-dir"] = f.forwardName, console.log("前进")) : (r.params[t + "-dir"] = f.backName, console.log("后退"));
-      else {
-        r.query[t] = j("xxxxxxxx");
-        const C = !g(T.query, t);
+const VuePageStackPlugin = {
+  install(app, { router, name = config.componentName, keyName = config.keyName }) {
+    if (!router) {
+      throw Error("\n vue-router is necessary. \n\n");
+    }
+    app.component(name, VuePageStack(keyName));
+    router.beforeEach((to, from) => {
+      console.log("beforeEach");
+      if (!hasKey(to.query, keyName)) {
+        to.query[keyName] = getKey("xxxxxxxx");
+        const replace = !hasKey(from.query, keyName);
         return {
-          hash: r.hash,
-          path: r.path,
-          name: r.name,
-          params: r.params,
-          query: r.query,
-          meta: r.meta,
-          replace: C
+          hash: to.hash,
+          path: to.path,
+          name: to.name,
+          params: to.params,
+          query: to.query,
+          meta: to.meta,
+          replace
         };
+      } else {
+        const index = getIndexByKey(to.query[keyName]);
+        if (index === -1) {
+          to.params[keyName + "-dir"] = config.forwardName;
+          console.log("前进");
+        } else {
+          to.params[keyName + "-dir"] = config.backName;
+          console.log("后退");
+        }
       }
     });
   }
 };
 export {
-  Q as default
+  VuePageStackPlugin as default
 };
+//# sourceMappingURL=vue-page-stack.mjs.map
