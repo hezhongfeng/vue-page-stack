@@ -1,6 +1,6 @@
 {
   "name": "vue-page-stack",
-  "version": "3.0.0-beta5",
+  "version": "3.0.0-beta6",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -9,7 +9,7 @@
     "lint-fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
-  "main": "dist/vue-page-stack.js",
+  "main": "dist/vue-page-stack.es.js",
   "lint-staged": {
     "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore"
   },
