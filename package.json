@@ -1,6 +1,17 @@
 {
   "name": "vue-page-stack",
-  "version": "3.0.0-beta6",
+  "version": "3.0.0-beta7",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue-page-stack.umd.js",
+  "module": "./dist/vue-page-stack.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-page-stack.es.js",
+      "require": "./dist/vue-page-stack.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -9,7 +20,6 @@
     "lint-fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
-  "main": "dist/vue-page-stack.es.js",
   "lint-staged": {
     "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore"
   },
