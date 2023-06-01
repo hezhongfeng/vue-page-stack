@@ -1,17 +1,26 @@
 {
   "name": "vue-page-stack",
-  "version": "3.0.0-beta7",
+  "version": "3.0.0-beta8",
   "files": [
     "dist"
   ],
   "main": "./dist/vue-page-stack.umd.js",
   "module": "./dist/vue-page-stack.es.js",
+  "private": false,
   "exports": {
     ".": {
       "import": "./dist/vue-page-stack.es.js",
       "require": "./dist/vue-page-stack.umd.js"
     }
   },
+  "keywords": [
+    "vue3",
+    "vue-router",
+    "stack",
+    "navigation",
+    "manager",
+    "page"
+  ],
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
@@ -28,7 +37,17 @@
       "path": "./node_modules/cz-customizable"
     }
   },
-  "dependencies": {
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hezhongfeng/vue-page-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hezhongfeng/vue-page-stack/issues"
+  },
+  "homepage": "https://github.com/hezhongfeng/vue-page-stack#readme",
+  "dependencies": {},
+  "peerDependencies": {
     "vue": "^3.3.2",
     "vue-router": "^4.2.0"
   },

@@ -1,5 +1,5 @@
-import { defineComponent as y, getCurrentInstance as D, queuePostFlushCb as A, onMounted as K, onUpdated as k, onBeforeUnmount as b, isVNode as q, cloneVNode as v, setTransitionHooks as w, callWithAsyncErrorHandling as W } from "vue";
-import { useRoute as H } from "vue-router";
+import { defineComponent as S, getCurrentInstance as y, queuePostFlushCb as A, onMounted as D, onUpdated as K, onBeforeUnmount as k, isVNode as b, cloneVNode as q, setTransitionHooks as v, callWithAsyncErrorHandling as w } from "vue";
+import { useRoute as W } from "vue-router";
 const f = {
   componentName: "VuePageStack",
   keyName: "stack-key",
@@ -9,7 +9,6 @@ const f = {
   backName: "back",
   forwardName: "forward"
 };
-console.log(H);
 var i;
 (function(e) {
   e[e.ELEMENT = 1] = "ELEMENT", e[e.FUNCTIONAL_COMPONENT = 2] = "FUNCTIONAL_COMPONENT", e[e.STATEFUL_COMPONENT = 4] = "STATEFUL_COMPONENT", e[e.TEXT_CHILDREN = 8] = "TEXT_CHILDREN", e[e.ARRAY_CHILDREN = 16] = "ARRAY_CHILDREN", e[e.SLOTS_CHILDREN = 32] = "SLOTS_CHILDREN", e[e.TELEPORT = 64] = "TELEPORT", e[e.SUSPENSE = 128] = "SUSPENSE", e[e.COMPONENT_SHOULD_KEEP_ALIVE = 256] = "COMPONENT_SHOULD_KEEP_ALIVE", e[e.COMPONENT_KEPT_ALIVE = 512] = "COMPONENT_KEPT_ALIVE", e[e.COMPONENT = 6] = "COMPONENT";
@@ -19,7 +18,7 @@ const V = (e, o) => {
     e[s](o);
 };
 function g(e, o, s, t) {
-  W(e, o, X.VNODE_HOOK, [s, t]);
+  w(e, o, X.VNODE_HOOK, [s, t]);
 }
 const B = (e) => e.__isSuspense, I = {
   ENTER: 0,
@@ -41,24 +40,24 @@ function Y(e) {
 function d(e) {
   return e.shapeFlag & i.SUSPENSE ? e.ssContent : e;
 }
-const N = [], M = (e) => {
+const N = [], H = (e) => {
   for (let o = 0; o < N.length; o++)
     if (N[o].key === e)
       return o;
   return -1;
-}, G = (e) => y({
+}, G = (e) => S({
   name: f.componentName,
   __isKeepAlive: !0,
   setup(o, { slots: s }) {
     console.log("VuePageStack setup", e);
-    const t = D(), r = t.ctx, T = t.suspense, {
+    const t = y(), r = t.ctx, T = t.suspense, {
       renderer: {
         p: C,
         m,
-        um: U,
-        o: { createElement: h }
+        um: M,
+        o: { createElement: U }
       }
-    } = r, x = h("div");
+    } = r, h = U("div");
     r.activate = (n, a, l, E, c) => {
       const u = n.component;
       m(n, a, l, I.ENTER, T), C(u.vnode, n, a, l, u, T, E, n.slotScopeIds, c), A(() => {
@@ -68,26 +67,26 @@ const N = [], M = (e) => {
       }, T);
     }, r.deactivate = (n) => {
       const a = n.component;
-      m(n, x, null, I.LEAVE, T), A(() => {
+      m(n, h, null, I.LEAVE, T), A(() => {
         a.da && V(a.da);
         const l = n.props && n.props.onVnodeUnmounted;
         l && g(l, a.parent, n), a.isDeactivated = !0;
       }, T);
     };
-    function S(n) {
-      Y(n), U(n, t, T, !0);
+    function x(n) {
+      Y(n), M(n, t, T, !0);
     }
     let O = null, p = !1;
     const L = () => {
       console.log("cacheSubtree"), O != null && (p ? N[N.length - 1].vnode = d(t.subTree) : N.push({ key: O, vnode: d(t.subTree) })), console.log(O, N);
     };
-    return K(L), k(L), b(() => {
+    return D(L), K(L), k(() => {
       for (const n of N)
-        S(n.vnode);
+        x(n.vnode);
     }), () => {
       console.log("return"), O = null, p = !1;
-      const n = H();
-      console.log(n);
+      const n = W();
+      console.log("route", n);
       const a = n.query[e];
       if (!s.default)
         return null;
@@ -95,15 +94,15 @@ const N = [], M = (e) => {
       const l = s.default(), E = l[0];
       if (l.length > 1)
         return l;
-      if (!q(E) || !(E.shapeFlag & i.STATEFUL_COMPONENT) && !(E.shapeFlag & i.SUSPENSE))
+      if (!b(E) || !(E.shapeFlag & i.STATEFUL_COMPONENT) && !(E.shapeFlag & i.SUSPENSE))
         return E;
       console.log(191);
       let c = d(E);
-      c.el && (c = v(c), E.shapeFlag & i.SUSPENSE && (E.ssContent = c)), O = a, console.log("pendingCacheKey", O);
-      let u = M(a);
+      c.el && (c = q(c), E.shapeFlag & i.SUSPENSE && (E.ssContent = c)), O = a, console.log("pendingCacheKey", O);
+      let u = H(a);
       if (u !== -1) {
         const _ = N[u].vnode;
-        c.el = _.el, c.component = _.component, c.transition && w(c, c.transition), c.shapeFlag |= i.COMPONENT_KEPT_ALIVE;
+        c.el = _.el, c.component = _.component, c.transition && v(c, c.transition), c.shapeFlag |= i.COMPONENT_KEPT_ALIVE;
         for (let P = u + 1; P < N.length; P++)
           N[P] = null;
         N.splice(u + 1), p = !0;
@@ -130,7 +129,7 @@ const Q = {
 `);
     e.component(s, G(t)), o.beforeEach((r, T) => {
       if (console.log("beforeEach"), R(r.query, t))
-        M(r.query[t]) === -1 ? (r.params[t + "-dir"] = f.forwardName, console.log("前进")) : (r.params[t + "-dir"] = f.backName, console.log("后退"));
+        H(r.query[t]) === -1 ? (r.params[t + "-dir"] = f.forwardName, console.log("前进")) : (r.params[t + "-dir"] = f.backName, console.log("后退"));
       else {
         r.query[t] = j("xxxxxxxx");
         const C = !R(T.query, t);
