@@ -1,6 +1,6 @@
-import { defineComponent as S, getCurrentInstance as y, queuePostFlushCb as A, onMounted as D, onUpdated as K, onBeforeUnmount as k, isVNode as b, cloneVNode as q, setTransitionHooks as v, callWithAsyncErrorHandling as w } from "vue";
+import { defineComponent as y, getCurrentInstance as D, queuePostFlushCb as R, onMounted as S, onUpdated as b, onBeforeUnmount as K, isVNode as w, cloneVNode as v, setTransitionHooks as q, callWithAsyncErrorHandling as B } from "vue";
 import { useRoute as W } from "vue-router";
-const f = {
+const a = {
   componentName: "VuePageStack",
   keyName: "stack-key",
   pushName: "push",
@@ -9,18 +9,18 @@ const f = {
   backName: "back",
   forwardName: "forward"
 };
-var i;
+var p;
 (function(e) {
   e[e.ELEMENT = 1] = "ELEMENT", e[e.FUNCTIONAL_COMPONENT = 2] = "FUNCTIONAL_COMPONENT", e[e.STATEFUL_COMPONENT = 4] = "STATEFUL_COMPONENT", e[e.TEXT_CHILDREN = 8] = "TEXT_CHILDREN", e[e.ARRAY_CHILDREN = 16] = "ARRAY_CHILDREN", e[e.SLOTS_CHILDREN = 32] = "SLOTS_CHILDREN", e[e.TELEPORT = 64] = "TELEPORT", e[e.SUSPENSE = 128] = "SUSPENSE", e[e.COMPONENT_SHOULD_KEEP_ALIVE = 256] = "COMPONENT_SHOULD_KEEP_ALIVE", e[e.COMPONENT_KEPT_ALIVE = 512] = "COMPONENT_KEPT_ALIVE", e[e.COMPONENT = 6] = "COMPONENT";
-})(i || (i = {}));
-const V = (e, o) => {
-  for (let s = 0; s < e.length; s++)
-    e[s](o);
+})(p || (p = {}));
+const V = (e, n) => {
+  for (let r = 0; r < e.length; r++)
+    e[r](n);
 };
-function g(e, o, s, t) {
-  w(e, o, X.VNODE_HOOK, [s, t]);
+function h(e, n, r, o) {
+  B(e, n, X.VNODE_HOOK, [r, o]);
 }
-const B = (e) => e.__isSuspense, I = {
+const G = (e) => e.__isSuspense, I = {
   ENTER: 0,
   LEAVE: 1,
   REORDER: 2
@@ -35,118 +35,124 @@ const B = (e) => e.__isSuspense, I = {
   VNODE_HOOK: 7
 };
 function Y(e) {
-  e.shapeFlag &= ~i.COMPONENT_SHOULD_KEEP_ALIVE, e.shapeFlag &= ~i.COMPONENT_KEPT_ALIVE;
+  e.shapeFlag &= ~p.COMPONENT_SHOULD_KEEP_ALIVE, e.shapeFlag &= ~p.COMPONENT_KEPT_ALIVE;
 }
-function d(e) {
-  return e.shapeFlag & i.SUSPENSE ? e.ssContent : e;
+function P(e) {
+  return e.shapeFlag & p.SUSPENSE ? e.ssContent : e;
 }
-const N = [], H = (e) => {
-  for (let o = 0; o < N.length; o++)
-    if (N[o].key === e)
-      return o;
+const T = [], M = (e) => {
+  for (let n = 0; n < T.length; n++)
+    if (T[n].key === e)
+      return n;
   return -1;
-}, G = (e) => S({
-  name: f.componentName,
+}, j = (e) => y({
+  name: a.componentName,
   __isKeepAlive: !0,
-  setup(o, { slots: s }) {
-    console.log("VuePageStack setup", e);
-    const t = y(), r = t.ctx, T = t.suspense, {
+  setup(n, { slots: r }) {
+    const o = D(), c = o.ctx, N = o.suspense, {
       renderer: {
-        p: C,
-        m,
-        um: M,
-        o: { createElement: U }
+        p: u,
+        m: L,
+        um: U,
+        o: { createElement: g }
       }
-    } = r, h = U("div");
-    r.activate = (n, a, l, E, c) => {
-      const u = n.component;
-      m(n, a, l, I.ENTER, T), C(u.vnode, n, a, l, u, T, E, n.slotScopeIds, c), A(() => {
-        u.isDeactivated = !1, u.a && V(u.a);
-        const _ = n.props && n.props.onVnodeMounted;
-        _ && g(_, u.parent, n);
-      }, T);
-    }, r.deactivate = (n) => {
-      const a = n.component;
-      m(n, h, null, I.LEAVE, T), A(() => {
-        a.da && V(a.da);
-        const l = n.props && n.props.onVnodeUnmounted;
-        l && g(l, a.parent, n), a.isDeactivated = !0;
-      }, T);
+    } = c, k = g("div");
+    c.activate = (t, l, O, E, s) => {
+      const i = t.component;
+      L(t, l, O, I.ENTER, N), u(i.vnode, t, l, O, i, N, E, t.slotScopeIds, s), R(() => {
+        i.isDeactivated = !1, i.a && V(i.a);
+        const f = t.props && t.props.onVnodeMounted;
+        f && h(f, i.parent, t);
+      }, N);
+    }, c.deactivate = (t) => {
+      const l = t.component;
+      L(t, k, null, I.LEAVE, N), R(() => {
+        l.da && V(l.da);
+        const O = t.props && t.props.onVnodeUnmounted;
+        O && h(O, l.parent, t), l.isDeactivated = !0;
+      }, N);
     };
-    function x(n) {
-      Y(n), M(n, t, T, !0);
+    function x(t) {
+      Y(t), U(t, o, N, !0);
     }
-    let O = null, p = !1;
-    const L = () => {
-      console.log("cacheSubtree"), O != null && (p ? N[N.length - 1].vnode = d(t.subTree) : N.push({ key: O, vnode: d(t.subTree) })), console.log(O, N);
+    let _ = null, m = !1;
+    const A = () => {
+      _ != null && (m ? T[T.length - 1].vnode = P(o.subTree) : T.push({ key: _, vnode: P(o.subTree) }));
     };
-    return D(L), K(L), k(() => {
-      for (const n of N)
-        x(n.vnode);
+    return S(A), b(A), K(() => {
+      for (const t of T)
+        x(t.vnode);
     }), () => {
-      console.log("return"), O = null, p = !1;
-      const n = W();
-      console.log("route", n);
-      const a = n.query[e];
-      if (!s.default)
+      _ = null, m = !1;
+      const l = W().query[e];
+      if (!r.default)
         return null;
-      console.log(180);
-      const l = s.default(), E = l[0];
-      if (l.length > 1)
-        return l;
-      if (!b(E) || !(E.shapeFlag & i.STATEFUL_COMPONENT) && !(E.shapeFlag & i.SUSPENSE))
+      const O = r.default(), E = O[0];
+      if (O.length > 1)
+        return O;
+      if (!w(E) || !(E.shapeFlag & p.STATEFUL_COMPONENT) && !(E.shapeFlag & p.SUSPENSE))
         return E;
-      console.log(191);
-      let c = d(E);
-      c.el && (c = q(c), E.shapeFlag & i.SUSPENSE && (E.ssContent = c)), O = a, console.log("pendingCacheKey", O);
-      let u = H(a);
-      if (u !== -1) {
-        const _ = N[u].vnode;
-        c.el = _.el, c.component = _.component, c.transition && v(c, c.transition), c.shapeFlag |= i.COMPONENT_KEPT_ALIVE;
-        for (let P = u + 1; P < N.length; P++)
-          N[P] = null;
-        N.splice(u + 1), p = !0;
+      let s = P(E);
+      s.el && (s = v(s), E.shapeFlag & p.SUSPENSE && (E.ssContent = s)), _ = l;
+      let i = M(l);
+      if (i !== -1) {
+        const f = T[i].vnode;
+        s.el = f.el, s.component = f.component, s.transition && q(s, s.transition), s.shapeFlag |= p.COMPONENT_KEPT_ALIVE;
+        for (let C = i + 1; C < T.length; C++)
+          T[C] = null;
+        T.splice(i + 1), m = !0;
       }
-      return c.shapeFlag |= i.COMPONENT_SHOULD_KEEP_ALIVE, B(E.type) ? E : c;
+      return s.shapeFlag |= p.COMPONENT_SHOULD_KEEP_ALIVE, G(E.type) ? E : s;
     };
   }
-});
-function R(e, o) {
-  return !!e[o];
+}), d = {
+  action: a.pushName
+}, z = (e) => {
+  const n = e.push.bind(e), r = e.go.bind(e), o = e.replace.bind(e), c = e.back.bind(e), N = e.forward.bind(e);
+  e.push = (u) => (d.action = a.pushName, console.log("push"), n(u)), e.go = (u) => {
+    d.action = a.goName, console.log("go"), r(u);
+  }, e.replace = (u) => (d.action = a.replaceName, console.log("replace"), o(u)), e.back = () => {
+    d.action = a.backName, console.log("back"), c();
+  }, e.forward = () => {
+    d.action = a.forwardName, console.log("forward"), N();
+  };
+};
+function H(e, n) {
+  return !!e[n];
 }
-function j(e) {
-  return e.replace(/[xy]/g, (o) => {
-    const s = Math.random() * 16 | 0;
-    return (o === "x" ? s : s & 3 | 8).toString(16);
+function J(e) {
+  return e.replace(/[xy]/g, (n) => {
+    const r = Math.random() * 16 | 0;
+    return (n === "x" ? r : r & 3 | 8).toString(16);
   });
 }
-const Q = {
-  install(e, { router: o, name: s = f.componentName, keyName: t = f.keyName }) {
-    if (!o)
+const $ = {
+  install(e, { router: n, name: r = a.componentName, keyName: o = a.keyName }) {
+    if (!n)
       throw Error(`
  vue-router is necessary. 
 
 `);
-    e.component(s, G(t)), o.beforeEach((r, T) => {
-      if (console.log("beforeEach"), R(r.query, t))
-        H(r.query[t]) === -1 ? (r.params[t + "-dir"] = f.forwardName, console.log("前进")) : (r.params[t + "-dir"] = f.backName, console.log("后退"));
+    e.component(r, j(o)), z(n), n.beforeEach((c, N) => {
+      if (H(c.query, o))
+        M(c.query[o]) === -1 ? c.params[o + "-dir"] = a.forwardName : c.params[o + "-dir"] = a.backName;
       else {
-        r.query[t] = j("xxxxxxxx");
-        const C = !R(T.query, t);
+        c.query[o] = J("xxxxxxxx");
+        const u = d.action === a.replaceName || !H(N.query, o);
         return {
-          hash: r.hash,
-          path: r.path,
-          name: r.name,
-          params: r.params,
-          query: r.query,
-          meta: r.meta,
-          replace: C
+          hash: c.hash,
+          path: c.path,
+          name: c.name,
+          params: c.params,
+          query: c.query,
+          meta: c.meta,
+          replace: u
         };
       }
     });
   }
 };
 export {
-  Q as default
+  $ as default
 };
 //# sourceMappingURL=vue-page-stack.es.js.map
