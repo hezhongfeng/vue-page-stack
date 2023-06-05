@@ -1,5 +1,7 @@
 # vue-page-stack
 
+**这个是 Vue3.0 的版本，Vue2.0 请点击[这个链接](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
+
 [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
 [English](./README.md) | 简体中文
