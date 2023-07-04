@@ -1,5 +1,7 @@
 # vue-page-stack
 
+**This is the version of Vue3.0, Vue2.0 please click [this link](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
+
 [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
 English | [简体中文](./README.zh-cn.md)
