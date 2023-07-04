@@ -1,6 +1,6 @@
 {
   "name": "vue-page-stack",
-  "version": "3.0.1",
+  "version": "3.0.1-beta1",
   "author": "hezf",
   "files": [
     "dist"
