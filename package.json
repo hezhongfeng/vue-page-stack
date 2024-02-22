@@ -27,7 +27,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,,.mjs --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.mjs --ignore-path .gitignore",
     "lint-fix": "eslint . --ext .vue,.js,.jsx,.mjs --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
@@ -52,6 +52,7 @@
   },
   "homepage": "https://github.com/hezhongfeng/vue-page-stack#readme",
   "dependencies": {
+    "@vue/shared": "^3.4.19",
     "detect-browser-navigation-in-vue-router": "1.0.0",
     "uuid": "^9.0.1"
   },
