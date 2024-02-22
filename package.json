@@ -53,8 +53,7 @@
   "homepage": "https://github.com/hezhongfeng/vue-page-stack#readme",
   "dependencies": {
     "@vue/shared": "^3.4.19",
-    "detect-browser-navigation-in-vue-router": "1.0.0",
-    "uuid": "^9.0.1"
+    "detect-browser-navigation-in-vue-router": "1.0.0"
   },
   "peerDependencies": {
     "vue": "^3.3.4",
