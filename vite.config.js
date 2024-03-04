@@ -11,7 +11,7 @@ export default defineConfig({
       fileName: format => `vue-page-stack.${format}.js`,
       formats: ['cjs', 'es', 'iife', 'umd']
     },
-    sourcemap: true,
+    sourcemap: false,
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
       external: ['vue', 'vue-router'],

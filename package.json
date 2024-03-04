@@ -1,7 +1,8 @@
 {
   "name": "vue-page-stack",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "author": "hezf",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -26,16 +27,19 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore",
-    "lint-fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.mjs --ignore-path .gitignore",
+    "lint-fix": "eslint . --ext .vue,.js,.jsx,.mjs --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore"
+    "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.mjs --ignore-path .gitignore"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.cjs"
     }
   },
   "license": "MIT",
@@ -47,7 +51,10 @@
     "url": "https://github.com/hezhongfeng/vue-page-stack/issues"
   },
   "homepage": "https://github.com/hezhongfeng/vue-page-stack#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@vue/shared": "^3.4.19",
+    "detect-browser-navigation-in-vue-router": "1.0.0"
+  },
   "peerDependencies": {
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
@@ -62,6 +69,6 @@
     "eslint": "^8.40.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "vite": "^4.3.9"
+    "vite": "^5.1.3"
   }
 }
