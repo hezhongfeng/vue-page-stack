@@ -11,7 +11,7 @@ English | [简体中文](./README.zh-cn.md)
 A Vue3 SPA navigation manager,cache the UI in the SPA like a native application, rather than destroy it.
 
 <div align="center">
-  <img src="https://gitee.com/hezf/assets/raw/master/202306021131512.gif">
+  <img src="https://raw.githubusercontent.com/hezhongfeng/images/master/vue-page-stack.gif">
 </div>
 
 ## Example

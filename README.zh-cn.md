@@ -11,7 +11,7 @@
 Vue3 单页应用导航管理器，像原生 app 一样管理页面栈而不是销毁。
 
 <div align="center">
-  <img src="https://gitee.com/hezf/assets/raw/master/202306021131512.gif">
+  <img src="https://raw.githubusercontent.com/hezhongfeng/images/master/vue-page-stack.gif">
 </div>
 
 ## Example
