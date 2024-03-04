@@ -49,23 +49,33 @@ pnpm install vue-page-stack
 
 ```js
 import { createApp } from 'vue';
-import VuePageStack from 'vue-page-stack';
+import { VuePageStackPlugin } from 'vue-page-stack';
 
 const app = createApp(App);
 
-// vue-router is necessary
-app.use(VuePageStack, { router });
+// router is necessary
+app.use(VuePageStackPlugin, { router });
 ```
 
-```js
+```vue
 // App.vue
 <template>
   <router-view v-slot="{ Component }">
-    <vue-page-stack>
+    <vue-page-stack @back="onBack" @forward="onForward">
       <component :is="Component" :key="$route.fullPath"></component>
     </vue-page-stack>
   </router-view>
 </template>
+
+<script setup>
+const onBack = () => {
+  console.log('back');
+};
+
+const onForward = () => {
+  console.log('forward');
+};
+</script>
 ```
 
 ## API
@@ -75,9 +85,10 @@ app.use(VuePageStack, { router });
 use `Vue.use` to install `vue-page-stack`
 
 ```js
-app.use(VuePageStack, options);
-// example
-app.use(VuePageStack, { router });
+import { VuePageStackPlugin } from 'vue-page-stack';
+
+//...
+app.use(VuePageStackPlugin, { router });
 ```
 
 Options description：
@@ -86,36 +97,21 @@ Options description：
 | --------- | ------------------- | ------ | ------------------- | -------------- |
 | router    | vue-router instance | Object | vue-router instance | -              |
 | name      | VuePageStack name   | String | 'VuePageStack'      | 'VuePageStack' |
-| keyName   | stack-key name      | String | 'stack-key'         | 'stack-key'    |
 
-you can customize VuePageStack's name and keyName
-
-```js
-app.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
-```
-
-### forward or backward
+### forward or back
 
 If you want to make some animate entering or leaving, `vue-page-stack` offers `stack-key-dir` to judge forward or backward.
 
-```js
+```vue
 // App.vue
-watch(route, to => {
-  if (to.params['stack-key-dir'] === 'forward') {
-    console.log('forward');
-  } else {
-    console.log('back');
-  }
-});
+<vue-page-stack @back="onBack" @forward="onForward">
+  <component :is="Component" :key="$route.fullPath"></component>
+</vue-page-stack>
 ```
 
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
 ## Notes
-
-### keyName
-
-Why is the parameter `keyName` added to the route? To support the browser's backward and forward events，this is important in webApp or wechat.
 
 ### Changelog
 

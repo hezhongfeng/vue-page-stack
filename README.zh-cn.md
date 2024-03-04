@@ -1,6 +1,6 @@
 # vue-page-stack
 
-**这个是 Vue3.0 的版本，Vue2.0 请点击[这个链接](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
+**这个是 Vue3.x 的版本 ，Vue2.0 请点击[这个链接](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
 
 [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
@@ -49,38 +49,46 @@ pnpm install vue-page-stack
 
 ```js
 import { createApp } from 'vue';
-import VuePageStack from 'vue-page-stack';
+import { VuePageStackPlugin } from 'vue-page-stack';
 
 const app = createApp(App);
 
-// vue-router is necessary
-app.use(VuePageStack, { router });
+// router is necessary
+app.use(VuePageStackPlugin, { router });
 ```
 
-```js
+```vue
 // App.vue
 <template>
   <router-view v-slot="{ Component }">
-    <vue-page-stack>
+    <vue-page-stack @back="onBack" @forward="onForward">
       <component :is="Component" :key="$route.fullPath"></component>
     </vue-page-stack>
   </router-view>
 </template>
+
+<script setup>
+const onBack = () => {
+  console.log('back');
+};
+
+const onForward = () => {
+  console.log('forward');
+};
+</script>
 ```
 
 ## API
 
 ### 注册插件
 
-注册的时候可以指定 VuePageStack 的名字和 keyName
-
-use `app.use` to install `vue-page-stack`
 使用之前需要注册插件
 
 ```js
-app.use(VuePageStack, options);
-// example
-app.use(VuePageStack, { router });
+import { VuePageStackPlugin } from 'vue-page-stack';
+
+//...
+app.use(VuePageStackPlugin, { router });
 ```
 
 Options 说明：
@@ -88,37 +96,35 @@ Options 说明：
 | Attribute | Description         | Type   | Accepted Values     | Default        |
 | --------- | ------------------- | ------ | ------------------- | -------------- |
 | router    | vue-router instance | Object | vue-router instance | -              |
-| name      | VuePageStack name   | String | 'VuePageStack'      | 'VuePageStack' |
-| keyName   | stack-key name      | String | 'stack-key'         | 'stack-key'    |
-
-注册的时候可以指定 VuePageStack 的名字和 keyName
-
-```js
-app.use(VuePageStack, { router, name: 'VuePageStack', keyName: 'stack-key' });
-```
 
 ### 前进和后退
 
-如果想在页面前进或者后退的时候添加一些动画，可以通过`stack-key-dir`进行判断
+如果想在页面前进或者后退的时候添加一些事件，可以通过组件的 `back` 事件和 `forward` 事件进行处理
 
-```js
+```vue
 // App.vue
-watch(route, to => {
-  if (to.params['stack-key-dir'] === 'forward') {
-    console.log('forward');
-  } else {
-    console.log('back');
-  }
-});
+<template>
+  <router-view v-slot="{ Component }">
+    <vue-page-stack @back="onBack" @forward="onForward">
+      <component :is="Component" :key="$route.fullPath"></component>
+    </vue-page-stack>
+  </router-view>
+</template>
+
+<script setup>
+const onBack = () => {
+  console.log('back');
+};
+
+const onForward = () => {
+  console.log('forward');
+};
+</script>
 ```
 
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
 ## 相关说明
-
-### keyName
-
-为什么会给路由添加`keyName`这个参数，是为了支持浏览器的后退，前进事件，这个特性在 webApp,微信公众号和小程序很重要
 
 ### 更新日志
 
