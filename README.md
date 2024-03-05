@@ -1,5 +1,10 @@
 # vue-page-stack
 
+## v3.1.0
+
+1. 移除了 url 上的参数 `stack-key`
+2. 因为 Vue3.x 对内置组件有特殊处理，所以目前不能和 `Transition` 一起使用
+
 **This is the version of Vue3.0, Vue2.0 please click [this link](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
 
 [![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
