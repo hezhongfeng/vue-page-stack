@@ -66,24 +66,24 @@ const i = [], q = I({
     const l = R(), E = l.ctx, u = l.suspense, {
       renderer: {
         p,
-        m: d,
+        m: T,
         um: V,
         o: { createElement: A }
       }
     } = E, M = A("div");
-    E.activate = (n, t, a, O, T) => {
+    E.activate = (n, a, t, d, O) => {
       const N = n.component;
-      d(n, t, a, k.ENTER, u), p(N.vnode, n, t, a, N, u, O, n.slotScopeIds, T), P(() => {
+      T(n, a, t, k.ENTER, u), p(N.vnode, n, a, t, N, u, d, n.slotScopeIds, O), P(() => {
         N.isDeactivated = !1, N.a && b(N.a);
         const S = n.props && n.props.onVnodeMounted;
         S && g(S, N.parent, n);
       }, u);
     }, E.deactivate = (n) => {
-      const t = n.component;
-      d(n, M, null, k.LEAVE, u), P(() => {
-        t.da && b(t.da);
-        const a = n.props && n.props.onVnodeUnmounted;
-        a && g(a, t.parent, n), t.isDeactivated = !0;
+      const a = n.component;
+      T(n, M, null, k.LEAVE, u), P(() => {
+        a.da && b(a.da);
+        const t = n.props && n.props.onVnodeUnmounted;
+        t && g(t, a.parent, n), a.isDeactivated = !0;
       }, u);
     };
     function w(n) {
@@ -99,22 +99,24 @@ const i = [], q = I({
     }), () => {
       if (h = !1, C = !1, !o.default)
         return null;
-      const n = o.default(), t = n[0];
+      const n = o.default(), a = n[0];
       if (n.length > 1)
         return n;
-      if (!H(t) || !(t.shapeFlag & f.STATEFUL_COMPONENT) && !(t.shapeFlag & f.SUSPENSE))
-        return t;
-      let a = _(t);
-      if (a.el && (a = K(a), t.shapeFlag & f.SUSPENSE && (t.ssContent = a)), h = !0, c.action === r.backName) {
+      if (!H(a) || !(a.shapeFlag & f.STATEFUL_COMPONENT) && !(a.shapeFlag & f.SUSPENSE))
+        return a;
+      let t = _(a);
+      if (t.el && (t = K(t), a.shapeFlag & f.SUSPENSE && (a.ssContent = t)), h = !0, c.action === r.backName) {
         s("back");
-        const O = -c.n, T = i[i.length - O - 1];
-        a.el = T.el, a.component = T.component, a.transition && x(a, a.transition), a.shapeFlag |= f.COMPONENT_KEPT_ALIVE;
-        for (let N = i.length - O; N < i.length; N++)
+        const d = -c.n, O = i[i.length - d - 1];
+        if (!O || O.key != a.key)
+          return a;
+        t.el = O.el, t.component = O.component, t.transition && x(t, t.transition), t.shapeFlag |= f.COMPONENT_KEPT_ALIVE;
+        for (let N = i.length - d; N < i.length; N++)
           L(i[N]), i[N] = null;
-        i.splice(i.length - O), C = !0;
+        i.splice(i.length - d), C = !0;
       } else
         s("forward");
-      return a.shapeFlag |= f.COMPONENT_SHOULD_KEEP_ALIVE, j(t.type) ? t : a;
+      return t.shapeFlag |= f.COMPONENT_SHOULD_KEEP_ALIVE, j(a.type) ? a : t;
     };
   }
 }), z = (e) => {
@@ -135,8 +137,8 @@ const i = [], q = I({
     if (!o)
       throw Error("router is required");
     let E = null;
-    o.options.history.listen((u, p, d) => {
-      E = d;
+    o.options.history.listen((u, p, T) => {
+      E = T;
     }), o.beforeEach(() => {
       E && (E.direction === "back" && s ? s() : E.direction === "forward" && l && l(), E = null);
     });
