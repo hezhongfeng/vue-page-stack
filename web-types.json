@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/web-types",
+  "framework": "vue",
+  "name": "vue-page-stack",
+  "version": "3.1.1",
+  "contributions": {
+    "html": {
+      "elements": [
+        {
+          "name": "vue-page-stack",
+          "events": [
+            {
+              "name": "back",
+              "arguments": []
+            },
+            {
+              "name": "forward",
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
