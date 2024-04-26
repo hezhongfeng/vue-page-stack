@@ -6,6 +6,8 @@
   "files": [
     "dist"
   ],
+  "types": "./index.d.ts",
+  "web-types": "./web-types.json",
   "main": "./dist/vue-page-stack.umd.js",
   "module": "./dist/vue-page-stack.es.js",
   "private": false,
