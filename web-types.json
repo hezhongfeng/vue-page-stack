@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/web-types",
   "framework": "vue",
   "name": "vue-page-stack",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "contributions": {
     "html": {
       "elements": [

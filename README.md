@@ -1,6 +1,6 @@
 # vue-page-stack
 
-## v3.1.0
+## v3.1.2
 
 1. 移除了 url 上的参数 `stack-key`
 2. 因为 Vue3.x 对内置组件有特殊处理，所以目前不能和 `Transition` 一起使用
