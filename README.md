@@ -1,9 +1,13 @@
 # vue-page-stack
 
+## v3.1.3
+
+1. Fixed the page caching issue when using replace.
+
 ## v3.1.2
 
-1. 移除了 url 上的参数 `stack-key`
-2. 因为 Vue3.x 对内置组件有特殊处理，所以目前不能和 `Transition` 一起使用
+1. Removed the stack-key parameter from the URL.
+2. Due to special handling of built-in components in Vue3.x, it is currently not possible to use it together with Transition.
 
 **This is the version of Vue3.0, Vue2.0 please click [this link](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
 
