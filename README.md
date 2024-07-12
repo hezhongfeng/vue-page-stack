@@ -1,5 +1,9 @@
 # vue-page-stack
 
+## v3.1.4
+
+1. FIx the bug of refreshing the browser and then going back
+
 ## v3.1.3
 
 1. Fixed the page caching issue when using replace.
