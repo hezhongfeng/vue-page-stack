@@ -1,4 +1,4 @@
-import { defineComponent as I, getCurrentInstance as R, queuePostFlushCb as b, onMounted as F, onUpdated as U, onBeforeUnmount as D, isVNode as H, cloneVNode as K, callWithAsyncErrorHandling as y, ErrorCodes as v, setTransitionHooks as x } from "vue";
+import { defineComponent as F, getCurrentInstance as R, queuePostFlushCb as S, onMounted as U, onUpdated as D, onBeforeUnmount as H, isVNode as K, cloneVNode as y, callWithAsyncErrorHandling as v, ErrorCodes as x, setTransitionHooks as j } from "vue";
 const i = {
   componentName: "VuePageStack",
   pushName: "push",
@@ -17,9 +17,9 @@ const i = {
 **/
 process.env.NODE_ENV !== "production" && Object.freeze({});
 process.env.NODE_ENV !== "production" && Object.freeze([]);
-const g = (e, o) => {
+const b = (e, s) => {
   for (let r = 0; r < e.length; r++)
-    e[r](o);
+    e[r](s);
 }, f = {
   ELEMENT: 1,
   1: "ELEMENT",
@@ -44,84 +44,84 @@ const g = (e, o) => {
   COMPONENT: 6,
   6: "COMPONENT"
 };
-function P(e, o, r, l) {
-  y(e, o, v.VNODE_HOOK, [r, l]);
+function k(e, s, r, l) {
+  v(e, s, x.VNODE_HOOK, [r, l]);
 }
-const j = (e) => e.__isSuspense, k = {
+const L = (e) => e.__isSuspense, V = {
   ENTER: 0,
   LEAVE: 1,
   REORDER: 2
 };
-function L(e) {
+function g(e) {
   e.shapeFlag &= ~f.COMPONENT_SHOULD_KEEP_ALIVE, e.shapeFlag &= ~f.COMPONENT_KEPT_ALIVE;
 }
 function h(e) {
   return e.shapeFlag & f.SUSPENSE ? e.ssContent : e;
 }
-const s = [], q = I({
+const o = [], q = F({
   name: i.componentName,
   __isKeepAlive: !0,
   emits: ["back", "forward"],
-  setup(e, { slots: o, emit: r }) {
+  setup(e, { slots: s, emit: r }) {
     const l = R(), E = l.ctx, u = l.suspense, {
       renderer: {
         p,
         m: d,
-        um: V,
-        o: { createElement: A }
+        um: A,
+        o: { createElement: M }
       }
-    } = E, M = A("div");
-    E.activate = (n, a, t, T, O) => {
+    } = E, I = M("div");
+    E.activate = (n, t, a, O, T) => {
       const N = n.component;
-      d(n, a, t, k.ENTER, u), p(N.vnode, n, a, t, N, u, T, n.slotScopeIds, O), b(() => {
-        N.isDeactivated = !1, N.a && g(N.a);
-        const S = n.props && n.props.onVnodeMounted;
-        S && P(S, N.parent, n);
+      d(n, t, a, V.ENTER, u), p(N.vnode, n, t, a, N, u, O, n.slotScopeIds, T), S(() => {
+        N.isDeactivated = !1, N.a && b(N.a);
+        const P = n.props && n.props.onVnodeMounted;
+        P && k(P, N.parent, n);
       }, u);
     }, E.deactivate = (n) => {
-      const a = n.component;
-      d(n, M, null, k.LEAVE, u), b(() => {
-        a.da && g(a.da);
-        const t = n.props && n.props.onVnodeUnmounted;
-        t && P(t, a.parent, n), a.isDeactivated = !0;
+      const t = n.component;
+      d(n, I, null, V.LEAVE, u), S(() => {
+        t.da && b(t.da);
+        const a = n.props && n.props.onVnodeUnmounted;
+        a && k(a, t.parent, n), t.isDeactivated = !0;
       }, u);
     };
     function w(n) {
-      L(n), V(n, l, u, !0);
+      g(n), A(n, l, u, !0);
     }
-    let C = !1, _ = !1;
+    let _ = !1, C = !1;
     const m = () => {
-      C && (_ ? s[s.length - 1] = h(l.subTree) : c.action != i.replaceName ? s.push(h(l.subTree)) : s[s.length - 1] = h(l.subTree));
+      _ && (C ? o[o.length - 1] = h(l.subTree) : c.action != i.replaceName ? o.push(h(l.subTree)) : o[o.length - 1] = h(l.subTree));
     };
-    return F(m), U(m), D(() => {
-      for (const n of s)
+    return U(m), D(m), H(() => {
+      for (const n of o)
         w(n);
     }), () => {
-      if (C = !1, _ = !1, !o.default)
+      if (_ = !1, C = !1, !s.default)
         return null;
-      const n = o.default(), a = n[0];
+      const n = s.default(), t = n[0];
       if (n.length > 1)
         return n;
-      if (!H(a) || !(a.shapeFlag & f.STATEFUL_COMPONENT) && !(a.shapeFlag & f.SUSPENSE))
-        return a;
-      let t = h(a);
-      if (t.el && (t = K(t), a.shapeFlag & f.SUSPENSE && (a.ssContent = t)), C = !0, c.action === i.backName) {
+      if (!K(t) || !(t.shapeFlag & f.STATEFUL_COMPONENT) && !(t.shapeFlag & f.SUSPENSE))
+        return t;
+      let a = h(t);
+      if (a.el && (a = y(a), t.shapeFlag & f.SUSPENSE && (t.ssContent = a)), _ = !0, c.action === i.backName) {
         r("back");
-        const T = -c.n, O = s[s.length - T - 1];
-        if (!O || O.key != a.key)
-          return a;
-        t.el = O.el, t.component = O.component, t.transition && x(t, t.transition), t.shapeFlag |= f.COMPONENT_KEPT_ALIVE;
-        for (let N = s.length - T; N < s.length; N++)
-          L(s[N]), s[N] = null;
-        s.splice(s.length - T), _ = !0;
+        const O = -c.n, T = o[o.length - O - 1];
+        if (!T || T.key != t.key)
+          return g(o[o.length - O]), o[o.length - O] = null, o.splice(o.length - O), a.shapeFlag |= f.COMPONENT_SHOULD_KEEP_ALIVE, L(t.type) ? t : a;
+        a.el = T.el, a.component = T.component, a.transition && j(a, a.transition), a.shapeFlag |= f.COMPONENT_KEPT_ALIVE;
+        for (let N = o.length - O; N < o.length; N++)
+          g(o[N]), o[N] = null;
+        o.splice(o.length - O), C = !0;
       } else
         r("forward");
-      return t.shapeFlag |= f.COMPONENT_SHOULD_KEEP_ALIVE, j(a.type) ? a : t;
+      return a.shapeFlag |= f.COMPONENT_SHOULD_KEEP_ALIVE, L(t.type) ? t : a;
     };
   }
 }), z = (e) => {
-  const o = e.push.bind(e), r = e.go.bind(e), l = e.replace.bind(e), E = e.back.bind(e), u = e.forward.bind(e);
-  e.push = (p) => (c.action = i.pushName, o(p)), e.go = (p) => {
+  const s = e.push.bind(e), r = e.go.bind(e), l = e.replace.bind(e), E = e.back.bind(e), u = e.forward.bind(e);
+  e.push = (p) => (c.action = i.pushName, s(p)), e.go = (p) => {
     c.action = i.goName, p < 0 && (c.action = i.backName, c.n = p), r(p);
   }, e.replace = (p) => (c.action = i.replaceName, l(p)), e.back = () => {
     c.action = i.backName, c.n = -1, E();
@@ -129,17 +129,17 @@ const s = [], q = I({
     c.action = i.forwardName, u();
   };
 }, B = {
-  install(e, { router: o, backCallback: r, forwardCallback: l } = {
+  install(e, { router: s, backCallback: r, forwardCallback: l } = {
     router: null,
     backCallback: null,
     forwardCallback: null
   }) {
-    if (!o)
+    if (!s)
       throw Error("router is required");
     let E = null;
-    o.options.history.listen((u, p, d) => {
+    s.options.history.listen((u, p, d) => {
       E = d;
-    }), o.beforeEach(() => {
+    }), s.beforeEach(() => {
       E && (E.direction === "back" && r ? r() : E.direction === "forward" && l && l(), E = null);
     });
   }
@@ -148,13 +148,13 @@ const s = [], q = I({
 }, Y = () => {
   c.action = i.forwardName, console.log("browser forward");
 }, W = {
-  install(e, { router: o }) {
-    if (!o)
+  install(e, { router: s }) {
+    if (!s)
       throw Error(`
  vue-router is necessary. 
 
 `);
-    e.component(i.componentName, q), e.use(B, { router: o, backCallback: X, forwardCallback: Y }), z(o);
+    e.component(i.componentName, q), e.use(B, { router: s, backCallback: X, forwardCallback: Y }), z(s);
   }
 };
 export {
