@@ -1,4 +1,4 @@
-import { defineComponent as F, getCurrentInstance as R, queuePostFlushCb as S, onMounted as U, onUpdated as D, onBeforeUnmount as H, isVNode as K, cloneVNode as y, callWithAsyncErrorHandling as v, ErrorCodes as x, setTransitionHooks as j } from "vue";
+import { defineComponent as R, getCurrentInstance as U, queuePostFlushCb as S, onMounted as D, onUpdated as H, onBeforeUnmount as w, isVNode as K, cloneVNode as y, callWithAsyncErrorHandling as v, ErrorCodes as x, setTransitionHooks as j } from "vue";
 const i = {
   componentName: "VuePageStack",
   pushName: "push",
@@ -17,7 +17,7 @@ const i = {
 **/
 process.env.NODE_ENV !== "production" && Object.freeze({});
 process.env.NODE_ENV !== "production" && Object.freeze([]);
-const b = (e, s) => {
+const k = (e, s) => {
   for (let r = 0; r < e.length; r++)
     e[r](s);
 }, f = {
@@ -44,7 +44,7 @@ const b = (e, s) => {
   COMPONENT: 6,
   6: "COMPONENT"
 };
-function k(e, s, r, l) {
+function b(e, s, r, l) {
   v(e, s, x.VNODE_HOOK, [r, l]);
 }
 const L = (e) => e.__isSuspense, V = {
@@ -52,50 +52,50 @@ const L = (e) => e.__isSuspense, V = {
   LEAVE: 1,
   REORDER: 2
 };
-function g(e) {
+function m(e) {
   e.shapeFlag &= ~f.COMPONENT_SHOULD_KEEP_ALIVE, e.shapeFlag &= ~f.COMPONENT_KEPT_ALIVE;
 }
-function h(e) {
+function d(e) {
   return e.shapeFlag & f.SUSPENSE ? e.ssContent : e;
 }
-const o = [], q = F({
+const o = [], q = R({
   name: i.componentName,
   __isKeepAlive: !0,
   emits: ["back", "forward"],
   setup(e, { slots: s, emit: r }) {
-    const l = R(), E = l.ctx, u = l.suspense, {
+    const l = U(), E = l.ctx, u = l.suspense, {
       renderer: {
         p,
-        m: d,
+        m: h,
         um: A,
         o: { createElement: M }
       }
     } = E, I = M("div");
     E.activate = (n, t, a, O, T) => {
       const N = n.component;
-      d(n, t, a, V.ENTER, u), p(N.vnode, n, t, a, N, u, O, n.slotScopeIds, T), S(() => {
-        N.isDeactivated = !1, N.a && b(N.a);
+      h(n, t, a, V.ENTER, u), p(N.vnode, n, t, a, N, u, O, n.slotScopeIds, T), S(() => {
+        N.isDeactivated = !1, N.a && k(N.a);
         const P = n.props && n.props.onVnodeMounted;
-        P && k(P, N.parent, n);
+        P && b(P, N.parent, n);
       }, u);
     }, E.deactivate = (n) => {
       const t = n.component;
-      d(n, I, null, V.LEAVE, u), S(() => {
-        t.da && b(t.da);
+      h(n, I, null, V.LEAVE, u), S(() => {
+        t.da && k(t.da);
         const a = n.props && n.props.onVnodeUnmounted;
-        a && k(a, t.parent, n), t.isDeactivated = !0;
+        a && b(a, t.parent, n), t.isDeactivated = !0;
       }, u);
     };
-    function w(n) {
-      g(n), A(n, l, u, !0);
+    function F(n) {
+      m(n), A(n, l, u, !0);
     }
     let _ = !1, C = !1;
-    const m = () => {
-      _ && (C ? o[o.length - 1] = h(l.subTree) : c.action != i.replaceName ? o.push(h(l.subTree)) : o[o.length - 1] = h(l.subTree));
+    const g = () => {
+      _ && (C ? o[o.length - 1] = d(l.subTree) : c.action != i.replaceName ? o.push(d(l.subTree)) : o[o.length - 1] = d(l.subTree));
     };
-    return U(m), D(m), H(() => {
+    return D(g), H(g), w(() => {
       for (const n of o)
-        w(n);
+        F(n);
     }), () => {
       if (_ = !1, C = !1, !s.default)
         return null;
@@ -104,15 +104,15 @@ const o = [], q = F({
         return n;
       if (!K(t) || !(t.shapeFlag & f.STATEFUL_COMPONENT) && !(t.shapeFlag & f.SUSPENSE))
         return t;
-      let a = h(t);
+      let a = d(t);
       if (a.el && (a = y(a), t.shapeFlag & f.SUSPENSE && (t.ssContent = a)), _ = !0, c.action === i.backName) {
         r("back");
         const O = -c.n, T = o[o.length - O - 1];
         if (!T || T.key != t.key)
-          return g(o[o.length - O]), o[o.length - O] = null, o.splice(o.length - O), a.shapeFlag |= f.COMPONENT_SHOULD_KEEP_ALIVE, L(t.type) ? t : a;
+          return m(o[o.length - O]), o[o.length - O] = null, o.splice(o.length - O), a.shapeFlag |= f.COMPONENT_SHOULD_KEEP_ALIVE, L(t.type) ? t : a;
         a.el = T.el, a.component = T.component, a.transition && j(a, a.transition), a.shapeFlag |= f.COMPONENT_KEPT_ALIVE;
         for (let N = o.length - O; N < o.length; N++)
-          g(o[N]), o[N] = null;
+          m(o[N]), o[N] = null;
         o.splice(o.length - O), C = !0;
       } else
         r("forward");
@@ -137,16 +137,16 @@ const o = [], q = F({
     if (!s)
       throw Error("router is required");
     let E = null;
-    s.options.history.listen((u, p, d) => {
-      E = d;
+    s.options.history.listen((u, p, h) => {
+      E = h;
     }), s.beforeEach(() => {
       E && (E.direction === "back" && r ? r() : E.direction === "forward" && l && l(), E = null);
     });
   }
 }, X = () => {
-  c.n = -1, c.action = i.backName, console.log("browser back");
+  c.n = -1, c.action = i.backName;
 }, Y = () => {
-  c.action = i.forwardName, console.log("browser forward");
+  c.action = i.forwardName;
 }, W = {
   install(e, { router: s }) {
     if (!s)
