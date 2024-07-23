@@ -1,5 +1,25 @@
 # vue-page-stack
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hezhongfeng/images/master/stack.svg" width="200">
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/vue-page-stack">
+    <img src="https://img.shields.io/npm/dt/vue-page-stack.svg" alt="Downloads">
+  </a>
+  <a href="https://www.npmjs.com/package/vue-page-stack">
+    <img src="https://img.shields.io/npm/dm/vue-page-stack.svg" alt="Downloads">
+  </a>
+  <br>
+  <a href="https://github.com/hezhongfeng/vue-page-stack/blob/master/LICENSE.md">
+    <img src="https://img.shields.io/npm/l/vue-page-stack.svg" alt="License">
+  </a>
+  <a href="https://www.npmjs.com/package/vue-page-stack">
+    <img src="https://img.shields.io/npm/v/vue-page-stack.svg" alt="Version">
+  </a>
+</p>
+
 ## 3.1.4
 
 1. 修复刷新浏览器然后后退的 bug
@@ -14,8 +34,6 @@
 2. 因为 Vue3.x 对内置组件有特殊处理，所以目前不能和 `Transition` 一起使用
 
 **这个是 Vue3.x 的版本 ，Vue2.0 请点击[这个链接](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
-
-[![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
 [English](./README.md) | 简体中文
 

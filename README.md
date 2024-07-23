@@ -1,5 +1,25 @@
 # vue-page-stack
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/hezhongfeng/images/master/stack.svg" width="200">
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/vue-page-stack">
+    <img src="https://img.shields.io/npm/dt/vue-page-stack.svg" alt="Downloads">
+  </a>
+  <a href="https://www.npmjs.com/package/vue-page-stack">
+    <img src="https://img.shields.io/npm/dm/vue-page-stack.svg" alt="Downloads">
+  </a>
+  <br>
+  <a href="https://github.com/hezhongfeng/vue-page-stack/blob/master/LICENSE.md">
+    <img src="https://img.shields.io/npm/l/vue-page-stack.svg" alt="License">
+  </a>
+  <a href="https://www.npmjs.com/package/vue-page-stack">
+    <img src="https://img.shields.io/npm/v/vue-page-stack.svg" alt="Version">
+  </a>
+</p>
+
 ## v3.1.4
 
 1. FIx the bug of refreshing the browser and then going back
@@ -14,8 +34,6 @@
 2. Due to special handling of built-in components in Vue3.x, it is currently not possible to use it together with Transition.
 
 **This is the version of Vue3.0, Vue2.0 please click [this link](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
-
-[![npm version](https://badge.fury.io/js/vue-page-stack.svg)](https://badge.fury.io/js/vue-page-stack)
 
 English | [简体中文](./README.zh-cn.md)
 
