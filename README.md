@@ -20,6 +20,10 @@
   </a>
 </p>
 
+## v3.2.0
+
+1. FIx the bug of router.go
+
 ## v3.1.4
 
 1. FIx the bug of refreshing the browser and then going back
