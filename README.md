@@ -51,7 +51,7 @@ A Vue3 SPA navigation manager,cache the UI in the SPA like a native application,
 
 ## Example
 
-[preview](http://vue-page-stack-example.vercel.app/)
+[preview](https://vue-page-stack.hezf.online/)
 
 [demo code](https://github.com/hezhongfeng/vue-page-stack-example)
 

@@ -51,7 +51,7 @@ Vue3 单页应用导航管理器，像原生 app 一样管理页面栈而不是�
 
 ## Example
 
-[预览](http://vue-page-stack-example.vercel.app/)
+[预览](https://vue-page-stack.hezf.online/#/)
 
 [示例源码](https://github.com/hezhongfeng/vue-page-stack-example)
 
