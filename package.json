@@ -11,14 +11,14 @@
   ],
   "types": "./index.d.ts",
   "web-types": "./web-types.json",
-  "main": "./dist/vue-page-stack.umd.js",
+  "main": "./dist/vue-page-stack.cjs.js",
   "module": "./dist/vue-page-stack.es.js",
   "private": false,
   "exports": {
     ".": {
       "types": "./index.d.ts",
       "import": "./dist/vue-page-stack.es.js",
-      "require": "./dist/vue-page-stack.umd.js"
+      "require": "./dist/vue-page-stack.cjs.js"
     }
   },
   "keywords": [

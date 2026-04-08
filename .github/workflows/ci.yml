@@ -15,14 +15,18 @@ concurrency:
 
 jobs:
   verify:
-    name: Verify (Node ${{ matrix.node }})
+    name: Verify (Node ${{ matrix.node }}, Vue ${{ matrix.vue }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node:
-          - 20
-          - 22
+        include:
+          - node: 20
+            vue: 3.3.4
+            vue_router: 4.2.2
+          - node: 22
+            vue: 3.5.31
+            vue_router: 4.6.4
 
     env:
       HUSKY: 0
@@ -44,6 +48,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Switch Vue compatibility target
+        run: pnpm add --no-save vue@${{ matrix.vue }} vue-router@${{ matrix.vue_router }}
 
       - name: Run lint
         run: pnpm run lint
