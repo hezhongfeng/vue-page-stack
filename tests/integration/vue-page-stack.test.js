@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { defineComponent, h, nextTick, onMounted, ref, shallowRef } from 'vue';
 import { mount } from '@vue/test-utils';
 
-import config from '../../lib/config/config.js';
+import { NAVIGATION_ACTIONS } from '../../lib/config/config.js';
 import { createNavigationState, navigationStateKey } from '../../lib/history.js';
 import { VuePageStack } from '../../lib/main.js';
 
@@ -117,15 +117,15 @@ describe('VuePageStack', () => {
 
     await wrapper.find('input').setValue('alpha');
 
-    await navigate(PageB, '/b', config.pushName);
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
     await wrapper.find('input').setValue('beta');
     expect(wrapper.find('[data-testid="value"]').text()).toBe('beta');
 
-    await navigate(PageA, '/a', config.backName, -1);
+    await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -1);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
     expect(wrapper.find('input').element.value).toBe('alpha');
 
-    await navigate(PageB, '/b', config.pushName);
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-b');
     expect(wrapper.find('input').element.value).toBe('');
 
@@ -138,13 +138,13 @@ describe('VuePageStack', () => {
     await flushStack();
 
     await wrapper.find('input').setValue('persisted');
-    await navigate(PageB, '/b', config.pushName);
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
     await wrapper.find('input').setValue('to-be-replaced');
 
-    await navigate(PageC, '/c', config.replaceName);
+    await navigate(PageC, '/c', NAVIGATION_ACTIONS.replace);
     await wrapper.find('input').setValue('current');
 
-    await navigate(PageA, '/a', config.backName, -1);
+    await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -1);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
     expect(wrapper.find('input').element.value).toBe('persisted');
 
@@ -155,10 +155,10 @@ describe('VuePageStack', () => {
     const { wrapper, PageB, PageX, navigate } = mountStack();
     await flushStack();
 
-    await navigate(PageB, '/b', config.pushName);
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
     await wrapper.find('input').setValue('cached-on-b');
 
-    await navigate(PageX, '/x', config.backName, -1);
+    await navigate(PageX, '/x', NAVIGATION_ACTIONS.back, -1);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-x');
     expect(wrapper.find('input').element.value).toBe('');
 
@@ -174,17 +174,17 @@ describe('VuePageStack', () => {
     await first.wrapper.find('input').setValue('first-stack');
     await second.wrapper.find('input').setValue('second-stack');
 
-    await first.navigate(first.PageB, '/b', config.pushName);
-    await second.navigate(second.PageB, '/b', config.pushName);
+    await first.navigate(first.PageB, '/b', NAVIGATION_ACTIONS.push);
+    await second.navigate(second.PageB, '/b', NAVIGATION_ACTIONS.push);
 
     await first.wrapper.find('input').setValue('first-detail');
     await second.wrapper.find('input').setValue('second-detail');
 
-    await first.navigate(first.PageA, '/a', config.backName, -1);
+    await first.navigate(first.PageA, '/a', NAVIGATION_ACTIONS.back, -1);
     expect(first.wrapper.find('input').element.value).toBe('first-stack');
     expect(second.wrapper.find('input').element.value).toBe('second-detail');
 
-    await second.navigate(second.PageA, '/a', config.backName, -1);
+    await second.navigate(second.PageA, '/a', NAVIGATION_ACTIONS.back, -1);
     expect(second.wrapper.find('input').element.value).toBe('second-stack');
 
     first.wrapper.unmount();
@@ -196,11 +196,11 @@ describe('VuePageStack', () => {
     await flushStack();
 
     await wrapper.find('input').setValue('page-a-state');
-    await navigate(PageB, '/b', config.pushName);
-    await navigate(PageC, '/c', config.pushName);
-    await navigate(PageD, '/d', config.pushName);
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
+    await navigate(PageC, '/c', NAVIGATION_ACTIONS.push);
+    await navigate(PageD, '/d', NAVIGATION_ACTIONS.push);
 
-    await navigate(PageA, '/a', config.backName, -3);
+    await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -3);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
     expect(wrapper.find('input').element.value).toBe('page-a-state');
 
@@ -212,10 +212,10 @@ describe('VuePageStack', () => {
     await flushStack();
 
     await wrapper.find('input').setValue('page-a-state');
-    await navigate(PageB, '/b', config.pushName);
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
     await wrapper.find('input').setValue('page-b-state');
 
-    await navigate(PageX, '/x', config.backName, -3);
+    await navigate(PageX, '/x', NAVIGATION_ACTIONS.back, -3);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-x');
     expect(wrapper.find('input').element.value).toBe('');
 
@@ -227,10 +227,10 @@ describe('VuePageStack', () => {
     await flushStack();
 
     await wrapper.find('input').setValue('no-key-state');
-    await navigate(PageB, '/b', config.pushName);
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
     await wrapper.find('input').setValue('second-page');
 
-    await navigate(PageA, '/a', config.backName, -1);
+    await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -1);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
     expect(wrapper.find('input').element.value).toBe('');
 

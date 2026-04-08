@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import config from '../../lib/config/config.js';
+import { NAVIGATION_ACTIONS } from '../../lib/config/config.js';
 import eventRegister from '../../lib/eventRegister.js';
 import { createNavigationState } from '../../lib/history.js';
 
@@ -24,17 +24,17 @@ describe('eventRegister', () => {
     eventRegister(router, navigationState);
 
     expect(router.push('/detail')).toBe('/detail');
-    expect(navigationState.action).toBe(config.pushName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.push);
 
     expect(router.replace('/profile')).toBe('/profile');
-    expect(navigationState.action).toBe(config.replaceName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.replace);
 
     router.back();
-    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.back);
     expect(navigationState.n).toBe(-1);
 
     router.forward();
-    expect(navigationState.action).toBe(config.forwardName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.forward);
   });
 
   it('stores the direction and step when calling go', () => {
@@ -50,15 +50,15 @@ describe('eventRegister', () => {
     eventRegister(router, navigationState);
 
     expect(router.go(2)).toBe(2);
-    expect(navigationState.action).toBe(config.forwardName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.forward);
     expect(navigationState.n).toBe(2);
 
     router.go(-3);
-    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.back);
     expect(navigationState.n).toBe(-3);
 
     router.go(0);
-    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.back);
     expect(navigationState.n).toBe(0);
   });
 

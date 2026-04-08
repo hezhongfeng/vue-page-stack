@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import config from '../../lib/config/config.js';
+import { NAVIGATION_ACTIONS } from '../../lib/config/config.js';
 import { createNavigationState } from '../../lib/history.js';
 import {
   createBrowserNavigationCallbacks,
@@ -13,15 +13,15 @@ describe('navigation strategy', () => {
     const navigationState = createNavigationState();
 
     setNavigationStateFromGo(navigationState, 2);
-    expect(navigationState.action).toBe(config.forwardName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.forward);
     expect(navigationState.n).toBe(2);
 
     setNavigationStateFromGo(navigationState, -3);
-    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.back);
     expect(navigationState.n).toBe(-3);
 
     setNavigationStateFromGo(navigationState, 0);
-    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.back);
     expect(navigationState.n).toBe(0);
   });
 
@@ -30,11 +30,11 @@ describe('navigation strategy', () => {
     const callbacks = createBrowserNavigationCallbacks(navigationState);
 
     callbacks.backCallback(-2);
-    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.back);
     expect(navigationState.n).toBe(-2);
 
     callbacks.forwardCallback(4);
-    expect(navigationState.action).toBe(config.forwardName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.forward);
     expect(navigationState.n).toBe(4);
   });
 
@@ -53,6 +53,6 @@ describe('navigation strategy', () => {
 
     expect(secondStrategy).toBe(firstStrategy);
     expect(firstStrategy.push('/detail')).toBe('/detail');
-    expect(navigationState.action).toBe(config.pushName);
+    expect(navigationState.action).toBe(NAVIGATION_ACTIONS.push);
   });
 });
