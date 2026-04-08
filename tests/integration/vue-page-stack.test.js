@@ -36,10 +36,11 @@ const createPage = name =>
     }
   });
 
-const mountStack = () => {
+const mountStack = ({ withKey = true } = {}) => {
   const PageA = createPage('page-a');
   const PageB = createPage('page-b');
   const PageC = createPage('page-c');
+  const PageD = createPage('page-d');
   const PageX = createPage('page-x');
   const currentPage = shallowRef(PageA);
   const currentKey = ref('/a');
@@ -57,7 +58,7 @@ const mountStack = () => {
               onForward: () => events.push('forward')
             },
             {
-              default: () => [h(currentPage.value, { key: currentKey.value })]
+              default: () => [h(currentPage.value, withKey ? { key: currentKey.value } : {})]
             }
         );
       }
@@ -86,6 +87,7 @@ const mountStack = () => {
     PageA,
     PageB,
     PageC,
+    PageD,
     PageX,
     navigate
   };
@@ -187,5 +189,51 @@ describe('VuePageStack', () => {
 
     first.wrapper.unmount();
     second.wrapper.unmount();
+  });
+
+  it('restores the correct page when going back multiple steps', async () => {
+    const { wrapper, PageA, PageB, PageC, PageD, navigate } = mountStack();
+    await flushStack();
+
+    await wrapper.find('input').setValue('page-a-state');
+    await navigate(PageB, '/b', config.pushName);
+    await navigate(PageC, '/c', config.pushName);
+    await navigate(PageD, '/d', config.pushName);
+
+    await navigate(PageA, '/a', config.backName, -3);
+    expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
+    expect(wrapper.find('input').element.value).toBe('page-a-state');
+
+    wrapper.unmount();
+  });
+
+  it('falls back to a fresh render when going back farther than the cached stack', async () => {
+    const { wrapper, PageB, PageX, navigate } = mountStack();
+    await flushStack();
+
+    await wrapper.find('input').setValue('page-a-state');
+    await navigate(PageB, '/b', config.pushName);
+    await wrapper.find('input').setValue('page-b-state');
+
+    await navigate(PageX, '/x', config.backName, -3);
+    expect(wrapper.find('section').attributes('data-page')).toBe('page-x');
+    expect(wrapper.find('input').element.value).toBe('');
+
+    wrapper.unmount();
+  });
+
+  it('falls back to a fresh render when route components have no cache key', async () => {
+    const { wrapper, PageA, PageB, navigate } = mountStack({ withKey: false });
+    await flushStack();
+
+    await wrapper.find('input').setValue('no-key-state');
+    await navigate(PageB, '/b', config.pushName);
+    await wrapper.find('input').setValue('second-page');
+
+    await navigate(PageA, '/a', config.backName, -1);
+    expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
+    expect(wrapper.find('input').element.value).toBe('');
+
+    wrapper.unmount();
   });
 });
