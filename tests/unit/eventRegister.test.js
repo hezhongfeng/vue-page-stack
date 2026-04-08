@@ -61,4 +61,22 @@ describe('eventRegister', () => {
     expect(navigationState.action).toBe(config.backName);
     expect(navigationState.n).toBe(0);
   });
+
+  it('does not wrap the same router more than once', () => {
+    navigationState = createNavigationState();
+    const router = {
+      push: vi.fn(to => to),
+      go: vi.fn(step => step),
+      replace: vi.fn(to => to),
+      back: vi.fn(),
+      forward: vi.fn()
+    };
+
+    eventRegister(router, navigationState);
+    const wrappedPush = router.push;
+
+    eventRegister(router, createNavigationState());
+
+    expect(router.push).toBe(wrappedPush);
+  });
 });
