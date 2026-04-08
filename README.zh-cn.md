@@ -152,6 +152,8 @@ pnpm run test:run
 pnpm run test:coverage
 ```
 
+`dist/` 作为发布产物处理，会在 `npm pack` / `npm publish` 前通过 `prepack` 脚本自动生成，因此日常开发中不需要继续跟踪到仓库。
+
 ## 相关说明
 
 ### 更新日志
