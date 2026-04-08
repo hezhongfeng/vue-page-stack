@@ -13,6 +13,16 @@ describe('VuePageStackPlugin', () => {
     expect(() => VuePageStackPlugin.install({}, {})).toThrow(/vue-router is necessary/i);
   });
 
+  it('throws when the router is missing required navigation methods', () => {
+    const app = {
+      component: vi.fn(),
+      provide: vi.fn(),
+      use: vi.fn()
+    };
+
+    expect(() => VuePageStackPlugin.install(app, { router: { push: vi.fn() } })).toThrow(/requires router\.replace/i);
+  });
+
   it('registers the component, wires the browser plugin and patches router methods', () => {
     const app = {
       component: vi.fn(),
@@ -71,5 +81,53 @@ describe('VuePageStackPlugin', () => {
     options.forwardCallback(3);
     expect(navigationState.action).toBe(NAVIGATION_ACTIONS.forward);
     expect(navigationState.n).toBe(3);
+  });
+
+  it('is idempotent when installed multiple times on the same app with the same router', () => {
+    const app = {
+      component: vi.fn(),
+      provide: vi.fn(),
+      use: vi.fn()
+    };
+    const router = {
+      push: vi.fn(),
+      go: vi.fn(),
+      replace: vi.fn(),
+      back: vi.fn(),
+      forward: vi.fn()
+    };
+
+    VuePageStackPlugin.install(app, { router });
+    VuePageStackPlugin.install(app, { router });
+
+    expect(app.component).toHaveBeenCalledTimes(1);
+    expect(app.provide).toHaveBeenCalledTimes(1);
+    expect(app.use).toHaveBeenCalledTimes(1);
+  });
+
+  it('throws when installed twice on the same app with different routers', () => {
+    const app = {
+      component: vi.fn(),
+      provide: vi.fn(),
+      use: vi.fn()
+    };
+    const firstRouter = {
+      push: vi.fn(),
+      go: vi.fn(),
+      replace: vi.fn(),
+      back: vi.fn(),
+      forward: vi.fn()
+    };
+    const secondRouter = {
+      push: vi.fn(),
+      go: vi.fn(),
+      replace: vi.fn(),
+      back: vi.fn(),
+      forward: vi.fn()
+    };
+
+    VuePageStackPlugin.install(app, { router: firstRouter });
+
+    expect(() => VuePageStackPlugin.install(app, { router: secondRouter })).toThrow(/already installed on this app with a different router/i);
   });
 });
