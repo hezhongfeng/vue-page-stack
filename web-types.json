@@ -2,12 +2,13 @@
   "$schema": "https://json.schemastore.org/web-types",
   "framework": "vue",
   "name": "vue-page-stack",
-  "version": "3.1.3",
+  "version": "3.3.0",
   "contributions": {
     "html": {
       "elements": [
         {
           "name": "vue-page-stack",
+          "description": "Caches route components in stack order for native-like page navigation.",
           "events": [
             {
               "name": "back",

@@ -20,30 +20,13 @@
   </a>
 </p>
 
-## v3.2.0
-
-1. 修复 router.go 缓存失效的 bug
-
-## 3.1.4
-
-1. 修复刷新浏览器然后后退的 bug
-
-## v3.1.3
-
-1. 修复 replace 时，页面缓存问题
-
-## v3.1.2
-
-1. 移除了 url 上的参数 `stack-key`
-2. 因为 Vue3.x 对内置组件有特殊处理，所以目前不能和 `Transition` 一起使用
-
-**这个是 Vue3.x 的版本 ，Vue2.0 请点击[这个链接](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
+`vue-page-stack` 当前面向 Vue 3。Vue 2 版本请查看 [v1.5.0](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)。
 
 [English](./README.md) | 简体中文
 
 ---
 
-Vue3 单页应用导航管理器，像原生 app 一样管理页面栈而不是销毁。
+一个面向 Vue 3 的单页应用页面栈组件，让返回导航更接近原生 app，而不是每次都重新挂载页面。
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/hezhongfeng/images/master/vue-page-stack.gif">
@@ -57,20 +40,19 @@ Vue3 单页应用导航管理器，像原生 app 一样管理页面栈而不是�
 
 ## 功能特性
 
-- 🐉 在 vue-router 上扩展，原有导航逻辑不变
-- ⚽`push`或者`forward`的时候重新渲染页面，Stack 中会存储新渲染的页面
-- 🏆`back`或者`go(负数)`的时候先前的页面不会重新渲染，而是从 Stack 中读取，并且这些页面保留着先前的内容状态，例如表单内容，滚动条滚动的位置等
-- 🏈`back`或者`go(负数)`的时候会把不用的页面从 Stack 中移除
-- 🎓`replace`会更新 Stack 中当前页面
-- 🎉 回退到之前页面的时候有 activated 钩子函数触发
-- 🚀 支持浏览器的后退，前进事件
-- 🐰 提供路由方向的变化，并且可以在前进和后退的时候添加不同的动画
+- 基于 `vue-router` 扩展，不需要改动原有路由定义
+- `push` 和 `forward` 会渲染新页面并压入页面栈
+- `back` 和 `go(-n)` 会优先从页面栈恢复旧页面，保留表单、滚动位置等本地状态
+- 回退后会清理不再可达的页面栈项
+- `replace` 会覆盖当前栈顶页面
+- 暴露 `back` / `forward` 事件，方便做方向感知动画
+- 支持浏览器后退和前进按钮
 
 ## 和 KeepAlive 的区别
 
-- 🌱 VuePageStack 不提供 `include` `exclude` 和 `max` 参数，因为 VuePageStack 想要实现的是一个完整的页面栈管理，只能按照顺序进出
-- 🪁 KeepAlive 缓存过页面之后会一直缓存这个页面，VuePageStack 会根据页面栈的层级而自助销毁多余的页面
-- 🧬 KeepAlive 进入（不是返回）相同的路由页面，会继续复用以前缓存的页面，而 VuePageStack 会重新渲染页面
+- `VuePageStack` 按导航顺序管理页面，不提供 `include`、`exclude`、`max`
+- `KeepAlive` 会持续保留已缓存页面，而 `VuePageStack` 会清理不再可达的页面
+- 再次进入同一路由时会重新渲染页面，只有返回上一级时才会恢复缓存实例
 
 ## 安装和用法
 
@@ -88,16 +70,14 @@ import { VuePageStackPlugin } from 'vue-page-stack';
 
 const app = createApp(App);
 
-// router is necessary
 app.use(VuePageStackPlugin, { router });
 ```
 
 ```vue
-// App.vue
 <template>
   <router-view v-slot="{ Component }">
     <vue-page-stack @back="onBack" @forward="onForward">
-      <component :is="Component" :key="$route.fullPath"></component>
+      <component :is="Component" :key="$route.fullPath" />
     </vue-page-stack>
   </router-view>
 </template>
@@ -112,6 +92,8 @@ const onForward = () => {
 };
 </script>
 ```
+
+建议为路由组件提供稳定的 key。大多数场景下，`$route.fullPath` 是最稳妥的默认值，因为它会把不同参数和查询串视为不同的栈项。
 
 ## API
 
@@ -128,20 +110,19 @@ app.use(VuePageStackPlugin, { router });
 
 Options 说明：
 
-| Attribute | Description         | Type   | Accepted Values     | Default        |
-| --------- | ------------------- | ------ | ------------------- | -------------- |
-| router    | vue-router instance | Object | vue-router instance | -              |
+| Attribute | Description | Type | Accepted Values | Default |
+| --------- | ----------- | ---- | --------------- | ------- |
+| `router` | `vue-router` 实例 | `Router` | 通过 `createRouter` 创建的 router | 必填 |
 
 ### 前进和后退
 
-如果想在页面前进或者后退的时候添加一些事件，可以通过组件的 `back` 事件和 `forward` 事件进行处理
+如果想在页面前进或者后退的时候添加一些事件，可以通过组件的 `back` 和 `forward` 事件处理。
 
 ```vue
-// App.vue
 <template>
   <router-view v-slot="{ Component }">
     <vue-page-stack @back="onBack" @forward="onForward">
-      <component :is="Component" :key="$route.fullPath"></component>
+      <component :is="Component" :key="$route.fullPath" />
     </vue-page-stack>
   </router-view>
 </template>
@@ -157,7 +138,29 @@ const onForward = () => {
 </script>
 ```
 
-[example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
+### 使用说明
+
+- 默认插槽应只渲染一个路由组件 vnode，页面栈逻辑才会生效
+- 如果默认插槽里有多个子节点，组件会直接透传，不做缓存处理
+- 当前实现依赖 Vue renderer 内部行为，升级 Vue 后建议先跑完整测试
+
+[示例工程](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
+
+## 开发
+
+```bash
+pnpm install
+pnpm run build
+pnpm run lint
+pnpm run test:run
+pnpm run test:coverage
+```
+
+`dist/` 作为发布产物处理，会在 `npm pack` / `npm publish` 前通过 `prepack` 脚本自动生成，因此日常开发中不需要继续跟踪到仓库。
+
+## 文档
+
+- 架构与维护说明：[docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
 
 ## 相关说明
 
@@ -167,11 +170,11 @@ const onForward = () => {
 
 ### 原理
 
-获取当前页面实例部分参考了`Vue`源码中`KeepAlive`的部分
+页面实例管理的实现参考了 Vue 源码里的 `KeepAlive`
 
 ## 感谢
 
-这个插件同时借鉴了[vue-navigation](https://github.com/zack24q/vue-navigation)和[vue-nav](https://github.com/nearspears/vue-nav)，很感谢他们给的灵感。
+这个插件同时借鉴了 [vue-navigation](https://github.com/zack24q/vue-navigation) 和 [vue-nav](https://github.com/nearspears/vue-nav)，感谢他们提供的灵感。
 
 ## Contributors ✨
 

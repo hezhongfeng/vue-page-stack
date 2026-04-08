@@ -20,30 +20,13 @@
   </a>
 </p>
 
-## v3.2.0
-
-1. FIx the bug of router.go
-
-## v3.1.4
-
-1. FIx the bug of refreshing the browser and then going back
-
-## v3.1.3
-
-1. Fixed the page caching issue when using replace.
-
-## v3.1.2
-
-1. Removed the stack-key parameter from the URL.
-2. Due to special handling of built-in components in Vue3.x, it is currently not possible to use it together with Transition.
-
-**This is the version of Vue3.0, Vue2.0 please click [this link](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
+`vue-page-stack` currently targets Vue 3. For the Vue 2 version, see [v1.5.0](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0).
 
 English | [简体中文](./README.zh-cn.md)
 
 ---
 
-A Vue3 SPA navigation manager,cache the UI in the SPA like a native application, rather than destroy it.
+A Vue 3 SPA navigation stack that preserves route state in stack order, so back navigation feels closer to a native app than a full page remount.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/hezhongfeng/images/master/vue-page-stack.gif">
@@ -57,20 +40,19 @@ A Vue3 SPA navigation manager,cache the UI in the SPA like a native application,
 
 ## Features
 
-- 🐉 Extend on vue-router, original navigation logic remains the same
-- ⚽ `push` or `forward` renders the page and the newly rendered page is stored in Stack
-- 🏆 `back` or `go(negative)` when the previous pages are not re-rendered, but read from the Stack, and these pages retain the previous content state, such as form content, scrollbar scroll position, etc.
-- 🏈 `back` or `go(negative)` removes the unused pages from the Stack
-- 🎓`replace` will update the current page in the Stack
-- 🎉 The activated hook function is triggered when going back to the previous page
-- 🚀 Support for browser backward and forward events
-- 🐰 Provides routing direction changes and can add different animations when going forward and backward
+- Works on top of `vue-router` without changing your route definitions
+- Stores newly rendered pages on `push` and `forward`
+- Restores previous pages from the stack on `back` and `go(-n)` so local UI state can survive
+- Removes unreachable pages from the stack after back navigation
+- Replaces the current stack entry on `replace`
+- Emits `back` and `forward` events for direction-aware transitions
+- Supports browser back and forward buttons
 
-## The difference between VuePageStack and KeepAlive
+## Compared with KeepAlive
 
-- 🌱 VuePageStack does not provide `include`, `exclude` and `max` parameters, because VuePageStack wants to achieve a complete page stack management, only in order in and out
-- 🪁 KeepAlive will keep caching the page after it has been cached, and VuePageStack will help destroy the extra pages based on the page stack hierarchy
-- 🧬 KeepAlive enters (not returns) the same route page and continues to reuse the previously cached page, while VuePageStack re-renders the page
+- `VuePageStack` manages pages in navigation order instead of providing `include`, `exclude`, or `max`
+- `KeepAlive` keeps previously cached pages around until they are evicted; `VuePageStack` trims pages that are no longer reachable in the stack
+- Navigating to the same route again creates a fresh page, while returning to an earlier page restores its cached instance
 
 ## Installation and use
 
@@ -80,7 +62,7 @@ A Vue3 SPA navigation manager,cache the UI in the SPA like a native application,
 pnpm install vue-page-stack
 ```
 
-### use
+### Use
 
 ```js
 import { createApp } from 'vue';
@@ -88,16 +70,14 @@ import { VuePageStackPlugin } from 'vue-page-stack';
 
 const app = createApp(App);
 
-// router is necessary
 app.use(VuePageStackPlugin, { router });
 ```
 
 ```vue
-// App.vue
 <template>
   <router-view v-slot="{ Component }">
     <vue-page-stack @back="onBack" @forward="onForward">
-      <component :is="Component" :key="$route.fullPath"></component>
+      <component :is="Component" :key="$route.fullPath" />
     </vue-page-stack>
   </router-view>
 </template>
@@ -113,11 +93,13 @@ const onForward = () => {
 </script>
 ```
 
+Use a stable route key on the rendered route component. In most apps, `$route.fullPath` is the safest default because it treats different params and query strings as distinct stack entries.
+
 ## API
 
-### install
+### Install
 
-use `Vue.use` to install `vue-page-stack`
+Use `app.use` to install `vue-page-stack`.
 
 ```js
 import { VuePageStackPlugin } from 'vue-page-stack';
@@ -126,39 +108,59 @@ import { VuePageStackPlugin } from 'vue-page-stack';
 app.use(VuePageStackPlugin, { router });
 ```
 
-Options description：
+Options:
 
-| Attribute | Description         | Type   | Accepted Values     | Default        |
-| --------- | ------------------- | ------ | ------------------- | -------------- |
-| router    | vue-router instance | Object | vue-router instance | -              |
-| name      | VuePageStack name   | String | 'VuePageStack'      | 'VuePageStack' |
+| Attribute | Description | Type | Accepted Values | Default |
+| --------- | ----------- | ---- | --------------- | ------- |
+| `router` | `vue-router` instance | `Router` | router created by `createRouter` | required |
 
-### forward or back
+### Events
 
-If you want to make some animate entering or leaving, `vue-page-stack` offers `stack-key-dir` to judge forward or backward.
+Use the `back` and `forward` events to react to navigation direction changes.
 
 ```vue
-// App.vue
 <vue-page-stack @back="onBack" @forward="onForward">
-  <component :is="Component" :key="$route.fullPath"></component>
+  <component :is="Component" :key="$route.fullPath" />
 </vue-page-stack>
 ```
 
-[example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
+### Notes
+
+- The default slot should render a single route component vnode for stack behavior to apply
+- Multiple slot children are passed through unchanged
+- The implementation depends on Vue renderer internals, so upgrades should be validated with the test suite
+
+[Example app](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
+
+## Development
+
+```bash
+pnpm install
+pnpm run build
+pnpm run lint
+pnpm run test:run
+pnpm run test:coverage
+```
+
+`dist/` is treated as a release artifact and is generated automatically by `npm pack` / `npm publish` through the `prepack` script, so it does not need to stay checked in during normal development.
+
+## Documentation
+
+- Architecture and maintenance notes: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
 
 ## Notes
 
 ### Changelog
 
-Details changes for each release are documented in the [release notes](https://github.com/hezhongfeng/vue-page-stack/releases).
+Release-by-release changes are documented in the [release notes](https://github.com/hezhongfeng/vue-page-stack/releases).
 
 ### Principle
 
-Getting the current page instance refers to the `keep-alive` section of `Vue`.
+The page instance management model is inspired by Vue's `KeepAlive` implementation.
 
 ## Thanks
 
-The plug-in draws on both [vue-navigation](https://github.com/zack24q/vue-navigation) and [vue-nav](https://github.com/nearspears/vue-nav)，Thank you very much for their inspiration.
+This plugin draws on both [vue-navigation](https://github.com/zack24q/vue-navigation) and [vue-nav](https://github.com/nearspears/vue-nav). Thanks for the inspiration.
 
 ## Contributors ✨
 

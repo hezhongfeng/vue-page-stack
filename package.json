@@ -1,20 +1,24 @@
 {
   "name": "vue-page-stack",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "author": "hezf",
   "type": "module",
+  "packageManager": "pnpm@10.33.0",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts",
+    "web-types.json"
   ],
   "types": "./index.d.ts",
   "web-types": "./web-types.json",
-  "main": "./dist/vue-page-stack.umd.js",
+  "main": "./dist/vue-page-stack.cjs.js",
   "module": "./dist/vue-page-stack.es.js",
   "private": false,
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./dist/vue-page-stack.es.js",
-      "require": "./dist/vue-page-stack.umd.js"
+      "require": "./dist/vue-page-stack.cjs.js"
     }
   },
   "keywords": [
@@ -28,13 +32,17 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "prepack": "npm run build",
     "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint . --ext .vue,.js,.jsx,.mjs --ignore-path .gitignore",
     "lint-fix": "eslint . --ext .vue,.js,.jsx,.mjs --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.mjs --ignore-path .gitignore"
+    "*.{vue,js,jsx,tsx}": "eslint --ignore-path .gitignore --max-warnings=0"
   },
   "config": {
     "commitizen": {
@@ -63,6 +71,9 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
+    "@types/node": "^22.19.17",
+    "@vitest/coverage-v8": "^4.1.3",
+    "@vue/test-utils": "^2.4.6",
     "commitizen": "^4.3.0",
     "commitlint-config-cz": "^0.13.3",
     "commitlint-config-git-commit-emoji": "^1.0.0",
@@ -70,7 +81,18 @@
     "cz-customizable": "^7.0.0",
     "eslint": "^8.40.0",
     "husky": "^8.0.3",
+    "jsdom": "^29.0.2",
     "lint-staged": "^13.2.2",
-    "vite": "^5.4.21"
+    "vite": "^7.3.2",
+    "vitest": "^4.1.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "brace-expansion": "^1.1.13",
+      "lodash": "^4.18.0",
+      "micromatch": "^4.0.8",
+      "tmp": "^0.2.4",
+      "yaml": "^2.8.3"
+    }
   }
 }
