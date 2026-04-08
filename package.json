@@ -42,7 +42,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{vue,js,jsx,tsx}": "eslint . --ext .vue,.js,.jsx,.mjs --ignore-path .gitignore"
+    "*.{vue,js,jsx,tsx}": "eslint --ignore-path .gitignore --max-warnings=0"
   },
   "config": {
     "commitizen": {

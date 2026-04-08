@@ -9,6 +9,10 @@ describe('VuePageStackPlugin', () => {
     vi.restoreAllMocks();
   });
 
+  it('throws when installed without an options object', () => {
+    expect(() => VuePageStackPlugin.install({}, undefined)).toThrow(/vue-router is necessary/i);
+  });
+
   it('throws when installed without a router', () => {
     expect(() => VuePageStackPlugin.install({}, {})).toThrow(/vue-router is necessary/i);
   });

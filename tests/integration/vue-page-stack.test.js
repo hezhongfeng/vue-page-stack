@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { defineComponent, h, nextTick, onMounted, ref, shallowRef } from 'vue';
+import { Suspense, defineComponent, h, nextTick, onMounted, ref, shallowRef } from 'vue';
 import { mount } from '@vue/test-utils';
 
 import { NAVIGATION_ACTIONS, STACK_EVENTS } from '../../lib/constants/config.js';
@@ -7,6 +7,7 @@ import { createNavigationState, NAVIGATION_STATE_INJECTION_KEY } from '../../lib
 import { VuePageStack } from '../../lib/main.js';
 
 const flushStack = async () => {
+  await Promise.resolve();
   await nextTick();
   await nextTick();
 };
@@ -36,7 +37,34 @@ const createPage = name =>
     }
   });
 
-const mountStack = ({ withKey = true } = {}) => {
+const createAsyncPage = name =>
+  defineComponent({
+    name,
+    async setup() {
+      const value = ref('');
+      const mounts = ref(0);
+
+      onMounted(() => {
+        mounts.value += 1;
+      });
+
+      await Promise.resolve();
+
+      return () =>
+        h('section', { 'data-page': name }, [
+          h('p', { 'data-testid': 'mounts' }, String(mounts.value)),
+          h('input', {
+            value: value.value,
+            onInput: event => {
+              value.value = event.target.value;
+            }
+          }),
+          h('span', { 'data-testid': 'value' }, value.value)
+        ]);
+    }
+  });
+
+const mountStack = ({ withKey = true, wrapInSuspense = false, withTransitionHooks = false } = {}) => {
   const PageA = createPage('page-a');
   const PageB = createPage('page-b');
   const PageC = createPage('page-c');
@@ -50,6 +78,29 @@ const mountStack = ({ withKey = true } = {}) => {
   const wrapper = mount(
     defineComponent({
       setup() {
+        const renderCurrentPage = () => {
+          const pageVNode = h(currentPage.value, withKey ? { key: currentKey.value } : {});
+
+          if (withTransitionHooks) {
+            pageVNode.transition = {
+              mode: 'out-in',
+              persisted: false,
+              beforeEnter: () => {},
+              enter: () => {},
+              leave: () => {}
+            };
+          }
+
+          if (wrapInSuspense) {
+            return h(Suspense, null, {
+              default: () => pageVNode,
+              fallback: () => h('div', { 'data-testid': 'fallback' }, 'loading')
+            });
+          }
+
+          return pageVNode;
+        };
+
         return () =>
           h(
             VuePageStack,
@@ -58,9 +109,9 @@ const mountStack = ({ withKey = true } = {}) => {
               onForward: () => events.push(STACK_EVENTS.forward)
             },
             {
-              default: () => [h(currentPage.value, withKey ? { key: currentKey.value } : {})]
+              default: () => [renderCurrentPage()]
             }
-        );
+          );
       }
     }),
     {
@@ -151,6 +202,41 @@ describe('VuePageStack', () => {
     wrapper.unmount();
   });
 
+  it('treats forward navigation as a fresh render after a page was popped on back', async () => {
+    const { wrapper, PageA, PageB, navigate, events } = mountStack();
+    await flushStack();
+
+    await wrapper.find('input').setValue('page-a-state');
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
+    await wrapper.find('input').setValue('page-b-state');
+
+    await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -1);
+    expect(wrapper.find('input').element.value).toBe('page-a-state');
+
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.forward, 1);
+    expect(wrapper.find('section').attributes('data-page')).toBe('page-b');
+    expect(wrapper.find('input').element.value).toBe('');
+    expect(events.at(-1)).toBe(STACK_EVENTS.forward);
+
+    wrapper.unmount();
+  });
+
+  it('keeps earlier cached pages reachable when replace is followed by a multi-step back', async () => {
+    const { wrapper, PageA, PageB, PageC, navigate } = mountStack();
+    await flushStack();
+
+    await wrapper.find('input').setValue('page-a-state');
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
+    await navigate(PageC, '/c', NAVIGATION_ACTIONS.replace);
+    await wrapper.find('input').setValue('page-c-state');
+
+    await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -1);
+    expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
+    expect(wrapper.find('input').element.value).toBe('page-a-state');
+
+    wrapper.unmount();
+  });
+
   it('renders a fresh page when a back navigation target is missing from the cache', async () => {
     const { wrapper, PageB, PageX, navigate } = mountStack();
     await flushStack();
@@ -233,6 +319,72 @@ describe('VuePageStack', () => {
     await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -1);
     expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
     expect(wrapper.find('input').element.value).toBe('');
+
+    wrapper.unmount();
+  });
+
+  it('restores cached pages when the route component is wrapped in Suspense', async () => {
+    const AsyncPageA = createAsyncPage('async-page-a');
+    const AsyncPageB = createAsyncPage('async-page-b');
+    const currentPage = shallowRef(AsyncPageA);
+    const currentKey = ref('/a');
+    const navigationState = createNavigationState();
+
+    const wrapper = mount(
+      defineComponent({
+        setup() {
+          return () =>
+            h(VuePageStack, null, {
+              default: () => [
+                h(Suspense, null, {
+                  default: () => h(currentPage.value, { key: currentKey.value }),
+                  fallback: () => h('div', { 'data-testid': 'fallback' }, 'loading')
+                })
+              ]
+            });
+        }
+      }),
+      {
+        global: {
+          provide: {
+            [NAVIGATION_STATE_INJECTION_KEY]: navigationState
+          }
+        }
+      }
+    );
+
+    const navigate = async (component, key, action, step = 1) => {
+      navigationState.action = action;
+      navigationState.n = step;
+      currentPage.value = component;
+      currentKey.value = key;
+      await flushStack();
+    };
+
+    await flushStack();
+    await wrapper.find('input').setValue('async-state');
+
+    await navigate(AsyncPageB, '/b', NAVIGATION_ACTIONS.push);
+    await wrapper.find('input').setValue('detail-state');
+
+    await navigate(AsyncPageA, '/a', NAVIGATION_ACTIONS.back, -1);
+    expect(wrapper.find('section').attributes('data-page')).toBe('async-page-a');
+    expect(wrapper.find('input').element.value).toBe('async-state');
+
+    wrapper.unmount();
+  });
+
+  it('restores cached pages safely when the vnode carries transition hooks', async () => {
+    const { wrapper, PageA, PageB, navigate } = mountStack({ withTransitionHooks: true });
+    await flushStack();
+
+    await wrapper.find('input').setValue('page-a-state');
+    await navigate(PageB, '/b', NAVIGATION_ACTIONS.push);
+    await wrapper.find('input').setValue('page-b-state');
+
+    await navigate(PageA, '/a', NAVIGATION_ACTIONS.back, -1);
+    expect(wrapper.find('section').attributes('data-page')).toBe('page-a');
+    expect(wrapper.find('input').element.value).toBe('page-a-state');
 
     wrapper.unmount();
   });
