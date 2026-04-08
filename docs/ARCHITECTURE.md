@@ -66,9 +66,19 @@ Important helper responsibilities:
 
 - `isCacheableVNode`: decide whether the child can participate in stack caching
 - `normalizeVNodeForCache`: clone vnode when Vue has already attached DOM state
-- `writeCachedSubtree`: write mount/update results into the internal stack
-- `restoreFromCache`: attempt cached restoration on back navigation
+- `createPageStackState`: isolate stack mutation, restoration, and cleanup
+- `handleBackNavigation`: run cache-restore logic for back navigation
 - `trimStackFrom`: drop entries that are no longer reachable
+
+### Navigation Action Map
+
+| Action | Render expectation | Stack effect |
+| ------ | ------------------ | ------------ |
+| `push` | render a fresh page | push the previous subtree into the stack |
+| `forward` | render a fresh page | treat it like a new entry and keep emitting `forward` |
+| `replace` | render a fresh page | overwrite the current stack entry |
+| `back` with cache hit | restore a cached page instance | reuse cached vnode and trim popped entries |
+| `back` with cache miss | render a fresh page safely | clear unreachable cached entries and continue fresh |
 
 ### 4. Vue Renderer Adaptation
 
@@ -114,6 +124,7 @@ These assumptions are important when changing the implementation:
 3. Back-navigation cache miss must degrade to fresh render safely.
 4. The renderer adapter should remain the only place that touches Vue renderer internals.
 5. Tests should cover both normal flows and degraded edge cases.
+6. Suspense and transition-wrapped route nodes should still compare and restore against the actual cached child vnode.
 
 ## Maintenance Notes
 

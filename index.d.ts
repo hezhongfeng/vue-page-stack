@@ -1,5 +1,5 @@
 declare module 'vue-page-stack' {
-  import type { DefineComponent, Plugin } from 'vue'
+  import type { DefineComponent, Plugin, VNode } from 'vue'
   import type { Router } from 'vue-router'
 
   export interface VuePageStackPluginOptions {
@@ -11,9 +11,13 @@ declare module 'vue-page-stack' {
     forward: () => void
   }
 
-  export const VuePageStackPlugin: Plugin<[VuePageStackPluginOptions]>
+  export interface VuePageStackSlots {
+    default?: () => VNode | VNode[]
+  }
 
-  export const VuePageStack: DefineComponent<
+  export type VuePageStackEventName = keyof VuePageStackEvents
+
+  export type VuePageStackComponent = DefineComponent<
     Record<string, never>,
     {},
     {},
@@ -23,4 +27,7 @@ declare module 'vue-page-stack' {
     {},
     VuePageStackEvents
   >
+
+  export const VuePageStackPlugin: Plugin<[VuePageStackPluginOptions]>
+  export const VuePageStack: VuePageStackComponent
 }
