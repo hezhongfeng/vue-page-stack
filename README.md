@@ -140,6 +140,10 @@ pnpm run test:coverage
 
 `dist/` is treated as a release artifact and is generated automatically by `npm pack` / `npm publish` through the `prepack` script, so it does not need to stay checked in during normal development.
 
+## Documentation
+
+- Architecture and maintenance notes: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+
 ## Notes
 
 ### Changelog
