@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { defineComponent, h, nextTick, onMounted, ref, shallowRef } from 'vue';
 import { mount } from '@vue/test-utils';
 
-import { NAVIGATION_ACTIONS } from '../../lib/config/config.js';
-import { createNavigationState, navigationStateKey } from '../../lib/history.js';
+import { NAVIGATION_ACTIONS, STACK_EVENTS } from '../../lib/config/config.js';
+import { createNavigationState, NAVIGATION_STATE_INJECTION_KEY } from '../../lib/history.js';
 import { VuePageStack } from '../../lib/main.js';
 
 const flushStack = async () => {
@@ -54,8 +54,8 @@ const mountStack = ({ withKey = true } = {}) => {
           h(
             VuePageStack,
             {
-              onBack: () => events.push('back'),
-              onForward: () => events.push('forward')
+              onBack: () => events.push(STACK_EVENTS.back),
+              onForward: () => events.push(STACK_EVENTS.forward)
             },
             {
               default: () => [h(currentPage.value, withKey ? { key: currentKey.value } : {})]
@@ -66,7 +66,7 @@ const mountStack = ({ withKey = true } = {}) => {
     {
       global: {
         provide: {
-          [navigationStateKey]: navigationState
+          [NAVIGATION_STATE_INJECTION_KEY]: navigationState
         }
       }
     }
@@ -129,7 +129,7 @@ describe('VuePageStack', () => {
     expect(wrapper.find('section').attributes('data-page')).toBe('page-b');
     expect(wrapper.find('input').element.value).toBe('');
 
-    expect(events).toEqual(['forward', 'forward', 'back', 'forward']);
+    expect(events).toEqual([STACK_EVENTS.forward, STACK_EVENTS.forward, STACK_EVENTS.back, STACK_EVENTS.forward]);
     wrapper.unmount();
   });
 

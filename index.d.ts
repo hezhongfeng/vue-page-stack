@@ -1,10 +1,17 @@
 declare module 'vue-page-stack' {
-  import type { App, DefineComponent } from 'vue'
+  import type { DefineComponent, Plugin } from 'vue'
   import type { Router } from 'vue-router'
 
-  export const VuePageStackPlugin: {
-    install: (app: App, options: { router: Router }) => void
+  export interface VuePageStackPluginOptions {
+    router: Router
   }
+
+  export interface VuePageStackEvents {
+    back: () => void
+    forward: () => void
+  }
+
+  export const VuePageStackPlugin: Plugin<[VuePageStackPluginOptions]>
 
   export const VuePageStack: DefineComponent<
     Record<string, never>,
@@ -14,9 +21,6 @@ declare module 'vue-page-stack' {
     {},
     {},
     {},
-    {
-      back: () => void
-      forward: () => void
-    }
+    VuePageStackEvents
   >
 }

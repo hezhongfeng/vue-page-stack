@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { COMPONENT_NAME, NAVIGATION_ACTIONS } from '../../lib/config/config.js';
-import { navigationStateKey } from '../../lib/history.js';
+import { NAVIGATION_STATE_INJECTION_KEY } from '../../lib/history.js';
 import { VuePageStack, VuePageStackPlugin } from '../../lib/main.js';
 
 describe('VuePageStackPlugin', () => {
@@ -31,7 +31,7 @@ describe('VuePageStackPlugin', () => {
 
     expect(app.component).toHaveBeenCalledWith(COMPONENT_NAME, VuePageStack);
     expect(app.provide).toHaveBeenCalledTimes(1);
-    expect(app.provide.mock.calls[0][0]).toBe(navigationStateKey);
+    expect(app.provide.mock.calls[0][0]).toBe(NAVIGATION_STATE_INJECTION_KEY);
     expect(app.use).toHaveBeenCalledTimes(1);
     expect(app.use.mock.calls[0][1]).toMatchObject({ router });
 
