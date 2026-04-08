@@ -3,13 +3,10 @@ import { defineComponent, h, nextTick, onMounted, ref, shallowRef } from 'vue';
 import { mount } from '@vue/test-utils';
 
 import config from '../../lib/config/config.js';
-import history from '../../lib/history.js';
+import { createNavigationState, navigationStateKey } from '../../lib/history.js';
 import { VuePageStack } from '../../lib/main.js';
 
-const resetHistory = () => {
-  history.action = config.pushName;
-  history.n = 1;
-};
+let navigationState;
 
 const flushStack = async () => {
   await nextTick();
@@ -49,6 +46,7 @@ const mountStack = () => {
   const currentPage = shallowRef(PageA);
   const currentKey = ref('/a');
   const events = [];
+  navigationState = createNavigationState();
 
   const wrapper = mount(
     defineComponent({
@@ -63,14 +61,21 @@ const mountStack = () => {
             {
               default: () => [h(currentPage.value, { key: currentKey.value })]
             }
-          );
+        );
       }
-    })
+    }),
+    {
+      global: {
+        provide: {
+          [navigationStateKey]: navigationState
+        }
+      }
+    }
   );
 
   const navigate = async (component, key, action, step = 1) => {
-    history.action = action;
-    history.n = step;
+    navigationState.action = action;
+    navigationState.n = step;
     currentPage.value = component;
     currentKey.value = key;
     await flushStack();
@@ -89,7 +94,7 @@ const mountStack = () => {
 
 describe('VuePageStack', () => {
   afterEach(() => {
-    resetHistory();
+    navigationState = createNavigationState();
   });
 
   it('renders nothing when there is no default slot', () => {

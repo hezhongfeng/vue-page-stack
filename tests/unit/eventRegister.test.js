@@ -2,19 +2,17 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import config from '../../lib/config/config.js';
 import eventRegister from '../../lib/eventRegister.js';
-import history from '../../lib/history.js';
+import { createNavigationState } from '../../lib/history.js';
 
-const resetHistory = () => {
-  history.action = config.pushName;
-  history.n = 1;
-};
+let navigationState;
 
 describe('eventRegister', () => {
   afterEach(() => {
-    resetHistory();
+    navigationState = createNavigationState();
   });
 
   it('updates navigation state for push, replace, back and forward', () => {
+    navigationState = createNavigationState();
     const router = {
       push: vi.fn(to => to),
       go: vi.fn(step => step),
@@ -23,23 +21,24 @@ describe('eventRegister', () => {
       forward: vi.fn()
     };
 
-    eventRegister(router);
+    eventRegister(router, navigationState);
 
     expect(router.push('/detail')).toBe('/detail');
-    expect(history.action).toBe(config.pushName);
+    expect(navigationState.action).toBe(config.pushName);
 
     expect(router.replace('/profile')).toBe('/profile');
-    expect(history.action).toBe(config.replaceName);
+    expect(navigationState.action).toBe(config.replaceName);
 
     router.back();
-    expect(history.action).toBe(config.backName);
-    expect(history.n).toBe(-1);
+    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.n).toBe(-1);
 
     router.forward();
-    expect(history.action).toBe(config.forwardName);
+    expect(navigationState.action).toBe(config.forwardName);
   });
 
   it('stores the direction and step when calling go', () => {
+    navigationState = createNavigationState();
     const router = {
       push: vi.fn(),
       go: vi.fn(step => step),
@@ -48,18 +47,18 @@ describe('eventRegister', () => {
       forward: vi.fn()
     };
 
-    eventRegister(router);
+    eventRegister(router, navigationState);
 
-    expect(router.go(2)).toBeUndefined();
-    expect(history.action).toBe(config.forwardName);
-    expect(history.n).toBe(2);
+    expect(router.go(2)).toBe(2);
+    expect(navigationState.action).toBe(config.forwardName);
+    expect(navigationState.n).toBe(2);
 
     router.go(-3);
-    expect(history.action).toBe(config.backName);
-    expect(history.n).toBe(-3);
+    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.n).toBe(-3);
 
     router.go(0);
-    expect(history.action).toBe(config.backName);
-    expect(history.n).toBe(0);
+    expect(navigationState.action).toBe(config.backName);
+    expect(navigationState.n).toBe(0);
   });
 });
