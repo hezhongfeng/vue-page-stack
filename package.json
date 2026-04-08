@@ -4,7 +4,9 @@
   "author": "hezf",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts",
+    "web-types.json"
   ],
   "types": "./index.d.ts",
   "web-types": "./web-types.json",
@@ -13,6 +15,7 @@
   "private": false,
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./dist/vue-page-stack.es.js",
       "require": "./dist/vue-page-stack.umd.js"
     }

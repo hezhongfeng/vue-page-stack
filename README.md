@@ -20,23 +20,6 @@
   </a>
 </p>
 
-## v3.2.0
-
-1. FIx the bug of router.go
-
-## v3.1.4
-
-1. FIx the bug of refreshing the browser and then going back
-
-## v3.1.3
-
-1. Fixed the page caching issue when using replace.
-
-## v3.1.2
-
-1. Removed the stack-key parameter from the URL.
-2. Due to special handling of built-in components in Vue3.x, it is currently not possible to use it together with Transition.
-
 **This is the version of Vue3.0, Vue2.0 please click [this link](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
 
 English | [简体中文](./README.zh-cn.md)
@@ -80,7 +63,7 @@ A Vue3 SPA navigation manager,cache the UI in the SPA like a native application,
 pnpm install vue-page-stack
 ```
 
-### use
+### Use
 
 ```js
 import { createApp } from 'vue';
@@ -115,9 +98,9 @@ const onForward = () => {
 
 ## API
 
-### install
+### Install
 
-use `Vue.use` to install `vue-page-stack`
+Use `app.use` to install `vue-page-stack`.
 
 ```js
 import { VuePageStackPlugin } from 'vue-page-stack';
@@ -126,16 +109,15 @@ import { VuePageStackPlugin } from 'vue-page-stack';
 app.use(VuePageStackPlugin, { router });
 ```
 
-Options description：
+Options:
 
-| Attribute | Description         | Type   | Accepted Values     | Default        |
-| --------- | ------------------- | ------ | ------------------- | -------------- |
-| router    | vue-router instance | Object | vue-router instance | -              |
-| name      | VuePageStack name   | String | 'VuePageStack'      | 'VuePageStack' |
+| Attribute | Description         | Type   | Accepted Values     | Default |
+| --------- | ------------------- | ------ | ------------------- | ------- |
+| router    | vue-router instance | Object | vue-router instance | -       |
 
-### forward or back
+### Events
 
-If you want to make some animate entering or leaving, `vue-page-stack` offers `stack-key-dir` to judge forward or backward.
+Use the `back` and `forward` events to react to navigation direction changes.
 
 ```vue
 // App.vue
@@ -146,15 +128,25 @@ If you want to make some animate entering or leaving, `vue-page-stack` offers `s
 
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
+## Development
+
+```bash
+pnpm install
+pnpm run build
+pnpm run lint
+pnpm run test:run
+pnpm run test:coverage
+```
+
 ## Notes
 
 ### Changelog
 
-Details changes for each release are documented in the [release notes](https://github.com/hezhongfeng/vue-page-stack/releases).
+Release-by-release changes are documented in the [release notes](https://github.com/hezhongfeng/vue-page-stack/releases).
 
 ### Principle
 
-Getting the current page instance refers to the `keep-alive` section of `Vue`.
+The current page instance management is inspired by Vue's `keep-alive` implementation.
 
 ## Thanks
 

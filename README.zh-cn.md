@@ -20,23 +20,6 @@
   </a>
 </p>
 
-## v3.2.0
-
-1. 修复 router.go 缓存失效的 bug
-
-## 3.1.4
-
-1. 修复刷新浏览器然后后退的 bug
-
-## v3.1.3
-
-1. 修复 replace 时，页面缓存问题
-
-## v3.1.2
-
-1. 移除了 url 上的参数 `stack-key`
-2. 因为 Vue3.x 对内置组件有特殊处理，所以目前不能和 `Transition` 一起使用
-
 **这个是 Vue3.x 的版本 ，Vue2.0 请点击[这个链接](https://github.com/hezhongfeng/vue-page-stack/tree/v1.5.0)**
 
 [English](./README.md) | 简体中文
@@ -159,6 +142,16 @@ const onForward = () => {
 
 [example](https://github.com/hezhongfeng/vue-page-stack-example/blob/master/src/App.vue)
 
+## 开发
+
+```bash
+pnpm install
+pnpm run build
+pnpm run lint
+pnpm run test:run
+pnpm run test:coverage
+```
+
 ## 相关说明
 
 ### 更新日志
@@ -167,7 +160,7 @@ const onForward = () => {
 
 ### 原理
 
-获取当前页面实例部分参考了`Vue`源码中`KeepAlive`的部分
+获取当前页面实例的实现参考了 `Vue` 源码中 `KeepAlive` 的部分
 
 ## 感谢
 
