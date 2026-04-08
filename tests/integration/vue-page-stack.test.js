@@ -1,12 +1,10 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { defineComponent, h, nextTick, onMounted, ref, shallowRef } from 'vue';
 import { mount } from '@vue/test-utils';
 
 import config from '../../lib/config/config.js';
 import { createNavigationState, navigationStateKey } from '../../lib/history.js';
 import { VuePageStack } from '../../lib/main.js';
-
-let navigationState;
 
 const flushStack = async () => {
   await nextTick();
@@ -46,7 +44,7 @@ const mountStack = () => {
   const currentPage = shallowRef(PageA);
   const currentKey = ref('/a');
   const events = [];
-  navigationState = createNavigationState();
+  const navigationState = createNavigationState();
 
   const wrapper = mount(
     defineComponent({
@@ -84,6 +82,7 @@ const mountStack = () => {
   return {
     wrapper,
     events,
+    navigationState,
     PageA,
     PageB,
     PageC,
@@ -93,10 +92,6 @@ const mountStack = () => {
 };
 
 describe('VuePageStack', () => {
-  afterEach(() => {
-    navigationState = createNavigationState();
-  });
-
   it('renders nothing when there is no default slot', () => {
     const wrapper = mount(VuePageStack);
     expect(wrapper.html()).toBe('');
@@ -166,5 +161,31 @@ describe('VuePageStack', () => {
     expect(wrapper.find('input').element.value).toBe('');
 
     wrapper.unmount();
+  });
+
+  it('keeps page stacks isolated when multiple instances exist at the same time', async () => {
+    const first = mountStack();
+    const second = mountStack();
+
+    await flushStack();
+
+    await first.wrapper.find('input').setValue('first-stack');
+    await second.wrapper.find('input').setValue('second-stack');
+
+    await first.navigate(first.PageB, '/b', config.pushName);
+    await second.navigate(second.PageB, '/b', config.pushName);
+
+    await first.wrapper.find('input').setValue('first-detail');
+    await second.wrapper.find('input').setValue('second-detail');
+
+    await first.navigate(first.PageA, '/a', config.backName, -1);
+    expect(first.wrapper.find('input').element.value).toBe('first-stack');
+    expect(second.wrapper.find('input').element.value).toBe('second-detail');
+
+    await second.navigate(second.PageA, '/a', config.backName, -1);
+    expect(second.wrapper.find('input').element.value).toBe('second-stack');
+
+    first.wrapper.unmount();
+    second.wrapper.unmount();
   });
 });
