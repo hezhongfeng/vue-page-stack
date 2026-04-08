@@ -1,6 +1,6 @@
 {
   "name": "vue-page-stack",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "author": "hezf",
   "type": "module",
   "packageManager": "pnpm@10.33.0",
