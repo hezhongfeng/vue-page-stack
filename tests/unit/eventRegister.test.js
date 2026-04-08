@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { NAVIGATION_ACTIONS } from '../../lib/config/config.js';
-import eventRegister from '../../lib/eventRegister.js';
-import { createNavigationState } from '../../lib/history.js';
+import { NAVIGATION_ACTIONS } from '../../lib/constants/config.js';
+import eventRegister from '../../lib/plugin/eventRegister.js';
+import { createNavigationState } from '../../lib/core/history.js';
 
 let navigationState;
 

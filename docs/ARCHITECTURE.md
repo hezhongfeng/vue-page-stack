@@ -32,20 +32,20 @@ The installation is intentionally idempotent for the same app + router pair.
 
 Files:
 
-- `lib/history.js`
-- `lib/navigation.js`
-- `lib/eventRegister.js`
+- `lib/core/history.js`
+- `lib/core/navigation.js`
+- `lib/plugin/eventRegister.js`
 
-`history.js` defines the navigation state shape and the injection key.
+`core/history.js` defines the navigation state shape and the injection key.
 
-`navigation.js` owns the rules for updating navigation state. It translates:
+`core/navigation.js` owns the rules for updating navigation state. It translates:
 
 - `router.push()` into `push`
 - `router.replace()` into `replace`
 - `router.go(n)` into `back` or `forward`
 - browser history callbacks into `back` or `forward`
 
-`eventRegister.js` applies that strategy to a router instance.
+`plugin/eventRegister.js` applies that strategy to a router instance.
 
 The important design choice here is that navigation state is instance-scoped, not module-global.
 
@@ -72,7 +72,7 @@ Important helper responsibilities:
 
 ### 4. Vue Renderer Adaptation
 
-File: `lib/components/pageStackRenderer.js`
+File: `lib/runtime/pageStackRenderer.js`
 
 This is the only place that depends on Vue internal renderer behavior.
 
@@ -92,13 +92,13 @@ If Vue internal behavior changes in a future version, this file is the first pla
 
 ### Source
 
-- `lib/main.js`: plugin entry
-- `lib/history.js`: navigation state factory and injection key
-- `lib/navigation.js`: navigation action strategy
-- `lib/eventRegister.js`: router wrapping
+- `lib/main.js`: stable package entry
+- `lib/constants/config.js`: shared constants
+- `lib/core/history.js`: navigation state factory and injection key
+- `lib/core/navigation.js`: navigation action strategy
+- `lib/plugin/eventRegister.js`: router wrapping
 - `lib/components/VuePageStack.js`: page stack behavior
-- `lib/components/pageStackRenderer.js`: Vue renderer adapter
-- `lib/config/config.js`: shared constants
+- `lib/runtime/pageStackRenderer.js`: Vue renderer adapter
 
 ### Tests
 
@@ -128,6 +128,6 @@ pnpm run build
 
 When behavior looks wrong only after dependency upgrades, inspect these files first:
 
-1. `lib/components/pageStackRenderer.js`
+1. `lib/runtime/pageStackRenderer.js`
 2. `lib/components/VuePageStack.js`
-3. `lib/navigation.js`
+3. `lib/core/navigation.js`

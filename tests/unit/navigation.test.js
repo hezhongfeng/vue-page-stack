@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { NAVIGATION_ACTIONS } from '../../lib/config/config.js';
-import { createNavigationState } from '../../lib/history.js';
+import { NAVIGATION_ACTIONS } from '../../lib/constants/config.js';
+import { createNavigationState } from '../../lib/core/history.js';
 import {
   createBrowserNavigationCallbacks,
   createRouterNavigationStrategy,
   setNavigationStateFromGo
-} from '../../lib/navigation.js';
+} from '../../lib/core/navigation.js';
 
 describe('navigation strategy', () => {
   it('updates state from go steps with positive, negative and zero values', () => {

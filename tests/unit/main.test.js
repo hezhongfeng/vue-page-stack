@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { COMPONENT_NAME, NAVIGATION_ACTIONS } from '../../lib/config/config.js';
-import { NAVIGATION_STATE_INJECTION_KEY } from '../../lib/history.js';
+import { COMPONENT_NAME, NAVIGATION_ACTIONS } from '../../lib/constants/config.js';
+import { NAVIGATION_STATE_INJECTION_KEY } from '../../lib/core/history.js';
 import { VuePageStack, VuePageStackPlugin } from '../../lib/main.js';
 
 describe('VuePageStackPlugin', () => {

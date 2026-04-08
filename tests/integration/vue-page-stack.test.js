@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { defineComponent, h, nextTick, onMounted, ref, shallowRef } from 'vue';
 import { mount } from '@vue/test-utils';
 
-import { NAVIGATION_ACTIONS, STACK_EVENTS } from '../../lib/config/config.js';
-import { createNavigationState, NAVIGATION_STATE_INJECTION_KEY } from '../../lib/history.js';
+import { NAVIGATION_ACTIONS, STACK_EVENTS } from '../../lib/constants/config.js';
+import { createNavigationState, NAVIGATION_STATE_INJECTION_KEY } from '../../lib/core/history.js';
 import { VuePageStack } from '../../lib/main.js';
 
 const flushStack = async () => {
