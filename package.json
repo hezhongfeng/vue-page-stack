@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
+    "@types/node": "^22.19.17",
     "commitizen": "^4.3.0",
     "commitlint-config-cz": "^0.13.3",
     "commitlint-config-git-commit-emoji": "^1.0.0",
@@ -71,6 +72,15 @@
     "eslint": "^8.40.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "vite": "^5.4.21"
+    "vite": "^7.3.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "brace-expansion": "^1.1.13",
+      "lodash": "^4.18.0",
+      "micromatch": "^4.0.8",
+      "tmp": "^0.2.4",
+      "yaml": "^2.8.3"
+    }
   }
 }
